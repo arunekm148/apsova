@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apsova - Insurance CRM & Agency Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f5841f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Apsova Insurance">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>Apsova - Insurance CRM & Agency Platform (PivotPoint Portal)</title>
   <!-- ManipalCigna PivotPoint Inspired Enterprise Design System -->
   <style>
     :root {
@@ -299,13 +305,15 @@
     /* Modals */
     .modal-backdrop {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(11, 37, 70, 0.6); backdrop-filter: blur(4px);
+      background: rgba(0, 40, 69, 0.65); backdrop-filter: blur(4px);
       z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px;
     }
     .modal-backdrop.open { display: flex; }
     .modal-box {
       background: #fff; border-radius: 16px; width: 100%; max-width: 520px; padding: 26px;
-      box-shadow: 0 20px 40px rgba(11, 37, 70, 0.25);
+      box-shadow: 0 20px 40px rgba(0, 71, 120, 0.25);
+      max-height: 90vh; overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .modal-head h3 { font-size: 17px; font-weight: 800; color: var(--text-dark); }
@@ -313,11 +321,156 @@
     .form-group { margin-bottom: 14px; }
     .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; color: var(--text-dark); }
     .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 9px 12px; background: #fff; border: 1px solid #cbd5e1;
-      border-radius: 8px; font-size: 13px; color: var(--text-dark); font-family: inherit; outline: none;
+      width: 100%; padding: 10px 12px; background: #fff; border: 1px solid #cbd5e1;
+      border-radius: 8px; font-size: 13.5px; color: var(--text-dark); font-family: inherit; outline: none;
     }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--pb-blue); box-shadow: 0 0 0 3px rgba(0, 101, 255, 0.15);
+      border-color: var(--pb-blue); box-shadow: 0 0 0 3px rgba(2, 132, 201, 0.18);
+    }
+
+    /* ============================================================== */
+    /* RESPONSIVE DESIGN: ANDROID & IOS PHONES AND TABLETS */
+    /* ============================================================== */
+    html {
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .table-wrap, .nav-tabs, .modal-box {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Tablets & iPad (max-width: 1024px) */
+    @media (max-width: 1024px) {
+      .container { padding: 0 16px; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .split-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Small Tablets & Smartphones (Android & iPhone <= 768px) */
+    @media (max-width: 768px) {
+      .container { padding: 0 12px; }
+      main { padding: 14px 0 60px 0; }
+
+      /* Top utility bar on mobile */
+      .pivot-topbar { padding: 6px 0; font-size: 11px; }
+      .pivot-topbar-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 4px;
+      }
+      .topbar-right { display: none; }
+      .topbar-left { justify-content: center; flex-wrap: wrap; gap: 6px; }
+
+      /* Header */
+      .header-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 10px 0 6px 0;
+      }
+      .brand-wrap { justify-content: flex-start; }
+      .brand-title { font-size: 19px; }
+      .brand-sub { font-size: 11px; line-height: 1.3; }
+      
+      /* Role selector full width */
+      .role-box {
+        width: 100%;
+        justify-content: space-between;
+        padding: 6px 10px;
+      }
+      .role-box select { flex: 1; max-width: 65%; font-size: 12px; }
+
+      /* Navigation Tabs: smooth horizontal touch swipe */
+      .nav-tabs {
+        padding: 8px 0;
+        gap: 6px;
+        scroll-snap-type: x mandatory;
+      }
+      .nav-btn {
+        padding: 8px 14px;
+        font-size: 12.5px;
+        scroll-snap-align: start;
+        min-height: 40px;
+        flex-shrink: 0;
+      }
+
+      /* Role banner */
+      .role-banner { font-size: 12px; padding: 8px 0; }
+
+      /* Action Rows */
+      .action-row {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .action-row > div:last-child {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .action-row .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 11px 16px;
+        font-size: 13px;
+      }
+
+      /* Tables mobile touch readability */
+      th, td { padding: 10px 12px; font-size: 12px; }
+      .table-header { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 4px; }
+
+      /* Milestone renewal cards 60/30/15/7/1d */
+      .renewal-milestone-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+      .renewal-milestone-grid > div:last-child {
+        grid-column: span 2;
+      }
+
+      /* Modals: bottom-sheet touch friendly on phones */
+      .modal-backdrop {
+        padding: 10px;
+        align-items: flex-end;
+      }
+      .modal-box {
+        padding: 20px 16px;
+        border-radius: 18px 18px 12px 12px;
+        max-height: 85vh;
+        overflow-y: auto;
+      }
+      /* Prevent iOS Safari auto-zoom on input focus (requires >=16px font) */
+      .form-group input, .form-group select, .form-group textarea {
+        font-size: 16px !important;
+      }
+
+      /* Approval Box */
+      .approval-box { padding: 14px; }
+      .approval-item { flex-direction: column; align-items: stretch; gap: 8px; }
+      .approval-item > div:last-child { display: flex; gap: 6px; }
+      .approval-item .btn { flex: 1; justify-content: center; }
+
+      /* Category grid */
+      .category-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Small smartphones (iPhone SE, small Androids <= 480px) */
+    @media (max-width: 480px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .pb-card { padding: 16px; }
+      .kpi-number { font-size: 26px; }
+      .brand-title { font-size: 18px; }
+      .pivot-badge { font-size: 9px; padding: 1px 6px; }
+      .pivot-sub-tag { display: none; }
     }
   </style>
 </head>
@@ -726,7 +879,7 @@
           </button>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 22px;">
+        <div class="renewal-milestone-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 22px;">
           <div class="card" style="text-align: center; margin: 0;">
             <div style="font-size: 11px; font-weight: 800; color: var(--text-muted);">60 DAYS DUE</div>
             <div style="font-size: 26px; font-weight: 800; color: var(--text-dark); margin: 6px 0;">28</div>
