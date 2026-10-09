@@ -4,26 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apsova - Insurance CRM & Agency Platform</title>
-  <!-- Policybazaar Inspired Enterprise Design System (100% Free, AdBlock-Proof) -->
+  <!-- ManipalCigna PivotPoint Inspired Enterprise Design System -->
   <style>
     :root {
-      /* Policybazaar Core Color Palette */
-      --pb-navy: #0b2546;          /* Deep Trust Navy */
-      --pb-navy-dark: #07172c;     /* Dark Header Navy */
-      --pb-blue: #0065ff;          /* Primary Policybazaar Blue */
-      --pb-blue-light: #e6f0ff;    /* Soft Blue Tint */
-      --pb-orange: #ff5c26;        /* Signature Policybazaar Orange CTA */
-      --pb-orange-hover: #e04a17;  /* Darker Orange Hover */
-      --pb-orange-light: #fff2ed;  /* Soft Orange Tint */
-      --pb-green: #00a859;         /* Success / Verified / Profit Green */
-      --pb-green-light: #e6f7ef;   /* Soft Green Tint */
+      /* ManipalCigna Brand Palette (Extracted from pivotpoint.manipalcigna.com) */
+      --pb-navy: #004778;          /* ManipalCigna Deep Corporate Ocean Navy */
+      --pb-navy-dark: #002845;     /* Dark Deep Ocean Navy */
+      --pb-blue: #0284c9;          /* Cigna Signature Cyan Blue (PivotPoint header border #0284c9) */
+      --pb-blue-light: #e6f4fb;    /* Soft Cigna Cyan Tint */
+      --pb-orange: #f5841f;        /* Manipal Signature Saffron Orange (PivotPoint #f5841f) */
+      --pb-orange-hover: #d96f10;  /* Darker Orange Hover */
+      --pb-orange-light: #fff7ed;  /* Soft Orange Tint */
+      --pb-green: #50b948;         /* Cigna Health Tree Green (#50b948) */
+      --pb-green-light: #ebf9e8;   /* Soft Green Tint */
       
-      --bg-page: #f4f7fb;          /* Policybazaar Clean Light Gray-Blue */
+      --bg-page: #f2f6fa;          /* PivotPoint Clean Slate Canvas */
       --bg-card: #ffffff;          /* Crisp White Surface */
       
-      --text-dark: #0b2546;        /* Deep Navy Heading Text */
+      --text-dark: #002845;        /* Deep Ocean Navy Heading Text */
       --text-body: #334155;        /* Neutral Slate Body Text */
-      --text-muted: #64748b;       /* Muted Labels */
+      --text-muted: #64748b;       /* Muted Slate Labels */
       
       --border-light: #e2e8f0;     /* Clean Border Lines */
       --border-accent: #cbd5e1;
@@ -42,71 +42,103 @@
 
     .container { max-width: 1340px; margin: 0 auto; padding: 0 20px; }
 
-    /* Policybazaar Signature Navy Header */
-    header {
-      background: var(--pb-navy);
+    /* ManipalCigna PivotPoint Orange Utility Bar */
+    .pivot-topbar {
+      background: var(--pb-orange);
       color: #fff;
+      padding: 6px 0;
+      font-size: 11.5px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .pivot-topbar-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px;
+    }
+    .topbar-left, .topbar-right {
+      display: flex; align-items: center; gap: 10px; font-weight: 500;
+    }
+    .topbar-sep { opacity: 0.6; }
+    .topbar-tag {
+      background: rgba(255, 255, 255, 0.22);
+      padding: 1px 7px; border-radius: 4px; font-weight: 700;
+    }
+    .lang-pill {
+      background: #fff; color: var(--pb-orange);
+      padding: 2px 8px; border-radius: 999px; font-weight: 800; font-size: 10.5px;
+    }
+
+    /* ManipalCigna PivotPoint Clean White Header with Cyan Border */
+    header {
+      background: #ffffff;
+      color: var(--text-dark);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 20px rgba(11, 37, 70, 0.15);
+      border-top: 5px solid var(--pb-blue);
+      box-shadow: 0 4px 18px rgba(0, 71, 120, 0.08);
     }
     
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
+      padding: 14px 0 10px 0;
     }
 
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand-logo {
-      width: 42px; height: 42px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--pb-orange), #ff8142);
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--pb-blue) 0%, var(--pb-navy) 100%);
       display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 22px; font-weight: 800;
-      box-shadow: 0 4px 14px rgba(255, 92, 38, 0.35);
+      color: #fff; font-size: 24px; font-weight: 800;
+      box-shadow: 0 4px 14px rgba(2, 132, 201, 0.35);
     }
     .brand-title {
-      font-size: 21px; font-weight: 800; color: #fff;
+      font-size: 22px; font-weight: 800; color: var(--pb-navy);
       letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;
     }
-    .pb-tag {
+    .pivot-badge {
       font-size: 10px; font-weight: 800; text-transform: uppercase;
-      background: var(--pb-orange); color: #fff;
+      background: var(--pb-blue); color: #fff;
       padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px;
     }
-    .brand-sub { font-size: 11.5px; color: #94a3b8; }
+    .pivot-sub-tag {
+      font-size: 10.5px; font-weight: 700; color: var(--pb-orange);
+      background: var(--pb-orange-light); padding: 2px 7px;
+      border-radius: 4px; border: 1px solid #fed7aa;
+    }
+    .brand-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
 
     /* Role Bar */
     .role-box {
       display: flex; align-items: center; gap: 8px;
-      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #f8fafc; border: 1px solid var(--border-light);
       border-radius: 8px; padding: 6px 12px;
     }
-    .role-box label { font-size: 12px; color: #cbd5e1; font-weight: 600; }
+    .role-box label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
     .role-box select {
-      background: #fff; border: none; color: var(--pb-navy);
-      padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;
+      background: #fff; border: 1px solid var(--border-light); color: var(--pb-navy);
+      padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;
       cursor: pointer; outline: none;
     }
+    .role-box select:focus { border-color: var(--pb-blue); }
 
-    /* Policybazaar Navigation Tabs */
+    /* PivotPoint Navigation Tabs */
     .nav-tabs {
-      display: flex; gap: 6px; overflow-x: auto; padding: 8px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1); scrollbar-width: none;
+      display: flex; gap: 6px; overflow-x: auto; padding: 10px 0 8px 0;
+      border-top: 1px solid var(--border-light); scrollbar-width: none;
     }
     .nav-tabs::-webkit-scrollbar { display: none; }
     .nav-btn {
-      background: transparent; border: 1px solid transparent; color: #cbd5e1;
+      background: transparent; border: 1px solid transparent; color: #475569;
       padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
       cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap;
       transition: all 0.2s ease;
     }
-    .nav-btn:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+    .nav-btn:hover { background: var(--pb-blue-light); color: var(--pb-blue); }
     .nav-btn.active {
-      background: #fff; color: var(--pb-navy);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background: var(--pb-navy); color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 71, 120, 0.25);
     }
     .badge-orange-pill {
       font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
@@ -115,7 +147,7 @@
 
     /* Info Banner */
     .role-banner {
-      background: var(--pb-blue-light); border-bottom: 1px solid #bfdbfe;
+      background: var(--pb-blue-light); border-bottom: 1px solid #bae3f9;
       padding: 10px 0; font-size: 13px; color: var(--pb-navy);
     }
 
@@ -135,55 +167,58 @@
     .action-row h2 { font-size: 19px; font-weight: 800; color: var(--text-dark); }
     .action-row p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-    /* Policybazaar Signature Buttons */
+    /* ManipalCigna PivotPoint Buttons */
     .btn {
       padding: 9px 18px; border-radius: 8px; font-size: 12.5px; font-weight: 700;
       cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px;
       transition: all 0.15s ease;
     }
     .btn-pb-orange {
-      background: var(--pb-orange); color: #fff;
-      box-shadow: 0 4px 12px rgba(255, 92, 38, 0.3);
+      background: linear-gradient(135deg, var(--pb-orange) 0%, #f36222 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(245, 132, 31, 0.3);
     }
     .btn-pb-orange:hover {
-      background: var(--pb-orange-hover);
-      box-shadow: 0 6px 16px rgba(255, 92, 38, 0.4);
+      background: linear-gradient(135deg, var(--pb-orange-hover) 0%, #d9531e 100%);
+      box-shadow: 0 6px 16px rgba(245, 132, 31, 0.4);
       transform: translateY(-1px);
     }
     .btn-pb-blue {
-      background: var(--pb-blue); color: #fff;
-      box-shadow: 0 4px 12px rgba(0, 101, 255, 0.25);
+      background: var(--pb-navy); color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 71, 120, 0.25);
     }
-    .btn-pb-blue:hover { background: #0052cc; transform: translateY(-1px); }
+    .btn-pb-blue:hover { background: var(--pb-blue); transform: translateY(-1px); }
     .btn-pb-green {
       background: var(--pb-green); color: #fff;
-      box-shadow: 0 4px 12px rgba(0, 168, 89, 0.25);
+      box-shadow: 0 4px 12px rgba(80, 185, 72, 0.25);
     }
-    .btn-pb-green:hover { background: #008f4c; transform: translateY(-1px); }
+    .btn-pb-green:hover { background: #439e3c; transform: translateY(-1px); }
     .btn-outline {
       background: #fff; border: 1px solid var(--border-light); color: var(--text-dark);
     }
     .btn-outline:hover { background: #f8fafc; border-color: var(--pb-blue); color: var(--pb-blue); }
 
-    /* Policybazaar Metric Cards */
+    /* PivotPoint Metric KPI Cards */
     .kpi-row {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 18px; margin-bottom: 22px;
     }
     .pb-card {
-      background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
+      background: #fff; border: 1px solid var(--border-light); border-radius: 12px;
       padding: 22px; position: relative;
-      box-shadow: 0 4px 14px rgba(11, 37, 70, 0.05);
+      box-shadow: 0 4px 14px rgba(0, 71, 120, 0.04);
       transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      border-top: 3.5px solid var(--pb-blue);
     }
     .pb-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(11, 37, 70, 0.08);
-      border-color: #cbd5e1;
+      box-shadow: 0 10px 25px rgba(0, 71, 120, 0.08);
+      border-color: var(--pb-blue);
     }
     .pb-card.highlight {
-      background: linear-gradient(135deg, #ffffff, #f0f7ff);
+      background: linear-gradient(135deg, #ffffff, #f0f9ff);
       border-color: #93c5fd;
+      border-top: 3.5px solid var(--pb-orange);
     }
     .card-top { display: flex; justify-content: space-between; align-items: center; }
     .kpi-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.6px; }
@@ -288,7 +323,27 @@
 </head>
 <body>
 
-  <!-- TOP HEADER (POLICYBAZAAR NAVY) -->
+  <!-- MANIPALCIGNA PIVOTPOINT ORANGE UTILITY BAR -->
+  <div class="pivot-topbar">
+    <div class="container pivot-topbar-inner">
+      <div class="topbar-left">
+        <span class="topbar-tag">🏢 ManipalCigna Partner Ecosystem</span>
+        <span class="topbar-sep">•</span>
+        <span>IMF Agency: <strong>Apsova Insurance</strong></span>
+        <span class="topbar-sep">•</span>
+        <span>Agency Code: <strong>APS-IMF-100</strong></span>
+      </div>
+      <div class="topbar-right">
+        <span>📞 Partner Desk: <strong>1800-102-4462</strong></span>
+        <span class="topbar-sep">•</span>
+        <span>Regional Hub: <strong>Kochi, Kerala</strong></span>
+        <span class="topbar-sep">•</span>
+        <span class="lang-pill">മലയാളം / EN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANIPALCIGNA PIVOTPOINT ENTERPRISE HEADER -->
   <header>
     <div class="container">
       <div class="header-top">
@@ -299,7 +354,8 @@
           <div>
             <div class="brand-title">
               APSOVA
-              <span class="pb-tag">PB Theme</span>
+              <span class="pivot-badge">PIVOTPOINT</span>
+              <span class="pivot-sub-tag">AGENCY PORTAL</span>
             </div>
             <div class="brand-sub">Insurance CRM • Agency Management • HR & Dual Commission Accounting</div>
           </div>
