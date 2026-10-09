@@ -9,8 +9,8 @@
   <meta name="apple-mobile-web-app-title" content="Apsova Insurance">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>Apsova - Insurance CRM & Agency Platform (PivotPoint Portal)</title>
-  <!-- ManipalCigna PivotPoint Inspired Enterprise Design System -->
+  <title>Apsova - Enterprise Insurance CRM & Agency Platform</title>
+  <!-- Apsova Enterprise Design System (Cyan & Saffron Palette with Motion Framework) -->
   <style>
     :root {
       /* ManipalCigna Brand Palette (Extracted from pivotpoint.manipalcigna.com) */
@@ -157,91 +157,142 @@
       padding: 10px 0; font-size: 13px; color: var(--pb-navy);
     }
 
-    /* Main Container */
+    /* Main Container & Motion Transitions */
     main { padding: 24px 0 60px 0; }
     .tab-content { display: none; }
-    .tab-content.active { display: block; animation: fadeIn 0.2s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .tab-content.active { display: block; animation: tabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Pulse & Motion Indicators */
+    @keyframes pulseLive {
+      0% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .pulse-dot {
+      display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+      background: #10b981; margin-right: 7px; vertical-align: middle;
+      animation: pulseLive 2s infinite ease-in-out;
+    }
+
+    @keyframes urgentPulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+      70% { box-shadow: 0 0 0 9px rgba(220, 38, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+    .urgent-heartbeat {
+      animation: urgentPulse 2s infinite ease-in-out;
+    }
 
     /* Action Row */
     .action-row {
       background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
       padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 14px; margin-bottom: 22px;
-      box-shadow: 0 2px 10px rgba(11, 37, 70, 0.04);
+      box-shadow: 0 4px 18px rgba(0, 71, 120, 0.04);
+      transition: box-shadow 0.25s ease;
     }
-    .action-row h2 { font-size: 19px; font-weight: 800; color: var(--text-dark); }
+    .action-row h2 { font-size: 19px; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; }
     .action-row p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-    /* ManipalCigna PivotPoint Buttons */
+    /* Motion Buttons */
     .btn {
-      padding: 9px 18px; border-radius: 8px; font-size: 12.5px; font-weight: 700;
-      cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px;
-      transition: all 0.15s ease;
+      padding: 9px 18px; border-radius: 9px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 7px;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative; overflow: hidden;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn:active {
+      transform: translateY(0);
     }
     .btn-pb-orange {
-      background: linear-gradient(135deg, var(--pb-orange) 0%, #f36222 100%);
+      background: linear-gradient(135deg, #f5841f 0%, #f36222 100%);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(245, 132, 31, 0.3);
+      box-shadow: 0 4px 14px rgba(245, 132, 31, 0.35);
     }
     .btn-pb-orange:hover {
-      background: linear-gradient(135deg, var(--pb-orange-hover) 0%, #d9531e 100%);
-      box-shadow: 0 6px 16px rgba(245, 132, 31, 0.4);
-      transform: translateY(-1px);
+      background: linear-gradient(135deg, #e07312 0%, #d85018 100%);
+      box-shadow: 0 8px 22px rgba(245, 132, 31, 0.45);
     }
     .btn-pb-blue {
-      background: var(--pb-navy); color: #fff;
-      box-shadow: 0 4px 12px rgba(0, 71, 120, 0.25);
+      background: linear-gradient(135deg, #004778 0%, #0284c9 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0, 71, 120, 0.28);
     }
-    .btn-pb-blue:hover { background: var(--pb-blue); transform: translateY(-1px); }
+    .btn-pb-blue:hover {
+      box-shadow: 0 8px 22px rgba(2, 132, 201, 0.4);
+    }
     .btn-pb-green {
-      background: var(--pb-green); color: #fff;
-      box-shadow: 0 4px 12px rgba(80, 185, 72, 0.25);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
     }
-    .btn-pb-green:hover { background: #439e3c; transform: translateY(-1px); }
+    .btn-pb-green:hover {
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.42);
+    }
     .btn-outline {
       background: #fff; border: 1px solid var(--border-light); color: var(--text-dark);
     }
     .btn-outline:hover { background: #f8fafc; border-color: var(--pb-blue); color: var(--pb-blue); }
 
-    /* PivotPoint Metric KPI Cards */
+    /* Motion KPI Metric Cards (Visual Harmony & Depth) */
     .kpi-row {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 18px; margin-bottom: 22px;
     }
     .pb-card {
-      background: #fff; border: 1px solid var(--border-light); border-radius: 12px;
+      background: #fff; border: 1px solid rgba(2, 132, 201, 0.12); border-radius: 14px;
       padding: 22px; position: relative;
-      box-shadow: 0 4px 14px rgba(0, 71, 120, 0.04);
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      border-top: 3.5px solid var(--pb-blue);
+      box-shadow: 0 4px 16px rgba(0, 71, 120, 0.04);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
     }
+    .pb-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3.5px;
+      background: linear-gradient(90deg, var(--pb-blue), var(--pb-navy));
+      transition: height 0.2s ease;
+    }
+    .pb-card.card-premium::before { background: linear-gradient(90deg, #0284c9, #004778); }
+    .pb-card.card-commission::before { background: linear-gradient(90deg, #10b981, #059669); }
+    .pb-card.card-payable::before { background: linear-gradient(90deg, #f5841f, #ea580c); }
+    .pb-card.card-net::before { background: linear-gradient(90deg, #0284c9, #f5841f); }
+
     .pb-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 71, 120, 0.08);
-      border-color: var(--pb-blue);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(0, 71, 120, 0.12);
+      border-color: rgba(2, 132, 201, 0.35);
     }
+    .pb-card:hover::before { height: 5.5px; }
+
     .pb-card.highlight {
-      background: linear-gradient(135deg, #ffffff, #f0f9ff);
-      border-color: #93c5fd;
-      border-top: 3.5px solid var(--pb-orange);
+      background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+      border: 1px solid rgba(2, 132, 201, 0.25);
     }
     .card-top { display: flex; justify-content: space-between; align-items: center; }
     .kpi-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.6px; }
-    .kpi-number { font-size: 30px; font-weight: 800; color: var(--text-dark); margin: 8px 0 2px 0; letter-spacing: -0.5px; }
+    .kpi-number {
+      font-size: 30px; font-weight: 800; color: #002845;
+      margin: 10px 0 2px 0; letter-spacing: -0.5px;
+    }
     .kpi-desc { font-size: 12px; color: var(--text-muted); }
     .card-footer {
       margin-top: 14px; padding-top: 12px; border-top: 1px solid #f1f5f9;
       font-size: 12px; display: flex; justify-content: space-between; align-items: center;
     }
 
-    /* Policybazaar Status Badges */
-    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-    .tag-orange { background: var(--pb-orange-light); color: var(--pb-orange); border: 1px solid #ffcca3; }
-    .tag-blue { background: var(--pb-blue-light); color: var(--pb-blue); border: 1px solid #bfdbfe; }
-    .tag-green { background: var(--pb-green-light); color: var(--pb-green); border: 1px solid #a7f3d0; }
-    .tag-rose { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
-    .tag-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+    /* Enterprise Status Badges (Soft Harmonious Tints) */
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .tag-orange { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+    .tag-blue { background: #f0f9ff; color: #0284c9; border: 1px solid #bae6fd; }
+    .tag-green { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .tag-rose { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    .tag-purple { background: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
 
     /* Maker-Checker Approval Box */
     .approval-box {
@@ -260,18 +311,34 @@
     .split-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
     @media (max-width: 960px) { .split-grid { grid-template-columns: 1fr; } }
 
-    /* Surface Cards */
+    /* Surface Cards with Hover Depth */
     .card {
       background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
-      padding: 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(11, 37, 70, 0.04);
+      padding: 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(0, 71, 120, 0.04);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .card:hover {
+      box-shadow: 0 8px 24px rgba(0, 71, 120, 0.08);
     }
     .card-title { font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
 
-    /* Category Bars */
+    /* Category Bars with Animated Shimmer */
     .bar-row { margin-bottom: 14px; }
     .bar-labels { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-dark); }
-    .bar-track { height: 9px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 999px; }
+    .bar-track { height: 9px; background: #e2e8f0; border-radius: 999px; overflow: hidden; position: relative; }
+    .bar-fill {
+      height: 100%; border-radius: 999px; position: relative;
+      overflow: hidden; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bar-fill::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+      animation: barShimmer 2.5s infinite;
+    }
+    @keyframes barShimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
 
     /* Data Tables */
     .table-card {
@@ -476,27 +543,27 @@
 </head>
 <body>
 
-  <!-- MANIPALCIGNA PIVOTPOINT ORANGE UTILITY BAR -->
+  <!-- APSOVA ENTERPRISE UTILITY BAR -->
   <div class="pivot-topbar">
     <div class="container pivot-topbar-inner">
       <div class="topbar-left">
-        <span class="topbar-tag">🏢 ManipalCigna Partner Ecosystem</span>
+        <span class="topbar-tag">🛡️ Apsova Insurance IMF Network</span>
         <span class="topbar-sep">•</span>
-        <span>IMF Agency: <strong>Apsova Insurance</strong></span>
+        <span>IRDAI Registered Insurance Marketing Firm</span>
         <span class="topbar-sep">•</span>
-        <span>Agency Code: <strong>APS-IMF-100</strong></span>
+        <span>Agency Code: <strong>APS-100</strong></span>
       </div>
       <div class="topbar-right">
-        <span>📞 Partner Desk: <strong>1800-102-4462</strong></span>
+        <span>📞 Central Partner Desk: <strong>+91 98471 22849</strong></span>
         <span class="topbar-sep">•</span>
-        <span>Regional Hub: <strong>Kochi, Kerala</strong></span>
+        <span>Kerala Central Hub: <strong>Kochi HQ</strong></span>
         <span class="topbar-sep">•</span>
-        <span class="lang-pill">മലയാളം / EN</span>
+        <span class="lang-pill">മലയാളം / English</span>
       </div>
     </div>
   </div>
 
-  <!-- MANIPALCIGNA PIVOTPOINT ENTERPRISE HEADER -->
+  <!-- APSOVA ENTERPRISE HEADER -->
   <header>
     <div class="container">
       <div class="header-top">
@@ -507,7 +574,7 @@
           <div>
             <div class="brand-title">
               APSOVA
-              <span class="pivot-badge">PIVOTPOINT</span>
+              <span class="pivot-badge">IMF CRM</span>
               <span class="pivot-sub-tag">AGENCY PORTAL</span>
             </div>
             <div class="brand-sub">Insurance CRM • Agency Management • HR & Dual Commission Accounting</div>
@@ -576,7 +643,7 @@
         
         <div class="action-row">
           <div>
-            <h2>Partner Executive Overview</h2>
+            <h2><span class="pulse-dot"></span>Partner Executive Overview</h2>
             <p>Live financial performance, sales pipeline, and dual-partner maker-checker approvals</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -587,28 +654,28 @@
           </div>
         </div>
 
-        <!-- 4 Key Financial & Business Cards -->
+        <!-- 4 Key Financial & Business Cards (Motion Framework & Harmonious Color) -->
         <div class="kpi-row">
           
-          <div class="pb-card">
+          <div class="pb-card card-premium">
             <div class="card-top">
               <span class="kpi-label">Gross Premium Booked</span>
-              <span class="tag tag-blue">142 Policies</span>
+              <span class="tag tag-blue">💼 142 Policies</span>
             </div>
             <div class="kpi-number">₹48,50,000</div>
             <div class="kpi-desc">Issued across 5 categories this month</div>
             <div class="card-footer">
-              <span style="color: var(--text-muted);">Premium is <strong>not</strong> Apsova income</span>
+              <span style="color: var(--text-muted);">Sourced Volume (Agency-wide)</span>
               <span class="tag tag-green">+18.4% YoY</span>
             </div>
           </div>
 
-          <div class="pb-card">
+          <div class="pb-card card-commission">
             <div class="card-top">
               <span class="kpi-label">Gross Insurer Commission</span>
-              <span class="tag tag-green">Avg 15.0%</span>
+              <span class="tag tag-green">📈 Avg 15.0% Yield</span>
             </div>
-            <div class="kpi-number" style="color: var(--pb-green);">₹7,27,500</div>
+            <div class="kpi-number">₹7,27,500</div>
             <div class="kpi-desc">Expected receipts from partner insurers</div>
             <div class="card-footer">
               <span>Received: <strong style="color: var(--text-dark);">₹5,90,000</strong></span>
@@ -616,29 +683,29 @@
             </div>
           </div>
 
-          <div class="pb-card">
+          <div class="pb-card card-payable">
             <div class="card-top">
               <span class="kpi-label">Agent Commission Payable</span>
-              <span class="tag tag-orange">38 Active POSP</span>
+              <span class="tag tag-orange">👥 38 Active POSP</span>
             </div>
-            <div class="kpi-number" style="color: var(--pb-orange);">₹3,45,000</div>
+            <div class="kpi-number">₹3,45,000</div>
             <div class="kpi-desc">Payable to agents (APS-100 onwards)</div>
             <div class="card-footer">
               <span>Paid: <strong style="color: var(--text-dark);">₹2,80,000</strong></span>
-              <span class="tag tag-rose">₹65,000 Approved Due</span>
+              <span class="tag tag-rose">₹65,000 Due</span>
             </div>
           </div>
 
-          <div class="pb-card highlight">
+          <div class="pb-card card-net highlight">
             <div class="card-top">
-              <span class="kpi-label" style="color: var(--pb-blue);">Net Apsova Revenue</span>
-              <span class="tag tag-green">Profitable</span>
+              <span class="kpi-label" style="color: var(--pb-navy);">Net Apsova Revenue</span>
+              <span class="tag tag-green">🏆 Profitable</span>
             </div>
             <div class="kpi-number" style="color: var(--pb-navy);">₹3,82,500</div>
             <div class="kpi-desc">Retained margin after agent payouts</div>
             <div class="card-footer">
               <span>Expenses: ₹1,20,000</span>
-              <strong style="color: var(--pb-green); font-size: 13px;">Net Profit: ₹2,62,500</strong>
+              <strong style="color: #059669; font-size: 13px;">Net Profit: ₹2,62,500</strong>
             </div>
           </div>
 
@@ -772,7 +839,7 @@
         
         <div class="action-row">
           <div>
-            <h2>Lead Generation & Telecalling Management</h2>
+            <h2><span class="pulse-dot"></span>Lead Generation & Telecalling Management</h2>
             <p>Meta Ads (Facebook/Instagram), Website, WhatsApp, and Excel Calling Lists</p>
           </div>
           <div style="display: flex; gap: 8px;">
@@ -871,7 +938,7 @@
         
         <div class="action-row">
           <div>
-            <h2>Policy Renewal Engine & Reminder Tracker</h2>
+            <h2><span class="pulse-dot"></span>Policy Renewal Engine & Reminder Tracker</h2>
             <p>Automated reminders scheduled at 60, 30, 15, 7, and 1 day prior to policy expiry</p>
           </div>
           <button class="btn btn-pb-orange" onclick="alert('Server Daily Cron Dispatched! 12 WhatsApp reminder messages sent in Malayalam & English.')">
@@ -900,7 +967,7 @@
             <div style="font-size: 26px; font-weight: 800; color: #dc2626; margin: 6px 0;">7</div>
             <span class="tag tag-rose">Urgent</span>
           </div>
-          <div class="card" style="text-align: center; margin: 0; background: #fef2f2; border-color: #f87171;">
+          <div class="card urgent-heartbeat" style="text-align: center; margin: 0; background: #fff5f5; border: 1.5px solid #ef4444; border-radius: 12px;">
             <div style="font-size: 11px; font-weight: 800; color: #b91c1c;">1 DAY / TODAY</div>
             <div style="font-size: 26px; font-weight: 800; color: #b91c1c; margin: 6px 0;">3</div>
             <span class="tag tag-rose">Expiring Today!</span>
