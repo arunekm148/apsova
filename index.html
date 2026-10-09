@@ -13,18 +13,18 @@
   <!-- Apsova Enterprise Design System (Cyan & Saffron Palette with Motion Framework) -->
   <style>
     :root {
-      /* ManipalCigna Brand Palette (Extracted from pivotpoint.manipalcigna.com) */
-      --pb-navy: #004778;          /* ManipalCigna Deep Corporate Ocean Navy */
+      /* Apsova Enterprise Signature Palette */
+      --pb-navy: #004778;          /* Corporate Ocean Navy */
       --pb-navy-dark: #002845;     /* Dark Deep Ocean Navy */
-      --pb-blue: #0284c9;          /* Cigna Signature Cyan Blue (PivotPoint header border #0284c9) */
-      --pb-blue-light: #e6f4fb;    /* Soft Cigna Cyan Tint */
-      --pb-orange: #f5841f;        /* Manipal Signature Saffron Orange (PivotPoint #f5841f) */
+      --pb-blue: #0284c9;          /* Signature Cyan Blue */
+      --pb-blue-light: #e6f4fb;    /* Soft Cyan Tint */
+      --pb-orange: #f5841f;        /* Signature Saffron Orange */
       --pb-orange-hover: #d96f10;  /* Darker Orange Hover */
       --pb-orange-light: #fff7ed;  /* Soft Orange Tint */
-      --pb-green: #50b948;         /* Cigna Health Tree Green (#50b948) */
+      --pb-green: #50b948;         /* Emerald Health Green */
       --pb-green-light: #ebf9e8;   /* Soft Green Tint */
       
-      --bg-page: #f2f6fa;          /* PivotPoint Clean Slate Canvas */
+      --bg-page: #f2f6fa;          /* Clean Slate Canvas */
       --bg-card: #ffffff;          /* Crisp White Surface */
       
       --text-dark: #002845;        /* Deep Ocean Navy Heading Text */
@@ -48,7 +48,7 @@
 
     .container { max-width: 1340px; margin: 0 auto; padding: 0 20px; }
 
-    /* ManipalCigna PivotPoint Orange Utility Bar */
+    /* Apsova Saffron Orange Utility Bar */
     .pivot-topbar {
       background: var(--pb-orange);
       color: #fff;
@@ -73,88 +73,394 @@
       padding: 2px 8px; border-radius: 999px; font-weight: 800; font-size: 10.5px;
     }
 
-    /* ManipalCigna PivotPoint Clean White Header with Cyan Border */
-    header {
-      background: #ffffff;
-      color: var(--text-dark);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-top: 5px solid var(--pb-blue);
-      box-shadow: 0 4px 18px rgba(0, 71, 120, 0.08);
-    }
-    
-    .header-top {
+    /* ============================================================== */
+    /* APSOVA ENTERPRISE LEFT SIDEBAR LAYOUT */
+    /* ============================================================== */
+    .app-layout {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0 10px 0;
+      min-height: calc(100vh - 35px);
+      background-color: var(--bg-page);
+      position: relative;
     }
 
-    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    /* Left Sidebar Container */
+    .app-sidebar {
+      width: 275px;
+      min-width: 275px;
+      background: #ffffff;
+      border-right: 1px solid var(--border-light);
+      border-top: 4px solid var(--pb-blue);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 105;
+      box-shadow: 3px 0 18px rgba(0, 71, 120, 0.05);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Sidebar Brand Section */
+    .sidebar-brand {
+      padding: 18px 16px 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-light);
+      background: #ffffff;
+    }
     .brand-logo {
       width: 44px; height: 44px; border-radius: 10px;
       background: linear-gradient(135deg, var(--pb-blue) 0%, var(--pb-navy) 100%);
       display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 24px; font-weight: 800;
+      color: #fff; font-size: 22px; font-weight: 800;
       box-shadow: 0 4px 14px rgba(2, 132, 201, 0.35);
+      flex-shrink: 0;
     }
     .brand-title {
-      font-size: 22px; font-weight: 800; color: var(--pb-navy);
-      letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;
+      font-size: 21px; font-weight: 800; color: var(--pb-navy);
+      letter-spacing: -0.5px; display: flex; align-items: center; gap: 6px;
+      line-height: 1.2;
     }
     .pivot-badge {
       font-size: 10px; font-weight: 800; text-transform: uppercase;
       background: var(--pb-blue); color: #fff;
-      padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px;
+      padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px;
     }
     .pivot-sub-tag {
-      font-size: 10.5px; font-weight: 700; color: var(--pb-orange);
-      background: var(--pb-orange-light); padding: 2px 7px;
+      font-size: 10px; font-weight: 700; color: var(--pb-orange);
+      background: var(--pb-orange-light); padding: 2px 6px;
       border-radius: 4px; border: 1px solid #fed7aa;
     }
-    .brand-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+    .brand-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
-    /* Role Bar */
-    .role-box {
-      display: flex; align-items: center; gap: 8px;
-      background: #f8fafc; border: 1px solid var(--border-light);
-      border-radius: 8px; padding: 6px 12px;
+    .sidebar-close-btn {
+      display: none;
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 2px 6px;
+      line-height: 1;
     }
-    .role-box label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-    .role-box select {
-      background: #fff; border: 1px solid var(--border-light); color: var(--pb-navy);
-      padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;
-      cursor: pointer; outline: none;
-    }
-    .role-box select:focus { border-color: var(--pb-blue); }
 
-    /* PivotPoint Navigation Tabs */
-    .nav-tabs {
-      display: flex; gap: 6px; overflow-x: auto; padding: 10px 0 8px 0;
-      border-top: 1px solid var(--border-light); scrollbar-width: none;
+    /* Sidebar Profile & Role Selector */
+    .sidebar-profile {
+      padding: 12px 14px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-light);
     }
-    .nav-tabs::-webkit-scrollbar { display: none; }
+    .profile-card-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .profile-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pb-orange) 0%, #d96f10 100%);
+      color: #fff; font-weight: 800; font-size: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 8px rgba(245, 132, 31, 0.3);
+      flex-shrink: 0;
+    }
+    .profile-name {
+      font-size: 12.5px; font-weight: 800; color: var(--text-dark);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .profile-role-tag {
+      font-size: 10.5px; font-weight: 700; color: var(--pb-navy);
+      display: flex; align-items: center;
+    }
+    .sidebar-role-select-wrap {
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .role-select-label {
+      font-size: 10px; font-weight: 700; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .sidebar-role-select {
+      width: 100%; background: #ffffff;
+      border: 1px solid #cbd5e1; color: var(--pb-navy);
+      padding: 6px 10px; border-radius: 6px;
+      font-size: 11.5px; font-weight: 700;
+      cursor: pointer; outline: none; transition: border-color 0.2s;
+    }
+    .sidebar-role-select:focus {
+      border-color: var(--pb-blue);
+      box-shadow: 0 0 0 2px rgba(2, 132, 201, 0.15);
+    }
+
+    /* Sidebar Section Title */
+    .sidebar-section-title {
+      padding: 14px 16px 6px 16px;
+      font-size: 10.5px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--text-muted);
+    }
+
+    /* Sidebar Navigation Menu (All 7 Buttons Vertically Stacked) */
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0 10px 14px 10px;
+      flex: 1;
+    }
     .nav-btn {
-      background: transparent; border: 1px solid transparent; color: #475569;
-      padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
-      cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap;
-      transition: all 0.2s ease;
+      width: 100%;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #334155;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
-    .nav-btn:hover { background: var(--pb-blue-light); color: var(--pb-blue); }
+    .nav-btn .nav-icon {
+      font-size: 16px;
+      width: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-btn .nav-text {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nav-btn:hover {
+      background: var(--pb-blue-light);
+      color: var(--pb-blue);
+      transform: translateX(3px);
+    }
     .nav-btn.active {
-      background: var(--pb-navy); color: #fff;
-      box-shadow: 0 4px 12px rgba(0, 71, 120, 0.25);
+      background: linear-gradient(135deg, var(--pb-navy) 0%, var(--pb-blue) 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(2, 132, 201, 0.3);
+      border-color: transparent;
+    }
+    .nav-btn .nav-meta {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .nav-btn.active .nav-meta {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
     }
     .badge-orange-pill {
       font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
       background: var(--pb-orange); color: #fff;
     }
+    .nav-btn.active .badge-orange-pill {
+      background: #ffffff; color: var(--pb-orange);
+    }
+    .badge-cyan-pill {
+      font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
+      background: var(--pb-blue-light); color: var(--pb-blue);
+    }
+    .nav-btn.active .badge-cyan-pill {
+      background: #ffffff; color: var(--pb-navy);
+    }
+    .badge-green-pill {
+      font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
+      background: var(--pb-green-light); color: #15803d;
+    }
+    .nav-btn.active .badge-green-pill {
+      background: #ffffff; color: #15803d;
+    }
+    .nav-arrow {
+      font-size: 14px; opacity: 0.6; font-weight: 400; margin-left: auto;
+    }
 
-    /* Info Banner */
+    /* Sidebar Footer */
+    .sidebar-footer {
+      padding: 12px 12px;
+      border-top: 1px solid var(--border-light);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .sidebar-quick-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 7px;
+    }
+    .sidebar-compliance-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 3px;
+    }
+    .sidebar-compliance-badge .comp-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .sidebar-compliance-badge .comp-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--pb-navy);
+      line-height: 1.2;
+    }
+    .sidebar-compliance-badge .comp-desc {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* RIGHT CONTENT WRAPPER */
+    .app-content-wrapper {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg-page);
+    }
+
+    /* Topbar inside Content Wrapper */
+    .app-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-light);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      box-shadow: 0 2px 10px rgba(0, 71, 120, 0.04);
+    }
+    .topbar-left-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .mobile-toggle-btn {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--pb-blue-light);
+      border: 1px solid #bae3f9;
+      color: var(--pb-blue);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .mobile-toggle-btn:hover {
+      background: var(--pb-blue);
+      color: #fff;
+    }
+    .page-title-box {
+      display: flex;
+      flex-direction: column;
+    }
+    .page-title-text {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -0.3px;
+      margin: 0;
+    }
+    .page-breadcrumbs {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .crumb-sep { opacity: 0.5; }
+    .crumb-active { color: var(--pb-blue); font-weight: 700; }
+    .topbar-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar-stat-pill {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      color: var(--text-body);
+      display: flex;
+      align-items: center;
+    }
+
+    /* Role Notification Banner */
     .role-banner {
-      background: var(--pb-blue-light); border-bottom: 1px solid #bae3f9;
-      padding: 10px 0; font-size: 13px; color: var(--pb-navy);
+      background: var(--pb-blue-light);
+      border-bottom: 1px solid #bae3f9;
+      padding: 10px 24px;
+      font-size: 12.5px;
+      color: var(--pb-navy);
+    }
+
+    /* Main Tab Content Area */
+    .app-main-view {
+      padding: 22px 24px 60px 24px;
+      flex: 1;
+    }
+
+    /* Sidebar Overlay for Mobile */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 40, 69, 0.5);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .sidebar-overlay.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* App Footer */
+    .app-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-light);
+      padding: 16px 24px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     /* Main Container & Motion Transitions */
@@ -413,7 +719,34 @@
 
     /* Tablets & iPad (max-width: 1024px) */
     @media (max-width: 1024px) {
-      .container { padding: 0 16px; }
+      .app-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        z-index: 1100;
+        transform: translateX(-100%);
+        box-shadow: 4px 0 25px rgba(0, 40, 69, 0.25);
+      }
+      .app-sidebar.open {
+        transform: translateX(0);
+      }
+      .sidebar-close-btn {
+        display: block;
+      }
+      .mobile-toggle-btn {
+        display: inline-flex;
+      }
+      .app-main-view {
+        padding: 16px 16px 50px 16px;
+      }
+      .app-topbar {
+        padding: 10px 16px;
+      }
+      .role-banner {
+        padding: 8px 16px;
+      }
       .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .category-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .split-grid { grid-template-columns: 1fr; }
@@ -421,9 +754,6 @@
 
     /* Small Tablets & Smartphones (Android & iPhone <= 768px) */
     @media (max-width: 768px) {
-      .container { padding: 0 12px; }
-      main { padding: 14px 0 60px 0; }
-
       /* Top utility bar on mobile */
       .pivot-topbar { padding: 6px 0; font-size: 11px; }
       .pivot-topbar-inner {
@@ -435,41 +765,9 @@
       .topbar-right { display: none; }
       .topbar-left { justify-content: center; flex-wrap: wrap; gap: 6px; }
 
-      /* Header */
-      .header-top {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-        padding: 10px 0 6px 0;
-      }
-      .brand-wrap { justify-content: flex-start; }
-      .brand-title { font-size: 19px; }
-      .brand-sub { font-size: 11px; line-height: 1.3; }
-      
-      /* Role selector full width */
-      .role-box {
-        width: 100%;
-        justify-content: space-between;
-        padding: 6px 10px;
-      }
-      .role-box select { flex: 1; max-width: 65%; font-size: 12px; }
-
-      /* Navigation Tabs: smooth horizontal touch swipe */
-      .nav-tabs {
-        padding: 8px 0;
-        gap: 6px;
-        scroll-snap-type: x mandatory;
-      }
-      .nav-btn {
-        padding: 8px 14px;
-        font-size: 12.5px;
-        scroll-snap-align: start;
-        min-height: 40px;
-        flex-shrink: 0;
-      }
-
-      /* Role banner */
-      .role-banner { font-size: 12px; padding: 8px 0; }
+      .topbar-stat-pill { display: none; }
+      .topbar-right-actions .btn { font-size: 11.5px; padding: 6px 10px; }
+      .page-title-text { font-size: 15px; }
 
       /* Action Rows */
       .action-row {
@@ -563,28 +861,39 @@
     </div>
   </div>
 
-  <!-- APSOVA ENTERPRISE HEADER -->
-  <header>
-    <div class="container">
-      <div class="header-top">
-        
-        <!-- Brand -->
-        <div class="brand-wrap">
-          <div class="brand-logo">🛡️</div>
-          <div>
-            <div class="brand-title">
-              APSOVA
-              <span class="pivot-badge">IMF CRM</span>
-              <span class="pivot-sub-tag">AGENCY PORTAL</span>
-            </div>
-            <div class="brand-sub">Insurance CRM • Agency Management • HR & Dual Commission Accounting</div>
+  <!-- APSOVA APP LAYOUT: LEFT SIDEBAR + WORKSPACE -->
+  <div class="app-layout">
+
+    <!-- Mobile Drawer Overlay Backdrop -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+
+    <!-- LEFT SIDEBAR WITH ALL MODULE BUTTONS -->
+    <aside class="app-sidebar" id="appSidebar">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-brand">
+        <div class="brand-logo">🛡️</div>
+        <div>
+          <div class="brand-title">
+            APSOVA
+            <span class="pivot-badge">IMF</span>
+          </div>
+          <div class="brand-sub">Insurance CRM Network</div>
+        </div>
+        <button class="sidebar-close-btn" onclick="toggleSidebar(false)" aria-label="Close Menu">✕</button>
+      </div>
+
+      <!-- User Profile & Role Selector -->
+      <div class="sidebar-profile">
+        <div class="profile-card-inner">
+          <div class="profile-avatar">AJ</div>
+          <div class="profile-details">
+            <div class="profile-name">Arun Joy</div>
+            <div class="profile-role-tag"><span class="pulse-dot"></span> Partner 1 • APS-100</div>
           </div>
         </div>
-
-        <!-- Role Selector -->
-        <div class="role-box">
-          <label for="roleSelector">Viewing as:</label>
-          <select id="roleSelector" onchange="changeRole(this.value)">
+        <div class="sidebar-role-select-wrap">
+          <label for="roleSelector" class="role-select-label">Switch Role View:</label>
+          <select id="roleSelector" class="sidebar-role-select" onchange="changeRole(this.value)">
             <option value="PARTNER_1">Partner 1 (Arun - Owner)</option>
             <option value="PARTNER_2">Partner 2 (Owner)</option>
             <option value="ADMIN">Admin / Operations</option>
@@ -594,47 +903,119 @@
             <option value="HR">HR & Payroll</option>
           </select>
         </div>
-
       </div>
 
-      <!-- Navigation Tabs -->
-      <nav class="nav-tabs">
+      <!-- Section Title -->
+      <div class="sidebar-section-title">PORTAL MODULES</div>
+
+      <!-- ALL 7 NAVIGATION BUTTONS (LEFT SIDEBAR STACK) -->
+      <nav class="sidebar-menu">
         <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn active">
-          📊 Partner Dashboard
+          <span class="nav-icon">📊</span>
+          <span class="nav-text">Partner Dashboard</span>
+          <span class="nav-arrow">›</span>
         </button>
+
         <button onclick="switchTab('telecalling')" id="tab-telecalling" class="nav-btn">
-          📞 Leads & Telecalling
+          <span class="nav-icon">📞</span>
+          <span class="nav-text">Leads & Telecalling</span>
+          <span class="badge-cyan-pill">18</span>
         </button>
+
         <button onclick="switchTab('renewals')" id="tab-renewals" class="nav-btn">
-          🔄 Renewals (60/30/15/7/1d)
-          <span class="badge-orange-pill">12 Due</span>
+          <span class="nav-icon">🔄</span>
+          <span class="nav-text">Renewals Tracker</span>
+          <span class="badge-orange-pill urgent-heartbeat">12 Due</span>
         </button>
+
         <button onclick="switchTab('companies')" id="tab-companies" class="nav-btn">
-          🏢 Insurers & 5 Categories
+          <span class="nav-icon">🏢</span>
+          <span class="nav-text">Insurers & Categories</span>
+          <span class="nav-meta">5 Verticals</span>
         </button>
+
         <button onclick="switchTab('agents')" id="tab-agents" class="nav-btn">
-          👥 Agents & POSP (APS-100+)
+          <span class="nav-icon">👥</span>
+          <span class="nav-text">Agents & POSP</span>
+          <span class="badge-green-pill">APS-100+</span>
         </button>
+
         <button onclick="switchTab('commissions')" id="tab-commissions" class="nav-btn">
-          💰 Dual Commission Ledgers
+          <span class="nav-icon">💰</span>
+          <span class="nav-text">Commission Ledgers</span>
+          <span class="badge-cyan-pill">Dual</span>
         </button>
+
         <button onclick="switchTab('hr')" id="tab-hr" class="nav-btn">
-          🕒 HR & Attendance
+          <span class="nav-icon">🕒</span>
+          <span class="nav-text">HR & Attendance</span>
+          <span class="nav-meta">Payroll</span>
         </button>
       </nav>
-    </div>
-  </header>
 
-  <!-- Role Notification Banner -->
-  <div class="role-banner">
-    <div class="container" id="roleBannerText">
-      ℹ️ You are logged in as <strong>Partner 1 (Arun - Owner)</strong>. Complete business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.
-    </div>
-  </div>
+      <!-- Sidebar Footer with Quick Actions & Compliance -->
+      <div class="sidebar-footer">
+        <button class="btn btn-pb-blue sidebar-quick-btn" onclick="openModal('newLeadModal')">
+          + Add New Lead
+        </button>
+        <button class="btn btn-pb-orange sidebar-quick-btn" onclick="openModal('policyIssueModal')">
+          ➕ Issue Policy
+        </button>
 
-  <!-- Main View -->
-  <main>
-    <div class="container">
+        <div class="sidebar-compliance-badge">
+          <div class="comp-icon">🛡️</div>
+          <div>
+            <div class="comp-title">IRDAI IMF Licensed</div>
+            <div class="comp-desc">Dual Ledger • SSL 256-Bit</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT WORKSPACE CONTENT -->
+    <div class="app-content-wrapper">
+      
+      <!-- Topbar Header -->
+      <header class="app-topbar">
+        <div class="topbar-left-controls">
+          <button class="mobile-toggle-btn" onclick="toggleSidebar(true)" aria-label="Open Navigation Menu">
+            <span>☰</span>
+            <span>Menu</span>
+          </button>
+          <div class="page-title-box">
+            <h1 class="page-title-text" id="pageTitleText">📊 Partner Executive Dashboard</h1>
+            <div class="page-breadcrumbs">
+              <span>Apsova IMF Portal</span>
+              <span class="crumb-sep">/</span>
+              <span class="crumb-active" id="pageBreadcrumbText">Executive Overview</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="topbar-right-actions">
+          <div class="topbar-stat-pill">
+            <span class="pulse-dot"></span>
+            <span>Live System: <strong>Active</strong></span>
+          </div>
+          <button class="btn btn-outline" style="font-size: 12px; padding: 7px 12px;" onclick="openModal('excelUploadModal')">
+            📥 Import Excel
+          </button>
+          <button class="btn btn-pb-orange" style="font-size: 12px; padding: 7px 12px;" onclick="openModal('policyIssueModal')">
+            ➕ New Policy
+          </button>
+        </div>
+      </header>
+
+      <!-- Role Notification Banner -->
+      <div class="role-banner">
+        <div id="roleBannerText">
+          ℹ️ You are logged in as <strong>Partner 1 (Arun - Owner)</strong>. Complete business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.
+        </div>
+      </div>
+
+      <!-- Main Tabs Content View -->
+      <main class="app-main-view">
+        <div class="container">
 
       <!-- ============================================================== -->
       <!-- TAB 1: DUAL PARTNER EXECUTIVE DASHBOARD -->
@@ -1415,6 +1796,17 @@
     </div>
   </main>
 
+  <!-- Clean Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div>© 2026 Apsova Insurance IMF Network • IRDAI Registered Insurance Marketing Firm</div>
+      <div>Dual-Ledger Commission Accounting &amp; POSP Management • Central Desk: +91 98471 22849</div>
+    </div>
+  </footer>
+
+</div> <!-- closes app-content-wrapper -->
+</div> <!-- closes app-layout -->
+
   <!-- Modals -->
   <div id="excelUploadModal" class="modal-backdrop">
     <div class="modal-box">
@@ -1946,6 +2338,16 @@
   </div>
 
   <script>
+    const tabTitles = {
+      'dashboard': { title: '📊 Partner Executive Dashboard', breadcrumb: 'Executive Overview' },
+      'telecalling': { title: '📞 Leads & Telecalling CRM', breadcrumb: 'Leads & Telecalling' },
+      'renewals': { title: '🔄 Policy Renewals Tracker', breadcrumb: 'Renewals (60/30/15/7/1d)' },
+      'companies': { title: '🏢 Insurers & 5 Product Verticals', breadcrumb: 'Insurers & Categories' },
+      'agents': { title: '👥 Agents & POSP Network (APS-100+)', breadcrumb: 'Agents & POSP' },
+      'commissions': { title: '💰 Dual Commission Accounting Ledgers', breadcrumb: 'Dual Commission Ledgers' },
+      'hr': { title: '🕒 HR, Attendance & Payroll', breadcrumb: 'HR & Attendance' }
+    };
+
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -1956,6 +2358,37 @@
       if (targetView && targetBtn) {
         targetView.classList.add('active');
         targetBtn.classList.add('active');
+      }
+
+      // Update dynamic Topbar Title and Breadcrumb
+      if (tabTitles[tabId]) {
+        const titleEl = document.getElementById('pageTitleText');
+        const crumbEl = document.getElementById('pageBreadcrumbText');
+        if (titleEl) titleEl.innerText = tabTitles[tabId].title;
+        if (crumbEl) crumbEl.innerText = tabTitles[tabId].breadcrumb;
+      }
+
+      // Auto-close mobile sidebar drawer upon selecting a tab
+      toggleSidebar(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleSidebar(show) {
+      const sidebar = document.getElementById('appSidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (!sidebar) return;
+
+      const isOpen = sidebar.classList.contains('open');
+      const targetState = typeof show === 'boolean' ? show : !isOpen;
+
+      if (targetState) {
+        sidebar.classList.add('open');
+        if (overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
       }
     }
 
