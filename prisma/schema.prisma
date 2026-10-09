@@ -1,0 +1,557 @@
+// Apsova Database Schema
+// Optimized for PostgreSQL on Hostinger VPS (KVM)
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------
+// 1. USER & ACCESS CONTROL (DUAL PARTNERS & ROLE-BASED ACCESS)
+// -------------------------------------------------------------
+
+enum UserRole {
+  PARTNER_1
+  PARTNER_2
+  ADMIN_OPERATIONS
+  ACCOUNTS
+  TELECALLER
+  AGENCY_MANAGER
+  HR
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+model User {
+  id            String      @id @default(uuid())
+  email         String      @unique
+  passwordHash  String
+  name          String
+  mobile        String      @unique
+  role          UserRole
+  status        UserStatus  @default(ACTIVE)
+  employeeCode  String      @unique // e.g. APS-EMP-001
+  department    String?
+  designation   String?
+  joiningDate   DateTime?
+  resignationDate DateTime?
+  
+  // Salary Configuration
+  monthlyGrossSalary Float?  @default(0)
+  salaryType         String? @default("CALENDAR_DAYS") // WORKING_DAYS or CALENDAR_DAYS
+  
+  // Relations
+  allocatedLeads         Lead[]             @relation("AllocatedLeads")
+  transferredLeads       Lead[]             @relation("HandoverManager")
+  callLogs               CallLog[]
+  managedAgents          Agent[]            @relation("AssignedAgencyManager")
+  recruitedAgents        Agent[]            @relation("RecruitedByEmployee")
+  issuedPoliciesAsCloser Policy[]           @relation("ClosingEmployee")
+  servicingPolicies      Policy[]           @relation("ServicingManager")
+  telecallerPolicies     Policy[]           @relation("TelecallerCredit")
+  attendances            AttendanceRecord[]
+  leaveApplications      LeaveRequest[]     @relation("EmployeeLeaves")
+  approvedLeaves         LeaveRequest[]     @relation("ApprovedLeaves")
+  payrollSlips           PayrollRecord[]
+  createdApprovals       ApprovalRequest[]  @relation("RequestedBy")
+  decidedApprovals       ApprovalRequest[]  @relation("DecidedBy")
+  
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+// -------------------------------------------------------------
+// 2. AGENCY MANAGEMENT & AGENT (POSP) REGISTRATION
+// -------------------------------------------------------------
+
+enum AgentStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+model Agent {
+  id                    String        @id @default(uuid())
+  internalAgentId       String        @unique // Format: APS-100 onwards (e.g. APS-100, APS-101, APS-102...)
+  name                  String
+  mobile                String        @unique
+  alternateMobile       String?
+  email                 String?
+  address               String?
+  city                  String?
+  state                 String?
+  pincode               String?
+  
+  // Status & Registration
+  status                AgentStatus   @default(PENDING_VERIFICATION)
+  registrationDate      DateTime      @default(now())
+  category              String        @default("POSP") // POSP, Direct Agent, Referral Partner
+  
+  // Insurer Specific Agent Codes (e.g. Star: STAR-123, HDFC: HD-992)
+  insurerCodes          Json?         // Stored as key-value pairs
+  
+  // Hierarchy & Attribution
+  assignedManagerId     String?
+  assignedManager       User?         @relation("AssignedAgencyManager", fields: [assignedManagerId], references: [id])
+  recruitedById         String?
+  recruitedBy           User?         @relation("RecruitedByEmployee", fields: [recruitedById], references: [id])
+  
+  // Banking & Tax Details
+  panNumber             String?
+  aadharNumber          String?
+  bankName              String?
+  bankAccountNumber     String?
+  bankIfscCode          String?
+  payoutAgreementType   String?       @default("STANDARD_COMMISSION_TIER_A")
+  
+  // Relations
+  policies              Policy[]      @relation("AgentPolicies")
+  payableEntries        AgentPayableLedger[]
+  transferLogs          AgentTransferHistory[]
+  
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+}
+
+// History of Agent transfers when an Agency Manager resigns
+model AgentTransferHistory {
+  id            String    @id @default(uuid())
+  agentId       String
+  agent         Agent     @relation(fields: [agentId], references: [id])
+  oldManagerId  String
+  newManagerId  String
+  effectiveDate DateTime
+  reason        String
+  approvedById  String
+  createdAt     DateTime  @default(now())
+}
+
+// -------------------------------------------------------------
+// 3. INSURANCE COMPANIES, CATEGORIES & PRODUCTS
+// -------------------------------------------------------------
+
+enum InsuranceCategory {
+  HEALTH
+  MOTOR
+  LIFE
+  GROUP
+  PET
+}
+
+model InsuranceCompany {
+  id            String             @id @default(uuid())
+  name          String             @unique // e.g. Star Health, Care Health, ICICI Lombard, HDFC Life
+  code          String             @unique // e.g. STAR_HEALTH, CARE, ICICI_LOMBARD
+  category      InsuranceCategory
+  isActive      Boolean            @default(true)
+  portalUrl     String?
+  supportEmail  String?
+  supportPhone  String?
+  
+  // Relations
+  products      InsuranceProduct[]
+  policies      Policy[]
+  commissionStatements InsurerCommissionStatement[]
+  
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model InsuranceProduct {
+  id            String           @id @default(uuid())
+  companyId     String
+  company       InsuranceCompany @relation(fields: [companyId], references: [id])
+  name          String           // e.g. Family Health Optima, Comprehensive Motor 4W
+  category      InsuranceCategory
+  isActive      Boolean          @default(true)
+  
+  // Commission Rules
+  defaultInsurerCommPercent Float @default(0) // Expected commission from insurer
+  defaultAgentPayoutPercent Float @default(0) // Expected payout to agent
+  
+  policies      Policy[]
+  
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+}
+
+// -------------------------------------------------------------
+// 4. LEAD GENERATION & TELECALLING PIPELINE
+// -------------------------------------------------------------
+
+enum LeadStage {
+  NEW
+  ASSIGNED
+  CONTACT_ATTEMPTED
+  CONNECTED
+  QUALIFIED_ENQUIRY
+  QUOTE_SHARED
+  FOLLOW_UP
+  PROPOSAL_SUBMITTED
+  PAYMENT_CONFIRMED
+  POLICY_ISSUED
+  NOT_INTERESTED
+  INVALID_NUMBER
+  DUPLICATE
+  LOST
+  DO_NOT_CONTACT
+}
+
+model Lead {
+  id                  String             @id @default(uuid())
+  leadNumber          String             @unique // e.g. APS-LD-001001
+  name                String
+  mobile              String
+  alternateMobile     String?
+  email               String?
+  location            String?
+  category            InsuranceCategory
+  
+  // Source Tracking
+  source              String             @default("WEBSITE") // FB_ADS, INSTA_ADS, EXCEL_UPLOAD, WHATSAPP, REFERRAL
+  campaignName        String?
+  batchId             String?            // For bulk Excel uploads
+  
+  // Current Status & Follow-up
+  stage               LeadStage          @default(NEW)
+  lossReason          String?
+  nextFollowUpDate    DateTime?
+  isOverdue           Boolean            @default(false)
+  remarks             String?
+  
+  // Assignments & Handover
+  assignedToId        String?
+  assignedTo          User?              @relation("AllocatedLeads", fields: [assignedToId], references: [id])
+  handoverManagerId   String?
+  handoverManager     User?              @relation("HandoverManager", fields: [handoverManagerId], references: [id])
+  handoverAccepted    Boolean            @default(false)
+  
+  // Call Logs & History
+  callLogs            CallLog[]
+  policies            Policy[]
+  
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+}
+
+model CallLog {
+  id             String    @id @default(uuid())
+  leadId         String
+  lead           Lead      @relation(fields: [leadId], references: [id])
+  callerId       String
+  caller         User      @relation(fields: [callerId], references: [id])
+  callOutcome    String    // e.g. Connected, No Answer, Busy, Switched Off, Callback Requested
+  notes          String
+  callDurationSec Int      @default(0)
+  nextActionDate DateTime?
+  createdAt      DateTime  @default(now())
+}
+
+// -------------------------------------------------------------
+// 5. POLICY MANAGEMENT & SPECIFIC CATEGORY DETAILS
+// -------------------------------------------------------------
+
+enum PolicyStatus {
+  PROPOSAL_LOGGED
+  PAYMENT_CONFIRMED
+  POLICY_ISSUED
+  CANCELLED
+  ENDORSED
+  LAPSED
+}
+
+enum PolicyType {
+  NEW
+  RENEWAL
+  PORTABILITY
+  ROLLOVER
+}
+
+model Policy {
+  id                    String            @id @default(uuid())
+  policyNumber          String?           @unique // Generated by insurer upon issuance
+  proposalNumber        String            @unique // Internal proposal/login number
+  category              InsuranceCategory
+  type                  PolicyType        @default(NEW)
+  status                PolicyStatus      @default(PROPOSAL_LOGGED)
+  
+  // Customer Details
+  customerName          String
+  customerMobile        String
+  customerEmail         String?
+  customerAddress       String?
+  
+  // Insurer & Product
+  companyId             String
+  company               InsuranceCompany  @relation(fields: [companyId], references: [id])
+  productId             String
+  product               InsuranceProduct  @relation(fields: [productId], references: [id])
+  
+  // Premium Financials
+  netPremium            Float
+  gstAmount             Float
+  grossPremium          Float
+  
+  // Category-Specific Dynamic JSON Details
+  // - Motor: { regNo, make, model, variant, idv, ncb, odPremium, tpPremium, prevInsurer }
+  // - Health: { membersCount, members: [{ name, dob, relation, sumInsured }], isFloater, roomRentLimit }
+  // - Life: { proposer, lifeAssured, sumAssured, premiumTerm, policyTerm, frequency }
+  // - Group: { companyName, totalEmployees, memberRosterUrl }
+  // - Pet: { petName, species, breed, ageYears, microchipNo }
+  categoryDetails       Json
+  
+  // Effective & Expiry Dates
+  riskStartDate         DateTime
+  policyExpiryDate      DateTime
+  renewalDueDate        DateTime
+  
+  // Attribution & Source
+  businessChannel       String            @default("DIRECT") // DIRECT or AGENT_SOURCED
+  agentId               String?
+  agent                 Agent?            @relation("AgentPolicies", fields: [agentId], references: [id])
+  telecallerId          String?
+  telecaller            User?             @relation("TelecallerCredit", fields: [telecallerId], references: [id])
+  closingEmployeeId     String?
+  closingEmployee       User?             @relation("ClosingEmployee", fields: [closingEmployeeId], references: [id])
+  servicingManagerId    String?
+  servicingManager      User?             @relation("ServicingManager", fields: [servicingManagerId], references: [id])
+  leadId                String?
+  lead                  Lead?             @relation(fields: [leadId], references: [id])
+  
+  // Linked Previous Policy (for Renewals / Portability)
+  previousPolicyId      String?
+  previousPolicyNumber  String?
+  
+  // Document Links (stored on VPS or Cloudflare R2)
+  policyPdfUrl          String?
+  rcCopyUrl             String?
+  kycDocUrl             String?
+  
+  // Ledgers & Renewals
+  insurerReceivable     InsurerReceivableLedger?
+  agentPayable          AgentPayableLedger?
+  renewalTracking       RenewalRecord?
+  
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+}
+
+// -------------------------------------------------------------
+// 6. AUTOMATED RENEWAL PIPELINE & REMINDER SYSTEM
+// -------------------------------------------------------------
+
+enum RenewalStage {
+  UPCOMING
+  ASSIGNED
+  CONTACTED
+  QUOTE_SHARED
+  FOLLOW_UP
+  PAYMENT_PENDING
+  RENEWED
+  NOT_RENEWING
+  RENEWED_ELSEWHERE
+  LAPSED
+}
+
+model RenewalRecord {
+  id                  String       @id @default(uuid())
+  policyId            String       @unique
+  policy              Policy       @relation(fields: [policyId], references: [id])
+  expiryDate          DateTime
+  stage               RenewalStage @default(UPCOMING)
+  assignedEmployeeId  String?
+  
+  // Reminder Milestones Sent
+  reminded60Days      Boolean      @default(false)
+  reminded30Days      Boolean      @default(false)
+  reminded15Days      Boolean      @default(false)
+  reminded7Days       Boolean      @default(false)
+  reminded1Day        Boolean      @default(false)
+  
+  lastContactedAt     DateTime?
+  nextFollowUpDate    DateTime?
+  remarks             String?
+  renewedPolicyId     String?
+  
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+}
+
+// -------------------------------------------------------------
+// 7. DUAL COMMISSION ACCOUNTING LEDGERS & MAKER-CHECKER
+// -------------------------------------------------------------
+
+enum ReconciliationStatus {
+  UNMATCHED
+  MATCHED_FULL
+  SHORT_RECEIPT
+  EXCESS_RECEIPT
+  REVERSED
+}
+
+enum PayoutStatus {
+  PENDING_PREPARATION
+  PREPARED_MAKER
+  APPROVED_CHECKER
+  PAID
+  HOLD
+  REVERSED
+}
+
+// Insurer Commission Statement (Bulk upload from Excel)
+model InsurerCommissionStatement {
+  id              String   @id @default(uuid())
+  companyId       String
+  company         InsuranceCompany @relation(fields: [companyId], references: [id])
+  statementMonth  String   // e.g. "2026-09"
+  fileName        String
+  totalRows       Int
+  matchedRows     Int      @default(0)
+  unmatchedRows   Int      @default(0)
+  totalAmount     Float
+  uploadedAt      DateTime @default(now())
+}
+
+// Insurer Receivable Ledger (Expected vs Actually Received from Insurer)
+model InsurerReceivableLedger {
+  id                    String               @id @default(uuid())
+  policyId              String               @unique
+  policy                Policy               @relation(fields: [policyId], references: [id])
+  expectedCommission    Float
+  statementAmount       Float?               @default(0)
+  actualReceivedAmount  Float?               @default(0)
+  tdsDeducted           Float?               @default(0)
+  shortOrExcessReceipt  Float?               @default(0)
+  reconciliationStatus  ReconciliationStatus @default(UNMATCHED)
+  receiptDate           DateTime?
+  bankReference         String?
+  remarks               String?
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+}
+
+// Agent Payable Ledger (Commission Owed & Paid to Agent)
+model AgentPayableLedger {
+  id                    String        @id @default(uuid())
+  policyId              String        @unique
+  policy                Policy        @relation(fields: [policyId], references: [id])
+  agentId               String
+  agent                 Agent         @relation(fields: [agentId], references: [id])
+  expectedPayoutAmount  Float
+  approvedPayoutAmount  Float?        @default(0)
+  actualPaidAmount      Float?        @default(0)
+  tdsDeduction          Float?        @default(0)
+  pendingRecoveryAmount Float?        @default(0)
+  payoutStatus          PayoutStatus  @default(PENDING_PREPARATION)
+  
+  // Dual-Partner Maker-Checker Payout Approval
+  preparedByUserId      String?
+  preparedAt            DateTime?
+  approvedByPartnerId   String?       // Partner 1 or Partner 2
+  approvedAt            DateTime?
+  paymentDate           DateTime?
+  paymentReference      String?       // Bank UTR or Cheque No
+  
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+}
+
+// -------------------------------------------------------------
+// 8. HR, ATTENDANCE, LEAVE & PAYROLL ENGINE
+// -------------------------------------------------------------
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+  LEAVE
+  HOLIDAY
+  WEEKLY_OFF
+  FIELD_DUTY
+}
+
+model AttendanceRecord {
+  id                String           @id @default(uuid())
+  userId            String
+  user              User             @relation(fields: [userId], references: [id])
+  date              DateTime         @db.Date
+  checkInTime       DateTime?
+  checkOutTime      DateTime?
+  status            AttendanceStatus @default(ABSENT)
+  checkInLatitude   Float?
+  checkInLongitude  Float?
+  checkInIpAddress  String?
+  regularisationNote String?
+  isRegularised     Boolean          @default(false)
+  approvedById      String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@unique([userId, date])
+}
+
+model LeaveRequest {
+  id             String      @id @default(uuid())
+  userId         String
+  user           User        @relation("EmployeeLeaves", fields: [userId], references: [id])
+  leaveType      String      // CASUAL, SICK, PAID, LOSS_OF_PAY
+  startDate      DateTime
+  endDate        DateTime
+  totalDays      Float
+  reason         String
+  status         String      @default("PENDING") // PENDING, APPROVED, REJECTED
+  approvedById   String?
+  approvedBy     User?       @relation("ApprovedLeaves", fields: [approvedById], references: [id])
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model PayrollRecord {
+  id               String    @id @default(uuid())
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+  salaryMonth      String    // e.g. "2026-09"
+  totalDaysInMonth Int
+  payableDays      Float
+  lossOfPayDays    Float     @default(0)
+  basicSalary      Float
+  incentives       Float     @default(0)
+  advancesDeducted Float     @default(0)
+  tdsDeduction     Float     @default(0)
+  netPayableSalary Float
+  paymentReference String?
+  paymentDate      DateTime?
+  status           String    @default("DRAFT") // DRAFT, APPROVED, PAID
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@unique([userId, salaryMonth])
+}
+
+// -------------------------------------------------------------
+// 9. AUDIT TRAILS & MAKER-CHECKER APPROVAL ENGINE
+// -------------------------------------------------------------
+
+model ApprovalRequest {
+  id            String    @id @default(uuid())
+  requestType   String    // AGENT_PAYOUT, AGENT_TRANSFER, ATTENDANCE_REGULARISATION, SALARY_APPROVAL
+  targetId      String    // ID of the target record
+  payload       Json?
+  requestedById String
+  requestedBy   User      @relation("RequestedBy", fields: [requestedById], references: [id])
+  status        String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  decidedById   String?
+  decidedBy     User?     @relation("DecidedBy", fields: [decidedById], references: [id])
+  decisionNotes String?
+  decidedAt     DateTime?
+  createdAt     DateTime  @default(now())
+}

@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apsova - Insurance CRM & Agency Platform</title>
+  <!-- Policybazaar Inspired Enterprise Design System (100% Free, AdBlock-Proof) -->
+  <style>
+    :root {
+      /* Policybazaar Core Color Palette */
+      --pb-navy: #0b2546;          /* Deep Trust Navy */
+      --pb-navy-dark: #07172c;     /* Dark Header Navy */
+      --pb-blue: #0065ff;          /* Primary Policybazaar Blue */
+      --pb-blue-light: #e6f0ff;    /* Soft Blue Tint */
+      --pb-orange: #ff5c26;        /* Signature Policybazaar Orange CTA */
+      --pb-orange-hover: #e04a17;  /* Darker Orange Hover */
+      --pb-orange-light: #fff2ed;  /* Soft Orange Tint */
+      --pb-green: #00a859;         /* Success / Verified / Profit Green */
+      --pb-green-light: #e6f7ef;   /* Soft Green Tint */
+      
+      --bg-page: #f4f7fb;          /* Policybazaar Clean Light Gray-Blue */
+      --bg-card: #ffffff;          /* Crisp White Surface */
+      
+      --text-dark: #0b2546;        /* Deep Navy Heading Text */
+      --text-body: #334155;        /* Neutral Slate Body Text */
+      --text-muted: #64748b;       /* Muted Labels */
+      
+      --border-light: #e2e8f0;     /* Clean Border Lines */
+      --border-accent: #cbd5e1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      line-height: 1.5;
+      font-size: 13.5px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 1340px; margin: 0 auto; padding: 0 20px; }
+
+    /* Policybazaar Signature Navy Header */
+    header {
+      background: var(--pb-navy);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(11, 37, 70, 0.15);
+    }
+    
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+    }
+
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--pb-orange), #ff8142);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 22px; font-weight: 800;
+      box-shadow: 0 4px 14px rgba(255, 92, 38, 0.35);
+    }
+    .brand-title {
+      font-size: 21px; font-weight: 800; color: #fff;
+      letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px;
+    }
+    .pb-tag {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      background: var(--pb-orange); color: #fff;
+      padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px;
+    }
+    .brand-sub { font-size: 11.5px; color: #94a3b8; }
+
+    /* Role Bar */
+    .role-box {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px; padding: 6px 12px;
+    }
+    .role-box label { font-size: 12px; color: #cbd5e1; font-weight: 600; }
+    .role-box select {
+      background: #fff; border: none; color: var(--pb-navy);
+      padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;
+      cursor: pointer; outline: none;
+    }
+
+    /* Policybazaar Navigation Tabs */
+    .nav-tabs {
+      display: flex; gap: 6px; overflow-x: auto; padding: 8px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1); scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      background: transparent; border: 1px solid transparent; color: #cbd5e1;
+      padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+    .nav-btn.active {
+      background: #fff; color: var(--pb-navy);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .badge-orange-pill {
+      font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;
+      background: var(--pb-orange); color: #fff;
+    }
+
+    /* Info Banner */
+    .role-banner {
+      background: var(--pb-blue-light); border-bottom: 1px solid #bfdbfe;
+      padding: 10px 0; font-size: 13px; color: var(--pb-navy);
+    }
+
+    /* Main Container */
+    main { padding: 24px 0 60px 0; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.2s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Action Row */
+    .action-row {
+      background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
+      padding: 18px 24px; display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 14px; margin-bottom: 22px;
+      box-shadow: 0 2px 10px rgba(11, 37, 70, 0.04);
+    }
+    .action-row h2 { font-size: 19px; font-weight: 800; color: var(--text-dark); }
+    .action-row p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Policybazaar Signature Buttons */
+    .btn {
+      padding: 9px 18px; border-radius: 8px; font-size: 12.5px; font-weight: 700;
+      cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-pb-orange {
+      background: var(--pb-orange); color: #fff;
+      box-shadow: 0 4px 12px rgba(255, 92, 38, 0.3);
+    }
+    .btn-pb-orange:hover {
+      background: var(--pb-orange-hover);
+      box-shadow: 0 6px 16px rgba(255, 92, 38, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-pb-blue {
+      background: var(--pb-blue); color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 101, 255, 0.25);
+    }
+    .btn-pb-blue:hover { background: #0052cc; transform: translateY(-1px); }
+    .btn-pb-green {
+      background: var(--pb-green); color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 168, 89, 0.25);
+    }
+    .btn-pb-green:hover { background: #008f4c; transform: translateY(-1px); }
+    .btn-outline {
+      background: #fff; border: 1px solid var(--border-light); color: var(--text-dark);
+    }
+    .btn-outline:hover { background: #f8fafc; border-color: var(--pb-blue); color: var(--pb-blue); }
+
+    /* Policybazaar Metric Cards */
+    .kpi-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px; margin-bottom: 22px;
+    }
+    .pb-card {
+      background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
+      padding: 22px; position: relative;
+      box-shadow: 0 4px 14px rgba(11, 37, 70, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .pb-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(11, 37, 70, 0.08);
+      border-color: #cbd5e1;
+    }
+    .pb-card.highlight {
+      background: linear-gradient(135deg, #ffffff, #f0f7ff);
+      border-color: #93c5fd;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: center; }
+    .kpi-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.6px; }
+    .kpi-number { font-size: 30px; font-weight: 800; color: var(--text-dark); margin: 8px 0 2px 0; letter-spacing: -0.5px; }
+    .kpi-desc { font-size: 12px; color: var(--text-muted); }
+    .card-footer {
+      margin-top: 14px; padding-top: 12px; border-top: 1px solid #f1f5f9;
+      font-size: 12px; display: flex; justify-content: space-between; align-items: center;
+    }
+
+    /* Policybazaar Status Badges */
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+    .tag-orange { background: var(--pb-orange-light); color: var(--pb-orange); border: 1px solid #ffcca3; }
+    .tag-blue { background: var(--pb-blue-light); color: var(--pb-blue); border: 1px solid #bfdbfe; }
+    .tag-green { background: var(--pb-green-light); color: var(--pb-green); border: 1px solid #a7f3d0; }
+    .tag-rose { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+    .tag-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+
+    /* Maker-Checker Approval Box */
+    .approval-box {
+      background: #fffdf5; border: 1px solid #fed7aa; border-radius: 14px;
+      padding: 20px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(251, 133, 0, 0.06);
+    }
+    .approval-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .approval-title { font-size: 15px; font-weight: 800; color: #c2410c; display: flex; align-items: center; gap: 8px; }
+    .approval-item {
+      background: #fff; border: 1px solid #ffedd5; border-radius: 10px;
+      padding: 14px 18px; margin-bottom: 10px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+
+    /* 2 Column Grids */
+    .split-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+    @media (max-width: 960px) { .split-grid { grid-template-columns: 1fr; } }
+
+    /* Surface Cards */
+    .card {
+      background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
+      padding: 22px; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(11, 37, 70, 0.04);
+    }
+    .card-title { font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
+
+    /* Category Bars */
+    .bar-row { margin-bottom: 14px; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-dark); }
+    .bar-track { height: 9px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; }
+
+    /* Data Tables */
+    .table-card {
+      background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
+      overflow: hidden; margin-bottom: 22px; box-shadow: 0 4px 14px rgba(11, 37, 70, 0.04);
+    }
+    .table-header { padding: 18px 22px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th {
+      background: #f8fafc; padding: 14px 18px; font-size: 11px; font-weight: 800;
+      text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-light);
+      letter-spacing: 0.5px;
+    }
+    td { padding: 14px 18px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    tr:hover td { background: #f8fafc; }
+    tr.alert-row td { background: #fff5f5; }
+
+    /* 5 Category Boxes */
+    .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+    .cat-box {
+      background: #fff; border: 1px solid var(--border-light); border-radius: 14px;
+      padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(11, 37, 70, 0.04); transition: transform 0.2s;
+    }
+    .cat-box:hover { transform: translateY(-3px); border-color: var(--pb-blue); }
+    .cat-box h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+    .cat-list { margin: 12px 0; font-size: 12.5px; }
+    .cat-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(11, 37, 70, 0.6); backdrop-filter: blur(4px);
+      z-index: 1000; display: none; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 16px; width: 100%; max-width: 520px; padding: 26px;
+      box-shadow: 0 20px 40px rgba(11, 37, 70, 0.25);
+    }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .modal-head h3 { font-size: 17px; font-weight: 800; color: var(--text-dark); }
+    .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 5px; color: var(--text-dark); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 9px 12px; background: #fff; border: 1px solid #cbd5e1;
+      border-radius: 8px; font-size: 13px; color: var(--text-dark); font-family: inherit; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--pb-blue); box-shadow: 0 0 0 3px rgba(0, 101, 255, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER (POLICYBAZAAR NAVY) -->
+  <header>
+    <div class="container">
+      <div class="header-top">
+        
+        <!-- Brand -->
+        <div class="brand-wrap">
+          <div class="brand-logo">🛡️</div>
+          <div>
+            <div class="brand-title">
+              APSOVA
+              <span class="pb-tag">PB Theme</span>
+            </div>
+            <div class="brand-sub">Insurance CRM • Agency Management • HR & Dual Commission Accounting</div>
+          </div>
+        </div>
+
+        <!-- Role Selector -->
+        <div class="role-box">
+          <label for="roleSelector">Viewing as:</label>
+          <select id="roleSelector" onchange="changeRole(this.value)">
+            <option value="PARTNER_1">Partner 1 (Arun - Owner)</option>
+            <option value="PARTNER_2">Partner 2 (Owner)</option>
+            <option value="ADMIN">Admin / Operations</option>
+            <option value="ACCOUNTS">Accounts (Commissions & Payouts)</option>
+            <option value="TELECALLER">Telecaller (Anjali)</option>
+            <option value="AGENCY_MANAGER">Agency Manager (Rahul)</option>
+            <option value="HR">HR & Payroll</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn active">
+          📊 Partner Dashboard
+        </button>
+        <button onclick="switchTab('telecalling')" id="tab-telecalling" class="nav-btn">
+          📞 Leads & Telecalling
+        </button>
+        <button onclick="switchTab('renewals')" id="tab-renewals" class="nav-btn">
+          🔄 Renewals (60/30/15/7/1d)
+          <span class="badge-orange-pill">12 Due</span>
+        </button>
+        <button onclick="switchTab('companies')" id="tab-companies" class="nav-btn">
+          🏢 Insurers & 5 Categories
+        </button>
+        <button onclick="switchTab('agents')" id="tab-agents" class="nav-btn">
+          👥 Agents & POSP (APS-100+)
+        </button>
+        <button onclick="switchTab('commissions')" id="tab-commissions" class="nav-btn">
+          💰 Dual Commission Ledgers
+        </button>
+        <button onclick="switchTab('hr')" id="tab-hr" class="nav-btn">
+          🕒 HR & Attendance
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Role Notification Banner -->
+  <div class="role-banner">
+    <div class="container" id="roleBannerText">
+      ℹ️ You are logged in as <strong>Partner 1 (Arun - Owner)</strong>. Complete business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.
+    </div>
+  </div>
+
+  <!-- Main View -->
+  <main>
+    <div class="container">
+
+      <!-- ============================================================== -->
+      <!-- TAB 1: DUAL PARTNER EXECUTIVE DASHBOARD -->
+      <!-- ============================================================== -->
+      <div id="view-dashboard" class="tab-content active">
+        
+        <div class="action-row">
+          <div>
+            <h2>Partner Executive Overview</h2>
+            <p>Live financial performance, sales pipeline, and dual-partner maker-checker approvals</p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-pb-orange" onclick="openModal('policyIssueModal')">➕ Issue New Policy (5 Categories)</button>
+            <button class="btn btn-pb-blue">FY 2026-27 (Apr–Mar)</button>
+            <button class="btn btn-outline">CY 2026 (Jan–Dec)</button>
+            <button class="btn btn-outline" onclick="alert('Exporting Full Business Performance Report (PDF/Excel)...')">📥 Export Report</button>
+          </div>
+        </div>
+
+        <!-- 4 Key Financial & Business Cards -->
+        <div class="kpi-row">
+          
+          <div class="pb-card">
+            <div class="card-top">
+              <span class="kpi-label">Gross Premium Booked</span>
+              <span class="tag tag-blue">142 Policies</span>
+            </div>
+            <div class="kpi-number">₹48,50,000</div>
+            <div class="kpi-desc">Issued across 5 categories this month</div>
+            <div class="card-footer">
+              <span style="color: var(--text-muted);">Premium is <strong>not</strong> Apsova income</span>
+              <span class="tag tag-green">+18.4% YoY</span>
+            </div>
+          </div>
+
+          <div class="pb-card">
+            <div class="card-top">
+              <span class="kpi-label">Gross Insurer Commission</span>
+              <span class="tag tag-green">Avg 15.0%</span>
+            </div>
+            <div class="kpi-number" style="color: var(--pb-green);">₹7,27,500</div>
+            <div class="kpi-desc">Expected receipts from partner insurers</div>
+            <div class="card-footer">
+              <span>Received: <strong style="color: var(--text-dark);">₹5,90,000</strong></span>
+              <span class="tag tag-orange">₹1,37,500 Due</span>
+            </div>
+          </div>
+
+          <div class="pb-card">
+            <div class="card-top">
+              <span class="kpi-label">Agent Commission Payable</span>
+              <span class="tag tag-orange">38 Active POSP</span>
+            </div>
+            <div class="kpi-number" style="color: var(--pb-orange);">₹3,45,000</div>
+            <div class="kpi-desc">Payable to agents (APS-100 onwards)</div>
+            <div class="card-footer">
+              <span>Paid: <strong style="color: var(--text-dark);">₹2,80,000</strong></span>
+              <span class="tag tag-rose">₹65,000 Approved Due</span>
+            </div>
+          </div>
+
+          <div class="pb-card highlight">
+            <div class="card-top">
+              <span class="kpi-label" style="color: var(--pb-blue);">Net Apsova Revenue</span>
+              <span class="tag tag-green">Profitable</span>
+            </div>
+            <div class="kpi-number" style="color: var(--pb-navy);">₹3,82,500</div>
+            <div class="kpi-desc">Retained margin after agent payouts</div>
+            <div class="card-footer">
+              <span>Expenses: ₹1,20,000</span>
+              <strong style="color: var(--pb-green); font-size: 13px;">Net Profit: ₹2,62,500</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- MAKER-CHECKER APPROVAL BOX -->
+        <div class="approval-box">
+          <div class="approval-head">
+            <div class="approval-title">
+              ⚖️ Dual-Partner Maker-Checker Approvals (Waiting for Owner Decision)
+            </div>
+            <span class="tag tag-orange">2 Pending Approvals</span>
+          </div>
+
+          <div class="approval-item">
+            <div>
+              <span class="tag tag-blue">Agent Payout Batch</span>
+              <strong style="margin-left: 8px; color: var(--text-dark);">Batch #PAY-2026-OCT-01 (₹65,000 Payout)</strong>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+                Prepared by: <strong>Accounts (Suresh)</strong> • Awaiting Partner 1 or Partner 2 approval for bank transfer release.
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-pb-green" onclick="alert('Payout Batch Approved! Bank UTR release advice generated.')">✓ Approve & Release</button>
+              <button class="btn btn-outline" onclick="alert('Viewing 8 agent payout line items...')">Review Details</button>
+            </div>
+          </div>
+
+          <div class="approval-item">
+            <div>
+              <span class="tag tag-purple">Bulk Agent Transfer</span>
+              <strong style="margin-left: 8px; color: var(--text-dark);">Transfer 14 Agents from Rahul (Resigned) → Akhil</strong>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+                Effective Date: 15-Oct-2026 • Preserves all historical sales credits & settled commissions.
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-pb-green" onclick="alert('Transfer Approved! 14 Agents reassigned to Akhil. Attribution locked.')">✓ Approve Transfer</button>
+              <button class="btn btn-outline" onclick="openModal('agentTransferModal')">Review Agents</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Column Breakdown -->
+        <div class="split-grid">
+          
+          <div class="card">
+            <div class="card-title">Business Mix Across 5 Categories (October)</div>
+            
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>Health Insurance (Star Health, Care, HDFC ERGO)</span>
+                <strong style="color: var(--pb-green);">₹22,40,000 (46.2%)</strong>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 46.2%; background: var(--pb-green);"></div></div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>Motor Insurance (OD / TP - ICICI Lombard, Tata AIG)</span>
+                <strong style="color: var(--pb-blue);">₹15,10,000 (31.1%)</strong>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 31.1%; background: var(--pb-blue);"></div></div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>Life Insurance (Term & Savings - HDFC Life, Tata AIA)</span>
+                <strong style="color: #7e22ce;">₹6,80,000 (14.0%)</strong>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 14.0%; background: #7e22ce;"></div></div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>Group & Corporate Mediclaim</span>
+                <strong style="color: #c026d3;">₹3,20,000 (6.6%)</strong>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 6.6%; background: #c026d3;"></div></div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-labels">
+                <span>Pet Insurance (Future Generali, Bajaj Allianz)</span>
+                <strong style="color: var(--pb-orange);">₹1,00,000 (2.1%)</strong>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width: 2.1%; background: var(--pb-orange);"></div></div>
+            </div>
+
+          </div>
+
+          <div class="card">
+            <div class="card-title">Today's Staff Pulse</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+              <div style="background: var(--pb-green-light); border: 1px solid #a7f3d0; border-radius: 12px; padding: 14px; text-align: center;">
+                <div style="font-size: 26px; font-weight: 800; color: var(--pb-green);">18 / 20</div>
+                <div style="font-size: 11.5px; font-weight: 700; color: var(--pb-green); margin-top: 2px;">Present Today</div>
+              </div>
+              <div style="background: var(--pb-blue-light); border: 1px solid #bfdbfe; border-radius: 12px; padding: 14px; text-align: center;">
+                <div style="font-size: 26px; font-weight: 800; color: var(--pb-blue);">248</div>
+                <div style="font-size: 11.5px; font-weight: 700; color: var(--pb-blue); margin-top: 2px;">Calls Logged</div>
+              </div>
+            </div>
+
+            <div style="font-size: 12.5px; line-height: 2.4;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light);">
+                <span style="color: var(--text-muted);">Telecalling Team:</span>
+                <strong style="color: var(--text-dark);">8 Present • 1 Leave</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light);">
+                <span style="color: var(--text-muted);">Agency Managers:</span>
+                <strong style="color: var(--text-dark);">6 Present • 2 Field Duty</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-muted);">Operations & Accounts:</span>
+                <strong style="color: var(--text-dark);">4 Present</strong>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 2: LEADS & TELECALLING -->
+      <!-- ============================================================== -->
+      <div id="view-telecalling" class="tab-content">
+        
+        <div class="action-row">
+          <div>
+            <h2>Lead Generation & Telecalling Management</h2>
+            <p>Meta Ads (Facebook/Instagram), Website, WhatsApp, and Excel Calling Lists</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-pb-green" onclick="openModal('excelUploadModal')">📄 Upload Calling Excel</button>
+            <button class="btn btn-pb-orange" onclick="openModal('newLeadModal')">+ Add Direct Lead</button>
+          </div>
+        </div>
+
+        <div class="card" style="overflow-x: auto; margin-bottom: 22px;">
+          <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.5px;">
+            Apsova Insurance Lead Workflow
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; min-width: 720px; font-size: 12px; font-weight: 700;">
+            <span class="tag tag-blue" style="padding: 6px 14px;">1. New (14)</span> →
+            <span class="tag tag-outline" style="padding: 6px 14px; background: #f8fafc;">2. Assigned (26)</span> →
+            <span class="tag tag-outline" style="padding: 6px 14px; background: #f8fafc;">3. Connected (48)</span> →
+            <span class="tag tag-orange" style="padding: 6px 14px;">4. Quote Shared (32)</span> →
+            <span class="tag tag-purple" style="padding: 6px 14px;">5. Proposal (19)</span> →
+            <span class="tag tag-green" style="padding: 6px 14px;">6. Policy Issued (142)</span>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <strong style="font-size: 14px; color: var(--text-dark);">Active Calling Pool (139 Leads)</strong>
+            <span style="font-size: 12px; color: var(--text-muted);">Round-robin distribution active</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lead / Customer</th>
+                  <th>Category & Plan</th>
+                  <th>Source</th>
+                  <th>Assigned To</th>
+                  <th>Sales Stage</th>
+                  <th>Next Follow-up</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="alert-row">
+                  <td>
+                    <strong style="color: var(--text-dark);">Vishnu Prasad</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 98471 22849 • Kochi</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-blue">Motor 4W</span>
+                    <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">Hyundai Creta (KL-07-CF-4021)</div>
+                  </td>
+                  <td>Meta FB Ad (Onam_Motor)</td>
+                  <td><strong>Anjali (Telecaller)</strong></td>
+                  <td><span class="tag tag-orange">Quote Shared</span></td>
+                  <td>
+                    <strong style="color: #dc2626;">⚠️ Today, 11:30 AM (Overdue)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Outcome: Callback requested</div>
+                  </td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-blue" onclick="openCallLogModal('Vishnu Prasad', '+91 98471 22849')">Log Call</button>
+                    <button class="btn btn-outline" onclick="alert('Transferred lead to Agency Manager Rahul')">Handover</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <strong style="color: var(--text-dark);">Dr. Rajesh Menon</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 94470 19832 • Thrissur</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-green">Health Floater</span>
+                    <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">2 Adults + 2 Kids (15L SI)</div>
+                  </td>
+                  <td>WhatsApp Referral</td>
+                  <td><strong>Rahul (Agency Mgr)</strong></td>
+                  <td><span class="tag tag-purple">Proposal Submitted</span></td>
+                  <td>
+                    <div style="color: var(--text-dark); font-weight: 600;">Tomorrow, 10:00 AM</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Payment link shared</div>
+                  </td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-blue" onclick="openCallLogModal('Dr. Rajesh Menon', '+91 94470 19832')">Log Call</button>
+                    <button class="btn btn-pb-green" onclick="alert('Marked Payment Confirmed! Sent to Ops for Policy Issuance.')">Confirm Paid</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 3: AUTOMATED RENEWALS (60, 30, 15, 7, 1 DAY) -->
+      <!-- ============================================================== -->
+      <div id="view-renewals" class="tab-content">
+        
+        <div class="action-row">
+          <div>
+            <h2>Policy Renewal Engine & Reminder Tracker</h2>
+            <p>Automated reminders scheduled at 60, 30, 15, 7, and 1 day prior to policy expiry</p>
+          </div>
+          <button class="btn btn-pb-orange" onclick="alert('Server Daily Cron Dispatched! 12 WhatsApp reminder messages sent in Malayalam & English.')">
+            📲 Dispatch Today's Reminders
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 22px;">
+          <div class="card" style="text-align: center; margin: 0;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--text-muted);">60 DAYS DUE</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--text-dark); margin: 6px 0;">28</div>
+            <span class="tag tag-green">Notice Sent</span>
+          </div>
+          <div class="card" style="text-align: center; margin: 0;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--text-muted);">30 DAYS DUE</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--text-dark); margin: 6px 0;">19</div>
+            <span class="tag tag-blue">Quotes Shared</span>
+          </div>
+          <div class="card" style="text-align: center; margin: 0;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--text-muted);">15 DAYS DUE</div>
+            <div style="font-size: 26px; font-weight: 800; color: var(--pb-orange); margin: 6px 0;">14</div>
+            <span class="tag tag-orange">Calling Required</span>
+          </div>
+          <div class="card" style="text-align: center; margin: 0; border-color: #fca5a5;">
+            <div style="font-size: 11px; font-weight: 800; color: #dc2626;">7 DAYS DUE</div>
+            <div style="font-size: 26px; font-weight: 800; color: #dc2626; margin: 6px 0;">7</div>
+            <span class="tag tag-rose">Urgent</span>
+          </div>
+          <div class="card" style="text-align: center; margin: 0; background: #fef2f2; border-color: #f87171;">
+            <div style="font-size: 11px; font-weight: 800; color: #b91c1c;">1 DAY / TODAY</div>
+            <div style="font-size: 26px; font-weight: 800; color: #b91c1c; margin: 6px 0;">3</div>
+            <span class="tag tag-rose">Expiring Today!</span>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <strong style="font-size: 14px; color: var(--text-dark);">Upcoming Policy Expiries & Portability</strong>
+            <span style="font-size: 12px; color: var(--text-muted);">Auto-links previous policy to renewed policy</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Policy No & Insured</th>
+                  <th>Insurer & Plan</th>
+                  <th>Category</th>
+                  <th>Expiry Date</th>
+                  <th>Reminders Logged</th>
+                  <th>Status</th>
+                  <th>Assigned Employee</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="alert-row">
+                  <td>
+                    <strong style="color: var(--text-dark);">P-MOT-2025-9948</strong>
+                    <div style="font-weight: 600;">George Mathew</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Honda City (KL-01-BK-9182)</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">ICICI Lombard</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Comprehensive 4W</div>
+                  </td>
+                  <td><span class="tag tag-blue">Motor</span></td>
+                  <td>
+                    <strong style="color: #dc2626;">10-Oct-2026 (Tomorrow)</strong>
+                    <div style="font-size: 11px; color: #dc2626;">1 Day Left!</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-green">60d ✓</span>
+                    <span class="tag tag-green">30d ✓</span>
+                    <span class="tag tag-green">15d ✓</span>
+                    <span class="tag tag-green">7d ✓</span>
+                    <span class="tag tag-rose">1d Sent</span>
+                  </td>
+                  <td><span class="tag tag-orange">Payment Pending</span></td>
+                  <td>Anjali (Telecaller)</td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-green" onclick="openWhatsAppModal('George Mathew', '9847012345', 'P-MOT-2025-9948', 'Honda City (KL-01-BK-9182)', '10-Oct-2026', '₹14,250')">📲 WhatsApp</button>
+                    <button class="btn btn-pb-blue" onclick="alert('Renewed! Linked previous policy P-MOT-2025-9948 to new policy.')">Mark Renewed</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <strong style="color: var(--text-dark);">P-HLT-2025-1049</strong>
+                    <div style="font-weight: 600;">Mariamma Joseph</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Senior Citizen Red Carpet (5L SI)</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Star Health</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Red Carpet Plan</div>
+                  </td>
+                  <td><span class="tag tag-green">Health</span></td>
+                  <td>
+                    <strong style="color: var(--text-dark);">24-Oct-2026</strong>
+                    <div style="font-size: 11px; color: var(--pb-orange);">15 Days Left</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-green">60d ✓</span>
+                    <span class="tag tag-green">30d ✓</span>
+                    <span class="tag tag-blue">15d Sent</span>
+                  </td>
+                  <td><span class="tag tag-blue">Contacted</span></td>
+                  <td>Rahul (Agency Mgr)</td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-green" onclick="openWhatsAppModal('Mariamma Joseph', '9447198765', 'P-HLT-2025-1049', 'Senior Citizen Red Carpet (5L SI)', '24-Oct-2026', '₹28,500')">📲 WhatsApp</button>
+                    <button class="btn btn-pb-blue" onclick="alert('Sharing quotation comparison: Star Health vs Care Health.')">Share Quote</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 4: INSURERS & 5 CATEGORIES -->
+      <!-- ============================================================== -->
+      <div id="view-companies" class="tab-content">
+        
+        <div class="action-row">
+          <div>
+            <h2>Partnered Insurers & Products Catalogue</h2>
+            <p>Configure partner insurers under Health, Motor, Life, Group, and Pet categories with commission margins</p>
+          </div>
+          <button class="btn btn-pb-blue" onclick="alert('Add Insurer Modal: Configure company name, category, and commission rules.')">+ Add New Company</button>
+        </div>
+
+        <div class="category-grid">
+          
+          <div class="cat-box">
+            <div>
+              <h4 style="color: var(--pb-green);">🏥 Health Insurance</h4>
+              <p style="font-size: 12px; color: var(--text-muted);">Individual, Floater, Senior, Portability</p>
+              <div class="cat-list">
+                <div class="cat-row"><span>Star Health</span><strong style="color: var(--pb-green);">15.0% Comm</strong></div>
+                <div class="cat-row"><span>Care Health</span><strong style="color: var(--pb-green);">17.5% Comm</strong></div>
+                <div class="cat-row"><span>Niva Bupa</span><strong style="color: var(--pb-green);">15.0% Comm</strong></div>
+                <div class="cat-row"><span>HDFC ERGO</span><strong style="color: var(--pb-green);">14.0% Comm</strong></div>
+              </div>
+            </div>
+            <span class="tag tag-green" style="text-align: center; justify-content: center;">4 Partnered Companies</span>
+          </div>
+
+          <div class="cat-box">
+            <div>
+              <h4 style="color: var(--pb-blue);">🚗 Motor Insurance</h4>
+              <p style="font-size: 12px; color: var(--text-muted);">OD, TP, IDV, NCB, Commercial & Private</p>
+              <div class="cat-list">
+                <div class="cat-row"><span>ICICI Lombard</span><strong style="color: var(--pb-blue);">OD: 18% / TP: 2.5%</strong></div>
+                <div class="cat-row"><span>Tata AIG</span><strong style="color: var(--pb-blue);">OD: 20% / TP: 2.5%</strong></div>
+                <div class="cat-row"><span>Bajaj Allianz</span><strong style="color: var(--pb-blue);">OD: 17% / TP: 2.5%</strong></div>
+                <div class="cat-row"><span>Go Digit</span><strong style="color: var(--pb-blue);">OD: 19% / TP: 2.5%</strong></div>
+              </div>
+            </div>
+            <span class="tag tag-blue" style="text-align: center; justify-content: center;">4 Partnered Companies</span>
+          </div>
+
+          <div class="cat-box">
+            <div>
+              <h4 style="color: #7e22ce;">🌱 Life Insurance</h4>
+              <p style="font-size: 12px; color: var(--text-muted);">Term, Savings, PPT, Sum Assured</p>
+              <div class="cat-list">
+                <div class="cat-row"><span>HDFC Life</span><strong style="color: #7e22ce;">FY: 25.0%</strong></div>
+                <div class="cat-row"><span>Tata AIA</span><strong style="color: #7e22ce;">FY: 30.0%</strong></div>
+                <div class="cat-row"><span>ICICI Prudential</span><strong style="color: #7e22ce;">FY: 25.0%</strong></div>
+              </div>
+            </div>
+            <span class="tag tag-purple" style="text-align: center; justify-content: center;">3 Partnered Companies</span>
+          </div>
+
+          <div class="cat-box">
+            <div>
+              <h4 style="color: #c026d3;">🏢 Group & Corporate</h4>
+              <p style="font-size: 12px; color: var(--text-muted);">Corporate Mediclaim & GPA Rosters</p>
+              <div class="cat-list">
+                <div class="cat-row"><span>ICICI Lombard</span><strong style="color: #c026d3;">10.0% Comm</strong></div>
+                <div class="cat-row"><span>Star Health</span><strong style="color: #c026d3;">11.0% Comm</strong></div>
+              </div>
+            </div>
+            <span class="tag tag-purple" style="text-align: center; justify-content: center;">2 Partnered Companies</span>
+          </div>
+
+          <div class="cat-box">
+            <div>
+              <h4 style="color: var(--pb-orange);">🐾 Pet Insurance</h4>
+              <p style="font-size: 12px; color: var(--text-muted);">Microchip, Breed, Age & Covers</p>
+              <div class="cat-list">
+                <div class="cat-row"><span>Future Generali</span><strong style="color: var(--pb-orange);">15.0% Comm</strong></div>
+                <div class="cat-row"><span>Bajaj Allianz</span><strong style="color: var(--pb-orange);">12.5% Comm</strong></div>
+              </div>
+            </div>
+            <span class="tag tag-orange" style="text-align: center; justify-content: center;">2 Partnered Companies</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 5: AGENTS & POSP (APS-100+) -->
+      <!-- ============================================================== -->
+      <div id="view-agents" class="tab-content">
+        
+        <div class="action-row">
+          <div>
+            <h2>Agency Network & POSP Registration</h2>
+            <p>Permanent internal IDs starting from <strong>APS-100 onwards</strong> with insurer POSP codes</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline" onclick="openModal('agentTransferModal')">🔄 Bulk Transfer Agents (Resigned Manager)</button>
+            <button class="btn btn-pb-orange" onclick="openModal('registerAgentModal')">➕ Register New Agent (APS-100+)</button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <div>
+              <strong style="font-size: 14px; color: var(--text-dark);">Registered POSP Agents</strong>
+              <div style="font-size: 11px; color: var(--text-muted);">Numbering sequence: <strong>APS-100 onwards</strong></div>
+            </div>
+            <span class="tag tag-green">38 Active Agents</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Internal Agent ID</th>
+                  <th>Agent Name & Contact</th>
+                  <th>Assigned Agency Manager</th>
+                  <th>Insurer Codes</th>
+                  <th>Business Sourced</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-100</strong></td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Manoj Nambiar</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 94471 89012 • Kannur</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Rahul (Agency Mgr)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Recruited by: Arun (Partner)</div>
+                  </td>
+                  <td style="font-size: 11px; line-height: 1.4;">
+                    <div>Star: <code>STAR-KN-442</code></div>
+                    <div>ICICI: <code>IL-POSP-9021</code></div>
+                  </td>
+                  <td>
+                    <strong>₹8,40,000</strong>
+                    <div style="font-size: 11px; color: var(--pb-green);">24 Issued Policies</div>
+                  </td>
+                  <td><span class="tag tag-green">Active POSP</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-100')">Ledger</button>
+                    <button class="btn btn-outline">KYC Docs</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-101</strong></td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Deepa Pillai</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 98460 77123 • Ernakulam</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Akhil (Agency Mgr)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Transferred from Rahul on 01-Sep</div>
+                  </td>
+                  <td style="font-size: 11px; line-height: 1.4;">
+                    <div>Care: <code>CARE-EKM-112</code></div>
+                    <div>Tata AIG: <code>TAIG-8841</code></div>
+                  </td>
+                  <td>
+                    <strong>₹5,20,000</strong>
+                    <div style="font-size: 11px; color: var(--pb-green);">16 Issued Policies</div>
+                  </td>
+                  <td><span class="tag tag-green">Active POSP</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-101')">Ledger</button>
+                    <button class="btn btn-outline">KYC Docs</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 6: DUAL COMMISSION LEDGERS -->
+      <!-- ============================================================== -->
+      <div id="view-commissions" class="tab-content">
+        
+        <div class="action-row">
+          <div>
+            <h2>Dual-Entry Commission Accounting System</h2>
+            <p>Two connected ledgers: What insurers owe Apsova vs. What Apsova owes sourcing agents</p>
+          </div>
+          <button class="btn btn-pb-green" onclick="openModal('reconciliationModal')">
+            📥 Upload & Reconcile Insurer Statement (Excel)
+          </button>
+        </div>
+
+        <div class="split-grid">
+          
+          <!-- Ledger A -->
+          <div class="card" style="border-top: 4px solid var(--pb-green);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <div>
+                <span class="tag tag-green">Ledger A</span>
+                <h3 style="font-size: 16px; font-weight: 800; margin-top: 6px; color: var(--text-dark);">Insurer Commission Receivable</h3>
+              </div>
+              <strong style="color: var(--pb-green); font-size: 16px;">₹1,37,500 Outstanding</strong>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                <span style="color: var(--text-dark);">Star Health (Sep Statement)</span>
+                <span style="color: var(--pb-green);">Matched 42 / 44 Policies</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; justify-content: space-between;">
+                <span>Expected: ₹2,10,000 | Statement: ₹2,04,500</span>
+                <strong style="color: #dc2626;">Short-Receipt: ₹5,500</strong>
+              </div>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 12px; padding: 14px;">
+              <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                <span style="color: var(--text-dark);">ICICI Lombard (Motor OD)</span>
+                <span style="color: var(--pb-green);">Matched 68 / 68 (Full Receipt)</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; justify-content: space-between;">
+                <span>Received in Bank: ₹3,85,500</span>
+                <strong style="color: var(--pb-green);">UTR: HDFC000192849</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ledger B -->
+          <div class="card" style="border-top: 4px solid var(--pb-orange);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <div>
+                <span class="tag tag-orange">Ledger B</span>
+                <h3 style="font-size: 16px; font-weight: 800; margin-top: 6px; color: var(--text-dark);">Agent Commission Payable</h3>
+              </div>
+              <strong style="color: var(--pb-orange); font-size: 16px;">₹65,000 Pending Release</strong>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                <span style="color: var(--text-dark);">Manoj Nambiar (APS-100)</span>
+                <strong style="color: var(--text-dark);">₹24,500 Payable</strong>
+              </div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; justify-content: space-between;">
+                <span>TDS 5%: ₹1,225 • Net: ₹23,275</span>
+                <span class="tag tag-orange">Maker Prepared</span>
+              </div>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 12px; padding: 14px;">
+              <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                <span style="color: var(--text-dark);">Deepa Pillai (APS-101)</span>
+                <strong style="color: var(--text-dark);">₹16,800 Payable</strong>
+              </div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; display: flex; justify-content: space-between;">
+                <span>TDS 5%: ₹840 • Net: ₹15,960</span>
+                <span class="tag tag-green">Checker Approved</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- TAB 7: HR & ATTENDANCE -->
+      <!-- ============================================================== -->
+      <div id="view-hr" class="tab-content">
+        
+        <div class="action-row">
+          <div>
+            <h2>HR, Mobile Attendance & Salary Processing</h2>
+            <p>Employee self-service check-in/out with location geofence and monthly salary calculation</p>
+          </div>
+          <button class="btn btn-pb-blue" onclick="simulateCheckIn()">
+            📍 Simulate Mobile Check-In
+          </button>
+        </div>
+
+        <div class="split-grid">
+          
+          <div class="table-card">
+            <div class="table-header">
+              <strong style="font-size: 14px; color: var(--text-dark);">Today's Attendance Logs (10-Oct-2026)</strong>
+              <span class="tag tag-green">18 Present</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Employee</th>
+                    <th>Role</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style="color: var(--text-dark);">Anjali S.</strong></td>
+                    <td style="color: var(--text-muted);">Telecaller</td>
+                    <td>09:14 AM</td>
+                    <td style="color: var(--text-muted);">In Office</td>
+                    <td><span class="tag tag-green">Present</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: var(--text-dark);">Rahul K.</strong></td>
+                    <td style="color: var(--text-muted);">Agency Manager</td>
+                    <td>09:45 AM (Field)</td>
+                    <td style="color: var(--text-muted);">In Field</td>
+                    <td><span class="tag tag-blue">Field Duty</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: var(--text-dark);">Suresh M.</strong></td>
+                    <td style="color: var(--text-muted);">Accounts</td>
+                    <td>09:02 AM</td>
+                    <td style="color: var(--text-muted);">In Office</td>
+                    <td><span class="tag tag-green">Present</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">September Payroll Summary</div>
+            <div style="font-size: 13px; line-height: 2.4;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light);">
+                <span style="color: var(--text-muted);">Gross Salaries:</span>
+                <strong style="color: var(--text-dark);">₹4,20,000</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light);">
+                <span style="color: var(--text-muted);">Sales Incentives:</span>
+                <strong style="color: var(--pb-green);">+₹45,000</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-light);">
+                <span style="color: var(--text-muted);">Loss of Pay & TDS:</span>
+                <strong style="color: #dc2626;">-₹18,500</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; padding-top: 8px;">
+                <span style="color: var(--text-dark);">Net Bank Payout:</span>
+                <span style="color: var(--pb-blue);">₹4,46,500</span>
+              </div>
+            </div>
+            <button class="btn btn-outline" style="width: 100%; justify-content: center; margin-top: 18px;" onclick="alert('Downloading all 20 salary payslips in PDF...')">
+              📄 Download All Payslips (PDF)
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modals -->
+  <div id="excelUploadModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Upload Telecalling List (Excel/CSV)</h3>
+        <button class="modal-close" onclick="closeModal('excelUploadModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+        Automatic duplicate check by mobile/email, preview mapping, and round-robin allocation to telecallers.
+      </p>
+      <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 14px; background: #f8fafc;">
+        <div style="font-size: 28px; margin-bottom: 6px;">📄</div>
+        <strong style="color: var(--text-dark);">Click to select Excel file (.xlsx / .csv)</strong>
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Columns: Name, Mobile, Category, Insurer, Renewal Date, City</div>
+      </div>
+      <div class="form-group">
+        <label>Allocation Strategy:</label>
+        <select>
+          <option>Round-Robin to All Telecallers</option>
+          <option>Assign by Insurance Category (Motor / Health)</option>
+          <option>Assign to Specific Employee</option>
+        </select>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('excelUploadModal')">Cancel</button>
+        <button class="btn btn-pb-green" onclick="alert('Uploaded! 50 leads detected. 2 duplicates filtered out. 48 leads allocated successfully.'); closeModal('excelUploadModal')">Preview & Import</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="agentTransferModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Bulk Agent Transfer Wizard</h3>
+        <button class="modal-close" onclick="closeModal('agentTransferModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+        When an Agency Manager resigns, their assigned agents are transferred to another manager while strictly preserving historical business credits.
+      </p>
+      <div class="form-group">
+        <label>Old Manager (Resigning Employee):</label>
+        <select disabled>
+          <option>Rahul K. (Resigning - 14 Agents Assigned)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>New Servicing Manager:</label>
+        <select>
+          <option>Akhil M. (Senior Agency Manager)</option>
+          <option>Priya Nair (Agency Manager)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Effective Transfer Date:</label>
+        <input type="date" value="2026-10-15">
+      </div>
+      <div class="form-group">
+        <label>Reason / Notes:</label>
+        <textarea rows="2" placeholder="e.g. Rahul resigned. All 14 POSP agents reassigned to Akhil."></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('agentTransferModal')">Cancel</button>
+        <button class="btn btn-pb-blue" onclick="alert('Submitted for Partner 1 & 2 Maker-Checker Approval!'); closeModal('agentTransferModal')">Submit for Approval</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="callLogModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>Log Call Outcome</h3>
+        <button class="modal-close" onclick="closeModal('callLogModal')">×</button>
+      </div>
+      <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px; margin-bottom: 12px; font-size: 12px;">
+        <strong id="callLeadName" style="color: var(--text-dark);">Customer</strong>
+        <span id="callLeadMobile" style="color: var(--text-muted);"></span>
+      </div>
+      <div class="form-group">
+        <label>Call Outcome (What happened on call):</label>
+        <select>
+          <option>Connected - Customer Interested</option>
+          <option>Connected - Requested Callback Later</option>
+          <option>Connected - Quote Rejected / High Price</option>
+          <option>Ringing - No Answer</option>
+          <option>Busy / Call Waiting</option>
+          <option>Switched Off / Not Reachable</option>
+          <option>Invalid Number</option>
+          <option>Not Interested / Do Not Contact</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Sales Opportunity Stage:</label>
+        <select>
+          <option>Quote Shared</option>
+          <option>Proposal Submitted</option>
+          <option>Payment Confirmed</option>
+          <option>Qualified Enquiry</option>
+          <option>Lost</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mandatory Next Follow-up Date & Time:</label>
+        <input type="datetime-local">
+      </div>
+      <div class="form-group">
+        <label>Discussion Remarks:</label>
+        <textarea rows="2" placeholder="e.g. Compared Tata AIG vs ICICI Lombard. Agreed for 1-year comprehensive with Zero Dep."></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('callLogModal')">Cancel</button>
+        <button class="btn btn-pb-blue" onclick="alert('Call Logged successfully! Next follow-up alert scheduled.'); closeModal('callLogModal')">Save Call Log</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: POLICY ISSUANCE WIZARD (5 CATEGORIES) -->
+  <div id="policyIssueModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 620px;">
+      <div class="modal-head">
+        <h3>➕ Issue Policy Wizard (All 5 Categories)</h3>
+        <button class="modal-close" onclick="closeModal('policyIssueModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        Capture proposal, calculate OD/TP or floater premiums, allocate agent credit (APS-100+), and issue policy.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+        <div class="form-group" style="margin: 0;">
+          <label>Customer Name:</label>
+          <input type="text" id="polCustomerName" placeholder="e.g. Anand Varma" value="Anand Varma">
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label>Mobile Number:</label>
+          <input type="tel" id="polCustomerMobile" placeholder="e.g. 9847011223" value="9847011223">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+        <div class="form-group" style="margin: 0;">
+          <label>Insurance Category:</label>
+          <select id="polCategory" onchange="updateCategoryFields(this.value)">
+            <option value="MOTOR">🚗 Motor Insurance (OD / TP / Commercial)</option>
+            <option value="HEALTH">🏥 Health Insurance (Floater / Individual)</option>
+            <option value="LIFE">🌱 Life Insurance (Term / Savings)</option>
+            <option value="GROUP">🏢 Group & Corporate Mediclaim</option>
+            <option value="PET">🐾 Pet Insurance</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label>Partnered Insurer:</label>
+          <select id="polInsurer">
+            <option value="ICICI_LOMBARD">ICICI Lombard</option>
+            <option value="STAR_HEALTH">Star Health</option>
+            <option value="CARE_HEALTH">Care Health</option>
+            <option value="TATA_AIG">Tata AIG</option>
+            <option value="HDFC_LIFE">HDFC Life</option>
+            <option value="TATA_AIA">Tata AIA</option>
+            <option value="GO_DIGIT">Go Digit</option>
+            <option value="FUTURE_GENERALI">Future Generali</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- DYNAMIC CATEGORY FIELDS CONTAINER -->
+      <div id="dynamicCategoryFields" style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
+        <!-- Motor Default Fields -->
+        <div id="fieldsMotor">
+          <div style="font-weight: 700; font-size: 11px; text-transform: uppercase; color: var(--pb-blue); margin-bottom: 6px;">Motor Details (OD / TP / NCB)</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Vehicle Reg No:</label>
+              <input type="text" placeholder="KL-07-CB-9021" value="KL-07-CB-9021">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Vehicle IDV (₹):</label>
+              <input type="number" placeholder="8,50,000" value="850000">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">NCB Discount:</label>
+              <select>
+                <option>50% (5+ Years Claim Free)</option>
+                <option>35%</option>
+                <option>25%</option>
+                <option>20%</option>
+                <option>0% (New Vehicle / Claimed)</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">OD Premium (₹):</label>
+              <input type="number" id="motOd" value="11200" oninput="calcGrossPremium()">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">TP Premium (₹):</label>
+              <input type="number" id="motTp" value="3416" oninput="calcGrossPremium()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Health Fields (Hidden by default) -->
+        <div id="fieldsHealth" style="display: none;">
+          <div style="font-weight: 700; font-size: 11px; text-transform: uppercase; color: var(--pb-green); margin-bottom: 6px;">Health Plan & Members</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Plan Type:</label>
+              <select><option>Family Floater (2A + 2K)</option><option>Individual</option><option>Senior Citizen</option></select>
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Sum Insured:</label>
+              <select><option>₹15,00,000 (15 Lakhs)</option><option>₹10,00,000</option><option>₹25,00,000</option><option>₹1,00,00,000 (1 Cr)</option></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Life Fields (Hidden by default) -->
+        <div id="fieldsLife" style="display: none;">
+          <div style="font-weight: 700; font-size: 11px; text-transform: uppercase; color: #7e22ce; margin-bottom: 6px;">Life Term & Sum Assured</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Sum Assured (₹):</label>
+              <input type="number" placeholder="10000000" value="10000000">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">PPT / Term:</label>
+              <input type="text" value="Pay till 60 / Cover till 85">
+            </div>
+          </div>
+        </div>
+
+        <!-- Group Fields (Hidden by default) -->
+        <div id="fieldsGroup" style="display: none;">
+          <div style="font-weight: 700; font-size: 11px; text-transform: uppercase; color: #c026d3; margin-bottom: 6px;">Corporate Customer</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Company Name:</label>
+              <input type="text" placeholder="e.g. Infoserve Tech Pvt Ltd">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Total Members:</label>
+              <input type="number" placeholder="45">
+            </div>
+          </div>
+        </div>
+
+        <!-- Pet Fields (Hidden by default) -->
+        <div id="fieldsPet" style="display: none;">
+          <div style="font-weight: 700; font-size: 11px; text-transform: uppercase; color: var(--pb-orange); margin-bottom: 6px;">Pet Identification</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Pet Name:</label>
+              <input type="text" placeholder="Rocky">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Breed / Age:</label>
+              <input type="text" placeholder="Golden Retriever / 3 Yrs">
+            </div>
+            <div>
+              <label style="font-size: 11px; font-weight: 700;">Microchip RFID:</label>
+              <input type="text" placeholder="900215000182941">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATTRIBUTION & FINANCIALS -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+        <div class="form-group" style="margin: 0;">
+          <label>Sourced By (Agent / Channel):</label>
+          <select id="polSourcing">
+            <option value="APS-100">Manoj Nambiar (APS-100)</option>
+            <option value="APS-101">Deepa Pillai (APS-101)</option>
+            <option value="DIRECT">Apsova Direct Business</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label>Status:</label>
+          <select id="polStatus">
+            <option value="ISSUED">Policy Issued (Paid & Verified)</option>
+            <option value="PROPOSAL">Proposal Logged (Payment Pending)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="background: var(--pb-blue-light); border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div>
+          <span style="font-size: 11px; font-weight: 700; color: var(--pb-navy);">Net Premium + 18% GST:</span>
+          <div style="font-size: 17px; font-weight: 800; color: var(--pb-navy);" id="displayGross">₹17,246</div>
+        </div>
+        <span class="tag tag-green">Auto Commission: ~₹2,586</span>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('policyIssueModal')">Cancel</button>
+        <button class="btn btn-pb-orange" onclick="issuePolicySubmit()">✓ Confirm & Issue Policy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 5: WHATSAPP RENEWAL REMINDER (MALAYALAM & ENGLISH) -->
+  <div id="whatsappModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 style="color: var(--pb-green); display: flex; align-items: center; gap: 6px;">📲 WhatsApp Renewal Dispatch</h3>
+        <button class="modal-close" onclick="closeModal('whatsappModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        Send official Apsova renewal notification with renewal link & NCB discount.
+      </p>
+
+      <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px; margin-bottom: 12px; font-size: 12px;">
+        <strong id="waCustName">George Mathew</strong> • <span id="waCustPhone">+91 98470 12345</span>
+        <div style="color: var(--text-muted); margin-top: 2px;" id="waPolInfo">Policy: P-MOT-2025-9948 | Honda City</div>
+      </div>
+
+      <div class="form-group">
+        <label>Select Template Language:</label>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-pb-blue" id="btnLangMal" onclick="setWaLanguage('MAL')">മലയാളം (Malayalam)</button>
+          <button class="btn btn-outline" id="btnLangEng" onclick="setWaLanguage('ENG')">English</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Message Content:</label>
+        <textarea id="waMessageText" rows="5" style="font-size: 12px; line-height: 1.5;"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('whatsappModal')">Cancel</button>
+        <button class="btn btn-pb-green" onclick="sendWhatsAppNow()">📲 Open WhatsApp & Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 6: REGISTER NEW AGENT (APS-100+) -->
+  <div id="registerAgentModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>➕ Register POSP Agent (APS-100 Series)</h3>
+        <button class="modal-close" onclick="closeModal('registerAgentModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        New agents are automatically assigned the next sequential internal ID starting from <strong>APS-100 onwards</strong>.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Assigned Internal ID:</label>
+          <input type="text" value="APS-102" disabled style="font-weight: 800; color: var(--pb-blue); background: #f1f5f9;">
+        </div>
+        <div class="form-group">
+          <label>Agent Name:</label>
+          <input type="text" id="newAgentName" placeholder="e.g. Sreejith Nair" value="Sreejith Nair">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Mobile Number:</label>
+          <input type="tel" id="newAgentMobile" placeholder="e.g. 9847551122" value="9847551122">
+        </div>
+        <div class="form-group">
+          <label>City / Location:</label>
+          <input type="text" id="newAgentCity" placeholder="e.g. Kollam, Kerala" value="Kollam, Kerala">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>PAN Card Number:</label>
+          <input type="text" placeholder="ABCDE1234F" value="ABCDE1234F">
+        </div>
+        <div class="form-group">
+          <label>Assigned Agency Manager:</label>
+          <select id="newAgentMgr">
+            <option>Akhil M. (Senior Agency Manager)</option>
+            <option>Rahul K. (Agency Manager)</option>
+            <option>Priya Nair (Agency Manager)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('registerAgentModal')">Cancel</button>
+        <button class="btn btn-pb-orange" onclick="registerAgentSubmit()">✓ Register Agent (APS-102)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 7: ADD DIRECT LEAD -->
+  <div id="newLeadModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>+ Add Direct Insurance Lead</h3>
+        <button class="modal-close" onclick="closeModal('newLeadModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        Manual lead entry with instant round-robin allocation to telecallers.
+      </p>
+
+      <div class="form-group">
+        <label>Customer Name:</label>
+        <input type="text" placeholder="e.g. Harikrishnan" value="Harikrishnan">
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Mobile Number:</label>
+          <input type="tel" placeholder="e.g. 9745123456" value="9745123456">
+        </div>
+        <div class="form-group">
+          <label>Insurance Category:</label>
+          <select>
+            <option>Motor (Car / Two Wheeler)</option>
+            <option>Health Floater</option>
+            <option>Life Term</option>
+            <option>Pet Insurance</option>
+            <option>Group Mediclaim</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Lead Source:</label>
+        <select>
+          <option>Walk-in Customer</option>
+          <option>Direct Phone Call</option>
+          <option>Employee Referral</option>
+          <option>Agent Referral</option>
+        </select>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('newLeadModal')">Cancel</button>
+        <button class="btn btn-pb-blue" onclick="alert('Lead added and allocated round-robin to Anjali (Telecaller)!'); closeModal('newLeadModal')">Save & Allocate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 8: INSURER STATEMENT EXCEL RECONCILIATION ENGINE -->
+  <div id="reconciliationModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 680px;">
+      <div class="modal-head">
+        <h3>📊 Insurer Commission Excel Reconciliation Engine</h3>
+        <button class="modal-close" onclick="closeModal('reconciliationModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+        Upload insurer monthly payout Excel statement. Matches statement rows against Apsova issued policies and detects short-receipts or commission differences.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+        <div class="form-group" style="margin: 0;">
+          <label>Select Partnered Insurer:</label>
+          <select id="reconInsurer">
+            <option>Star Health & Allied Insurance</option>
+            <option>ICICI Lombard General Insurance</option>
+            <option>Care Health Insurance</option>
+            <option>Tata AIG General Insurance</option>
+            <option>HDFC Life Insurance</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin: 0;">
+          <label>Statement Billing Period:</label>
+          <input type="month" value="2026-09">
+        </div>
+      </div>
+
+      <!-- File Drop & Match Stats -->
+      <div style="background: var(--pb-blue-light); border: 1px dashed var(--pb-blue); border-radius: 10px; padding: 14px; text-align: center; margin-bottom: 14px;">
+        <strong style="color: var(--pb-navy); font-size: 13px;">📄 Star_Health_Sep_2026_Payout_Statement.xlsx (44 Rows Detected)</strong>
+        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 8px;">
+          <span class="tag tag-green">✅ 42 Rows Full Match</span>
+          <span class="tag tag-orange">⚠️ 1 Short-Receipt Flagged</span>
+          <span class="tag tag-rose">❓ 1 Unmatched Row</span>
+        </div>
+      </div>
+
+      <!-- Live Match Preview Table -->
+      <div style="max-height: 180px; overflow-y: auto; border: 1px solid var(--border-light); border-radius: 8px; margin-bottom: 14px;">
+        <table style="font-size: 11.5px;">
+          <thead>
+            <tr>
+              <th style="padding: 8px 10px;">Policy Number</th>
+              <th style="padding: 8px 10px;">Expected (Apsova)</th>
+              <th style="padding: 8px 10px;">Statement (Insurer)</th>
+              <th style="padding: 8px 10px;">Difference</th>
+              <th style="padding: 8px 10px;">Reconciliation Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px 10px; font-weight: 700;">P-HLT-2025-1049</td>
+              <td style="padding: 8px 10px;">₹4,275</td>
+              <td style="padding: 8px 10px;">₹4,275</td>
+              <td style="padding: 8px 10px; color: var(--pb-green); font-weight: 700;">₹0</td>
+              <td style="padding: 8px 10px;"><span class="tag tag-green">Full Match</span></td>
+            </tr>
+            <tr style="background: #fff5f5;">
+              <td style="padding: 8px 10px; font-weight: 700;">P-HLT-2026-8812</td>
+              <td style="padding: 8px 10px;">₹12,000</td>
+              <td style="padding: 8px 10px;">₹6,500</td>
+              <td style="padding: 8px 10px; color: #dc2626; font-weight: 800;">-₹5,500 (Short)</td>
+              <td style="padding: 8px 10px;"><span class="tag tag-orange">⚠️ Short-Receipt Flagged</span></td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 10px; font-weight: 700;">P-HLT-2026-9004</td>
+              <td style="padding: 8px 10px;">₹3,400</td>
+              <td style="padding: 8px 10px;">₹3,400</td>
+              <td style="padding: 8px 10px; color: var(--pb-green); font-weight: 700;">₹0</td>
+              <td style="padding: 8px 10px;"><span class="tag tag-green">Full Match</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px; font-size: 12px; margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span>Total Expected: <strong>₹2,10,000</strong></span>
+          <span>Statement Received: <strong>₹2,04,500</strong></span>
+          <span style="color: #dc2626; font-weight: 800;">Insurer Balance Owed: ₹5,500</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-outline" onclick="closeModal('reconciliationModal')">Cancel</button>
+        <button class="btn btn-pb-green" onclick="alert('✅ Reconciliation Posted!\n\n1. Ledger A updated: Star Health ₹2,04,500 received, ₹5,500 kept in Insurer Outstanding.\n2. Ledger B updated: Agent payouts computed and queued for Partner 1 & 2 Maker-Checker Approval!'); closeModal('reconciliationModal')">
+          ✓ Confirm & Post to Dual Ledgers
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+      const targetView = document.getElementById('view-' + tabId);
+      const targetBtn = document.getElementById('tab-' + tabId);
+
+      if (targetView && targetBtn) {
+        targetView.classList.add('active');
+        targetBtn.classList.add('active');
+      }
+    }
+
+    function changeRole(role) {
+      const banner = document.getElementById('roleBannerText');
+      if (role === 'PARTNER_1' || role === 'PARTNER_2') {
+        banner.innerHTML = `ℹ️ You are logged in as <strong>${role === 'PARTNER_1' ? 'Partner 1 (Arun)' : 'Partner 2'} (Owner)</strong>. Full business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.`;
+      } else if (role === 'TELECALLER') {
+        banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali)</strong>. Restricted access: Assigned calling leads, call outcome logging, and overdue reminders. Company profits and agent bank details are hidden.`;
+      } else if (role === 'AGENCY_MANAGER') {
+        banner.innerHTML = `ℹ️ You are logged in as <strong>Agency Manager (Rahul)</strong>. Team visibility: Own leads, assigned POSP agents (APS-100+), renewal alerts, and field attendance.`;
+      } else if (role === 'ACCOUNTS') {
+        banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation and agent payout preparation.`;
+      } else if (role === 'HR') {
+        banner.innerHTML = `ℹ️ You are logged in as <strong>HR & Payroll</strong>. People operations: Attendance regularisations, leave approvals, and monthly salary processing.`;
+      } else {
+        banner.innerHTML = `ℹ️ You are logged in as <strong>Admin / Operations</strong>. Lead allocation, employee setup, policy issuance processing, and reports.`;
+      }
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    function openCallLogModal(name, mobile) {
+      document.getElementById('callLeadName').innerText = name;
+      document.getElementById('callLeadMobile').innerText = ' (' + mobile + ')';
+      openModal('callLogModal');
+    }
+
+    function simulateCheckIn() {
+      alert("📍 Mobile Check-In Recorded!\n\nTime: " + new Date().toLocaleTimeString() + "\nLocation Geofence: Kochi HQ\nStatus: Present\n\nYour attendance has been marked for today!");
+    }
+
+    // Dynamic Category Fields in Policy Wizard
+    function updateCategoryFields(cat) {
+      document.getElementById('fieldsMotor').style.display = cat === 'MOTOR' ? 'block' : 'none';
+      document.getElementById('fieldsHealth').style.display = cat === 'HEALTH' ? 'block' : 'none';
+      document.getElementById('fieldsLife').style.display = cat === 'LIFE' ? 'block' : 'none';
+      document.getElementById('fieldsGroup').style.display = cat === 'GROUP' ? 'block' : 'none';
+      document.getElementById('fieldsPet').style.display = cat === 'PET' ? 'block' : 'none';
+    }
+
+    function calcGrossPremium() {
+      const od = parseFloat(document.getElementById('motOd').value) || 0;
+      const tp = parseFloat(document.getElementById('motTp').value) || 0;
+      const net = od + tp;
+      const gross = Math.round(net * 1.18);
+      document.getElementById('displayGross').innerText = '₹' + gross.toLocaleString('en-IN');
+    }
+
+    function issuePolicySubmit() {
+      const name = document.getElementById('polCustomerName').value;
+      const cat = document.getElementById('polCategory').value;
+      const agent = document.getElementById('polSourcing').value;
+      alert(`🎉 Policy Successfully Issued!\n\nCustomer: ${name}\nCategory: ${cat}\nSourced By: ${agent}\nGross Premium: ${document.getElementById('displayGross').innerText}\n\nLinked into Insurer Receivable Ledger and Agent Payable Ledger!`);
+      closeModal('policyIssueModal');
+    }
+
+    // WhatsApp Renewal Logic
+    let currentWaData = {};
+    function openWhatsAppModal(name, phone, polNo, plan, expiry, amount) {
+      currentWaData = { name, phone, polNo, plan, expiry, amount };
+      document.getElementById('waCustName').innerText = name;
+      document.getElementById('waCustPhone').innerText = '+91 ' + phone;
+      document.getElementById('waPolInfo').innerText = `Policy: ${polNo} | ${plan} | Expiry: ${expiry}`;
+      setWaLanguage('MAL');
+      openModal('whatsappModal');
+    }
+
+    function setWaLanguage(lang) {
+      const btnMal = document.getElementById('btnLangMal');
+      const btnEng = document.getElementById('btnLangEng');
+      const txt = document.getElementById('waMessageText');
+      
+      if (lang === 'MAL') {
+        btnMal.className = 'btn btn-pb-blue';
+        btnEng.className = 'btn btn-outline';
+        txt.value = `പ്രിയപ്പെട്ട ${currentWaData.name || 'Customer'},\n\nApsova Insurance-ൽ നിന്നുള്ള പ്രധാന അറിയിപ്പ്: താങ്കളുടെ ${currentWaData.plan || 'പോളിസി'} (${currentWaData.polNo || ''}) ${currentWaData.expiry || 'ഉടൻ'} അവസാനിക്കുകയാണ്.\n\nതാങ്കളുടെ നോ-ക്ലെയിം ബോണസ് (NCB) നിലനിർത്താനും തടസ്സമില്ലാത്ത പരിരക്ഷ ഉറപ്പാക്കാനും ഉടൻ പുതുക്കുക.\n\nപുതുക്കൽ തുക: ${currentWaData.amount || ''}\nഓൺലൈൻ പേയ്മെന്റ് ലിങ്ക്: https://apsova.com/pay/${currentWaData.polNo || ''}\n\nസഹായത്തിന് ബന്ധപ്പെടുക: +91 98471 22849\n- Apsova Insurance Team`;
+      } else {
+        btnMal.className = 'btn btn-outline';
+        btnEng.className = 'btn btn-pb-blue';
+        txt.value = `Dear ${currentWaData.name || 'Customer'},\n\nImportant reminder from Apsova Insurance: Your policy ${currentWaData.polNo || ''} (${currentWaData.plan || ''}) is expiring on ${currentWaData.expiry || 'soon'}.\n\nRenew now to protect your accumulated No Claim Bonus (NCB) and ensure uninterrupted coverage.\n\nRenewal Amount: ${currentWaData.amount || ''}\nInstant Pay Link: https://apsova.com/pay/${currentWaData.polNo || ''}\n\nHelpline: +91 98471 22849\n- Apsova Insurance Team`;
+      }
+    }
+
+    function sendWhatsAppNow() {
+      const phone = currentWaData.phone ? '91' + currentWaData.phone : '919847012345';
+      const msg = encodeURIComponent(document.getElementById('waMessageText').value);
+      const url = `https://wa.me/${phone}?text=${msg}`;
+      window.open(url, '_blank');
+      closeModal('whatsappModal');
+    }
+
+    function registerAgentSubmit() {
+      const name = document.getElementById('newAgentName').value;
+      const mobile = document.getElementById('newAgentMobile').value;
+      const city = document.getElementById('newAgentCity').value;
+      alert(`✅ Agent Registered Successfully!\n\nAssigned Internal ID: APS-102\nAgent Name: ${name}\nMobile: ${mobile}\nLocation: ${city}\nCategory: POSP\n\nAdded to Agency Manager's team!`);
+      closeModal('registerAgentModal');
+    }
+  </script>
+</body>
+</html>
+
