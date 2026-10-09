@@ -5,7 +5,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
@@ -54,7 +54,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, '127.0.0.1', () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`====================================================`);
   console.log(`🚀 Apsova Live Platform Running on Localhost!`);
   console.log(`👉 Open your browser at: http://localhost:${PORT}`);
