@@ -908,6 +908,15 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(2, 132, 201, 0.45);
     }
+    @media (max-width: 768px) {
+      .public-nav-links .public-nav-link {
+        display: none;
+      }
+      .secure-login-trigger-btn {
+        padding: 7px 13px;
+        font-size: 11.5px;
+      }
+    }
 
     /* Hero Section */
     .landing-hero {
@@ -1477,27 +1486,24 @@
 </head>
 <body>
 
-  <!-- APSOVA ENTERPRISE UTILITY BAR -->
+  <!-- APSOVA PUBLIC UTILITY BAR -->
   <div class="pivot-topbar">
     <div class="container pivot-topbar-inner">
       <div class="topbar-left">
-        <span class="topbar-tag">🛡️ Apsova Insurance IMF Network</span>
+        <span class="topbar-tag">🛡️ Apsova Insurance</span>
         <span class="topbar-sep">•</span>
-        <span>IRDAI Registered Insurance Marketing Firm</span>
+        <span>IRDAI Registered Insurance Firm</span>
         <span class="topbar-sep">•</span>
-        <span>Agency Code: <strong>APS-100</strong></span>
+        <span>Kerala Central HQ</span>
       </div>
       <div class="topbar-right">
-        <button onclick="togglePortalMode('LANDING')" id="navBtnLanding" class="btn btn-pb-blue" style="font-size: 11px; padding: 2px 10px; box-shadow: none;">
-          🌐 Public Hub &amp; Posters
-        </button>
-        <button onclick="togglePortalMode('CRM')" id="navBtnCrm" class="btn btn-outline" style="font-size: 11px; padding: 2px 10px; background: rgba(255,255,255,0.25); color: #fff; border: 1px solid rgba(255,255,255,0.4);">
-          🔒 Partner CRM
-        </button>
-        <span class="topbar-sep">•</span>
-        <span>Central Desk: <strong>+91 98471 22849</strong></span>
+        <span>📞 Helpline: <strong>+91 98471 22849</strong></span>
         <span class="topbar-sep">•</span>
         <span class="lang-pill">മലയാളം / English</span>
+        <span class="topbar-sep">•</span>
+        <button onclick="openSecureLoginModal()" class="btn btn-pb-blue" style="font-size: 11px; padding: 3px 12px; font-weight: 800; box-shadow: none;">
+          🔒 Login
+        </button>
       </div>
     </div>
   </div>
@@ -1513,20 +1519,20 @@
         <div class="public-brand">
           <div class="brand-logo" style="width: 40px; height: 40px; font-size: 20px;">🛡️</div>
           <div>
-            <div style="font-size: 19px; font-weight: 800; color: var(--pb-navy); display: flex; align-items: center; gap: 6px;">
-              APSOVA <span class="pivot-badge">IMF NETWORK</span>
+            <div style="font-size: 20px; font-weight: 800; color: var(--pb-navy); display: flex; align-items: center; gap: 6px;">
+              APSOVA INSURANCE
             </div>
-            <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 600;">IRDAI Registered Insurance Marketing Firm • Kochi Central HQ</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 600;">IRDAI Registered Insurance Firm • Kochi Central Hub</div>
           </div>
         </div>
 
         <nav class="public-nav-links">
           <a class="public-nav-link" href="#postersSection" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">🏥 Health Plans</a>
-          <a class="public-nav-link" href="#compareSection" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">⭐ 6 Insurers Comparison</a>
+          <a class="public-nav-link" href="#compareSection" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">⭐ Compare 6 Insurers</a>
           <a class="public-nav-link" href="#hospitalStrip" onclick="document.getElementById('hospitalStrip').scrollIntoView({behavior:'smooth'})">🏨 14,000+ Hospitals</a>
           <button class="secure-login-trigger-btn" onclick="openSecureLoginModal()">
             <span>🔒</span>
-            <span>Partner &amp; Owner Login</span>
+            <span>Login</span>
           </button>
         </nav>
       </div>
@@ -1537,7 +1543,7 @@
       <div class="hero-content">
         <div>
           <div class="hero-badge-pill">
-            <span>🛡️ IRDAI Registered IMF</span>
+            <span>🛡️ IRDAI Registered Insurance Firm</span>
             <span>•</span>
             <span>Direct Health Underwriting</span>
             <span>•</span>
@@ -1552,10 +1558,10 @@
 
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <button class="btn btn-pb-orange" style="font-size: 13.5px; padding: 12px 22px;" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">
-              🔥 View Animated Health Insurance Posters
+              🔥 View Health Insurance Plans
             </button>
             <button class="btn btn-outline" style="font-size: 13.5px; padding: 12px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="openSecureLoginModal()">
-              🔒 Partner &amp; Owner Portal
+              🔒 Login
             </button>
           </div>
 
@@ -1622,7 +1628,7 @@
               💬 Get Instant Quotes on WhatsApp
             </button>
             <div style="font-size: 10.5px; color: var(--text-muted); text-align: center; margin-top: 8px;">
-              🔒 100% Privacy Protected • Zero spam • Official Apsova IMF Advisor Desk
+              🔒 100% Privacy Protected • Zero spam • Official Apsova Insurance Advisor Desk
             </div>
           </div>
         </div>
@@ -1638,7 +1644,7 @@
         <div class="marquee-item"><span class="marquee-dot"></span> <strong>⏱️ Niva Bupa:</strong> ReAssure 2.0 Lock-The-Clock Age Freeze</div>
         <div class="marquee-item"><span class="marquee-dot"></span> <strong>⚡ ICICI Lombard:</strong> Instant Cashless Everywhere Protocol</div>
         <div class="marquee-item"><span class="marquee-dot"></span> <strong>💰 Aditya Birla:</strong> Activ One with 100% HealthReturns™ Premium Cashback</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🛡️ Apsova IMF Central Desk:</strong> Direct Underwriting &amp; 24x7 Claim Support (+91 98471 22849)</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🛡️ Apsova Insurance Desk:</strong> Direct Health Advisory &amp; 24x7 Claim Support (+91 98471 22849)</div>
         <div class="marquee-item"><span class="marquee-dot"></span> <strong>⭐ Star Health:</strong> 14,000+ Cashless Hospitals • 99.1% Claim Ratio</div>
         <div class="marquee-item"><span class="marquee-dot"></span> <strong>🏥 Care Health:</strong> Care Supreme with 500% Cumulative Bonus Shield</div>
         <div class="marquee-item"><span class="marquee-dot"></span> <strong>🚀 HDFC ERGO:</strong> Optima Secure with 4X Base Cover on Day 1</div>
@@ -1652,7 +1658,7 @@
         <div class="section-eyebrow">OFFICIAL HEALTH INSURER PARTNERS</div>
         <h2 class="section-main-heading">Featured Health Insurance Plans &amp; Posters</h2>
         <p class="section-desc">
-          Compare India's highest-rated health insurance plans curated and underwritten by Apsova IMF Network. Select your preferred company to view benefits, claim statistics, and instant quotes.
+          Compare India's highest-rated health insurance plans across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla. Select your preferred company to view benefits, claim statistics, and instant quotes.
         </p>
       </div>
 
@@ -1914,7 +1920,7 @@
       <div class="compare-section" id="compareSection">
         <div style="text-align: center; margin-bottom: 22px;">
           <h3 style="font-size: 22px; font-weight: 800; color: var(--pb-navy);">⚡ Side-by-Side 6 Insurer Feature Comparison</h3>
-          <p style="font-size: 12.5px; color: var(--text-muted);">Objective comparison of key policy terms verified under IRDAI IMF guidelines</p>
+          <p style="font-size: 12.5px; color: var(--text-muted);">Objective comparison of key policy terms verified under IRDAI guidelines</p>
         </div>
         <div class="table-wrap">
           <table>
@@ -2010,21 +2016,24 @@
       </div>
     </div>
 
-    <!-- PARTNER PORTAL CTA BANNER -->
+    <!-- CUSTOMER ASSISTANCE BANNER -->
     <div class="container">
       <div class="partner-gateway-banner">
         <div>
           <div style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;">
-            🔒 INTERNAL AGENCY PORTAL
+            💬 FREE HEALTH INSURANCE ADVISORY
           </div>
-          <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Are you an Apsova Partner, Manager, or POSP Agent?</h2>
+          <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Need Expert Advice on Health Insurance?</h2>
           <p style="font-size: 13px; opacity: 0.9; max-width: 580px;">
-            Access the high-security enterprise CRM to manage client telecalling leads, policy renewal trackers (APS-100), dual commission ledgers, and attendance.
+            Speak directly with certified health insurance advisors. We assist you with policy comparison, room rent choices, and 100% cashless claims assistance.
           </p>
         </div>
-        <div>
-          <button class="btn btn-pb-orange" style="font-size: 14px; padding: 13px 26px; box-shadow: 0 6px 20px rgba(245, 132, 31, 0.4);" onclick="openSecureLoginModal()">
-            🔒 Open High-Security Partner Login
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-pb-orange" style="font-size: 14px; padding: 13px 24px; box-shadow: 0 6px 20px rgba(245, 132, 31, 0.4);" onclick="window.open('https://wa.me/919847122849?text=Hello%20Apsova%20Insurance,%20I%20need%20expert%20guidance%20on%20Health%20Insurance.', '_blank')">
+            💬 Chat on WhatsApp
+          </button>
+          <button class="btn btn-outline" style="font-size: 14px; padding: 13px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="openSecureLoginModal()">
+            🔒 Login
           </button>
         </div>
       </div>
@@ -2034,10 +2043,10 @@
     <footer style="background: #ffffff; border-top: 1px solid var(--border-light); padding: 24px 20px; font-size: 12px; color: var(--text-muted); text-align: center;">
       <div class="container">
         <div style="font-weight: 700; color: var(--pb-navy); margin-bottom: 4px;">
-          © 2026 Apsova Insurance IMF Network • IRDAI Registered Insurance Marketing Firm • Agency Code: APS-100
+          © 2026 Apsova Insurance • IRDAI Registered Insurance Firm
         </div>
-        <div>Kochi Central HQ • Direct Cashless Underwriting Across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</div>
-        <div style="margin-top: 6px;">Helpline: +91 98471 22849 • Email: info@apsovainsurance.com</div>
+        <div>Kochi Central HQ • Direct Health Insurance Underwriting Across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</div>
+        <div style="margin-top: 6px;">Helpline: +91 98471 22849 • Email: info@apsovainsurance.com • <a href="javascript:void(0)" onclick="openSecureLoginModal()" style="color: var(--pb-blue); text-decoration: underline; font-weight: 700;">Login</a></div>
       </div>
     </footer>
 
@@ -2057,9 +2066,9 @@
         <div>
           <div class="brand-title">
             APSOVA
-            <span class="pivot-badge">IMF</span>
+            <span class="pivot-badge">CRM</span>
           </div>
-          <div class="brand-sub">Insurance CRM Network</div>
+          <div class="brand-sub">Insurance Enterprise Portal</div>
         </div>
         <button class="sidebar-close-btn" onclick="toggleSidebar(false)" aria-label="Close Menu">✕</button>
       </div>
@@ -2150,7 +2159,7 @@
         <div class="sidebar-compliance-badge">
           <div class="comp-icon">🛡️</div>
           <div>
-            <div class="comp-title">IRDAI IMF Licensed</div>
+            <div class="comp-title">IRDAI Certified Firm</div>
             <div class="comp-desc">Dual Ledger • SSL 256-Bit</div>
           </div>
         </div>
@@ -2169,11 +2178,6 @@
           </button>
           <div class="page-title-box">
             <h1 class="page-title-text" id="pageTitleText">📊 Partner Executive Dashboard</h1>
-            <div class="page-breadcrumbs">
-              <span>Apsova IMF Portal</span>
-              <span class="crumb-sep">/</span>
-              <span class="crumb-active" id="pageBreadcrumbText">Executive Overview</span>
-            </div>
           </div>
         </div>
 
@@ -2182,11 +2186,11 @@
             <span class="pulse-dot"></span>
             <span>Live System: <strong>Active</strong></span>
           </div>
-          <button class="btn btn-outline" style="font-size: 11.5px; padding: 6px 12px;" onclick="togglePortalMode('LANDING')" title="View Public Landing Page & Posters">
-            🌐 Public Hub
+          <button class="btn btn-outline" style="font-size: 11.5px; padding: 6px 12px;" onclick="togglePortalMode('LANDING')" title="View Public Website">
+            🌐 Public View
           </button>
-          <button class="btn btn-outline" style="font-size: 11.5px; padding: 6px 12px; color: #dc2626; border-color: #fca5a5;" onclick="secureLogout()" title="Lock Session & Logout">
-            🔒 Lock
+          <button class="btn btn-outline" style="font-size: 11.5px; padding: 6px 12px; color: #dc2626; border-color: #fca5a5;" onclick="secureLogout()" title="Logout">
+            🔒 Logout
           </button>
           <button class="btn btn-outline" style="font-size: 12px; padding: 7px 12px;" onclick="openModal('excelUploadModal')">
             📥 Import Excel
@@ -2196,13 +2200,6 @@
           </button>
         </div>
       </header>
-
-      <!-- Role Notification Banner -->
-      <div class="role-banner">
-        <div id="roleBannerText">
-          ℹ️ You are logged in as <strong>Partner 1 (Arun - Owner)</strong>. Complete business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.
-        </div>
-      </div>
 
       <!-- Main Tabs Content View -->
       <main class="app-main-view">
@@ -2216,7 +2213,6 @@
         <div class="action-row">
           <div>
             <h2><span class="pulse-dot"></span>Partner Executive Overview</h2>
-            <p>Live financial performance, sales pipeline, and dual-partner maker-checker approvals</p>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="btn btn-pb-orange" onclick="openModal('policyIssueModal')">➕ Issue New Policy (5 Categories)</button>
@@ -2412,7 +2408,6 @@
         <div class="action-row">
           <div>
             <h2><span class="pulse-dot"></span>Lead Generation & Telecalling Management</h2>
-            <p>Meta Ads (Facebook/Instagram), Website, WhatsApp, and Excel Calling Lists</p>
           </div>
           <div style="display: flex; gap: 8px;">
             <button class="btn btn-pb-green" onclick="openModal('excelUploadModal')">📄 Upload Calling Excel</button>
@@ -2511,7 +2506,6 @@
         <div class="action-row">
           <div>
             <h2><span class="pulse-dot"></span>Policy Renewal Engine & Reminder Tracker</h2>
-            <p>Automated reminders scheduled at 60, 30, 15, 7, and 1 day prior to policy expiry</p>
           </div>
           <button class="btn btn-pb-orange" onclick="alert('Server Daily Cron Dispatched! 12 WhatsApp reminder messages sent in Malayalam & English.')">
             📲 Dispatch Today's Reminders
@@ -2638,7 +2632,6 @@
         <div class="action-row">
           <div>
             <h2>Partnered Insurers & Products Catalogue</h2>
-            <p>Configure partner insurers under Health, Motor, Life, Group, and Pet categories with commission margins</p>
           </div>
           <button class="btn btn-pb-blue" onclick="alert('Add Insurer Modal: Configure company name, category, and commission rules.')">+ Add New Company</button>
         </div>
@@ -2722,7 +2715,6 @@
         <div class="action-row">
           <div>
             <h2>Agency Network & POSP Registration</h2>
-            <p>Permanent internal IDs starting from <strong>APS-100 onwards</strong> with insurer POSP codes</p>
           </div>
           <div style="display: flex; gap: 8px;">
             <button class="btn btn-outline" onclick="openModal('agentTransferModal')">🔄 Bulk Transfer Agents (Resigned Manager)</button>
@@ -2816,7 +2808,6 @@
         <div class="action-row">
           <div>
             <h2>Dual-Entry Commission Accounting System</h2>
-            <p>Two connected ledgers: What insurers owe Apsova vs. What Apsova owes sourcing agents</p>
           </div>
           <button class="btn btn-pb-green" onclick="openModal('reconciliationModal')">
             📥 Upload & Reconcile Insurer Statement (Excel)
@@ -2903,7 +2894,6 @@
         <div class="action-row">
           <div>
             <h2>HR, Mobile Attendance & Salary Processing</h2>
-            <p>Employee self-service check-in/out with location geofence and monthly salary calculation</p>
           </div>
           <button class="btn btn-pb-blue" onclick="simulateCheckIn()">
             📍 Simulate Mobile Check-In
@@ -2990,8 +2980,8 @@
   <!-- Clean Footer -->
   <footer class="app-footer">
     <div class="footer-inner">
-      <div>© 2026 Apsova Insurance IMF Network • IRDAI Registered Insurance Marketing Firm</div>
-      <div>Dual-Ledger Commission Accounting &amp; POSP Management • Central Desk: +91 98471 22849</div>
+      <div>© 2026 Apsova Insurance • IRDAI Registered Insurance Firm • Kochi Central HQ</div>
+      <div>Enterprise Dual-Ledger Accounting • Central Desk: +91 98471 22849</div>
     </div>
   </footer>
 
@@ -3603,12 +3593,12 @@
         </div>
 
         <button type="submit" id="secLoginSubmitBtn" class="btn btn-pb-blue" style="width: 100%; justify-content: center; padding: 12px; font-size: 13.5px; font-weight: 800;">
-          🛡️ Authenticate &amp; Enter IMF Portal
+          🛡️ Authenticate &amp; Enter Partner Portal
         </button>
       </form>
 
       <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 12px; font-size: 10.5px; color: var(--text-muted); margin-top: 16px; line-height: 1.5;">
-        🔒 <strong>Session Security Status:</strong> Active Node: Kochi HQ • TLS 1.3 / AES-256 GCM • IRDAI IMF Dual-Ledger Identity Protection Active
+        🔒 <strong>Session Security Status:</strong> Active Node: Kochi HQ • TLS 1.3 / AES-256 GCM • 256-Bit Encrypted Partner Session
       </div>
     </div>
   </div>
@@ -3731,18 +3721,20 @@
 
     function changeRole(role) {
       const banner = document.getElementById('roleBannerText');
-      if (role === 'PARTNER_1' || role === 'PARTNER_2') {
-        banner.innerHTML = `ℹ️ You are logged in as <strong>${role === 'PARTNER_1' ? 'Partner 1 (Arun)' : 'Partner 2'} (Owner)</strong>. Full business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.`;
-      } else if (role === 'TELECALLER') {
-        banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali)</strong>. Restricted access: Assigned calling leads, call outcome logging, and overdue reminders. Company profits and agent bank details are hidden.`;
-      } else if (role === 'AGENCY_MANAGER') {
-        banner.innerHTML = `ℹ️ You are logged in as <strong>Agency Manager (Rahul)</strong>. Team visibility: Own leads, assigned POSP agents (APS-100+), renewal alerts, and field attendance.`;
-      } else if (role === 'ACCOUNTS') {
-        banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation and agent payout preparation.`;
-      } else if (role === 'HR') {
-        banner.innerHTML = `ℹ️ You are logged in as <strong>HR & Payroll</strong>. People operations: Attendance regularisations, leave approvals, and monthly salary processing.`;
-      } else {
-        banner.innerHTML = `ℹ️ You are logged in as <strong>Admin / Operations</strong>. Lead allocation, employee setup, policy issuance processing, and reports.`;
+      if (banner) {
+        if (role === 'PARTNER_1' || role === 'PARTNER_2') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>${role === 'PARTNER_1' ? 'Partner 1 (Arun)' : 'Partner 2'} (Owner)</strong>. Full business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.`;
+        } else if (role === 'TELECALLER') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali)</strong>. Restricted access: Assigned calling leads, call outcome logging, and overdue reminders. Company profits and agent bank details are hidden.`;
+        } else if (role === 'AGENCY_MANAGER') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Agency Manager (Rahul)</strong>. Team visibility: Own leads, assigned POSP agents (APS-100+), renewal alerts, and field attendance.`;
+        } else if (role === 'ACCOUNTS') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation and agent payout preparation.`;
+        } else if (role === 'HR') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>HR & Payroll</strong>. People operations: Attendance regularisations, leave approvals, and monthly salary processing.`;
+        } else {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Admin / Operations</strong>. Lead allocation, employee setup, policy issuance processing, and reports.`;
+        }
       }
     }
 
@@ -3965,7 +3957,7 @@
         localStorage.setItem('apsova_auth', JSON.stringify(session));
 
         closeModal('secureLoginModal');
-        alert("🎉 Identity Verified Successfully!\n\nWelcome back, Arun Joy (Master Admin / Owner)!\nSecurity clearance: Full Executive IMF Visibility.\nUnlocking Enterprise Portal...");
+        alert("🎉 Identity Verified Successfully!\n\nWelcome back, Arun Joy (Master Admin / Owner)!\nSecurity clearance: Full Executive Partner Access.\nUnlocking Enterprise Portal...");
 
         togglePortalMode('CRM');
       } else {
@@ -3979,7 +3971,7 @@
           const lockTime = Date.now() + (15 * 60 * 1000); // 15 mins lock
           localStorage.setItem('apsova_lock_until', lockTime.toString());
           checkLockoutStatus();
-          alert("🚨 MAXIMUM FAILED ATTEMPTS EXCEEDED!\n\nSecurity lockout activated for 15 minutes to protect your IMF portal against brute-force intrusion.");
+          alert("🚨 MAXIMUM FAILED ATTEMPTS EXCEEDED!\n\nSecurity lockout activated for 15 minutes to protect against brute-force intrusion.");
         } else {
           const remaining = MAX_ATTEMPTS - failedAttempts;
           alert(`⚠️ Invalid Master Credentials!\n\n${remaining} attempt(s) remaining before security lockout.\n\nTip: You can use "⚡ Click to Auto-Fill Master Admin Credentials" or click "Forgot / Reset Password?".`);
@@ -3988,10 +3980,10 @@
     }
 
     function secureLogout() {
-      if (confirm("🔒 Are you sure you want to lock the session and logout of Apsova IMF Portal?")) {
+      if (confirm("🔒 Are you sure you want to lock the session and logout of Apsova Portal?")) {
         localStorage.removeItem('apsova_auth');
         togglePortalMode('LANDING');
-        alert("🔒 Session locked securely. Returned to Apsova Public Insurance Hub.");
+        alert("🔒 Session locked securely. Returned to Apsova Public Website.");
       }
     }
 
@@ -4046,7 +4038,7 @@
       document.getElementById('resetStep2').style.display = 'block';
       document.getElementById('resetOtpSentMsg').innerHTML = `✓ Security OTP sent to registered mobile (+91 98471 22849) and ${email}!<br><strong>(Test OTP Code: ${generatedResetOtp})</strong>`;
 
-      alert(`📲 Apsova IMF Security Dispatch:\n\nOne-Time Passcode (OTP) sent to Arun Joy (+91 98471 22849 & ${email}).\n\nYour 6-Digit Verification Code is: ${generatedResetOtp}`);
+      alert(`📲 Apsova Security Dispatch:\n\nOne-Time Passcode (OTP) sent to Arun Joy (+91 98471 22849 & ${email}).\n\nYour 6-Digit Verification Code is: ${generatedResetOtp}`);
     }
 
     function checkPasswordStrength(pwd) {
@@ -4132,7 +4124,7 @@
 
     // WhatsApp Instant Plan Quote from Poster
     function openWaPlanQuote(insurer, plan, price) {
-      const msg = encodeURIComponent(`Hello Apsova Insurance IMF,\n\nI would like to get a personalized quote and comparison for:\nInsurer: ${insurer}\nPlan: ${plan}\nEstimated Price: ${price}\n\nPlease share the detailed brochure and policy benefits.`);
+      const msg = encodeURIComponent(`Hello Apsova Insurance,\n\nI would like to get a personalized quote and comparison for:\nInsurer: ${insurer}\nPlan: ${plan}\nEstimated Price: ${price}\n\nPlease share the detailed brochure and policy benefits.`);
       window.open(`https://wa.me/919847122849?text=${msg}`, '_blank');
     }
 
@@ -4142,7 +4134,7 @@
       const age = document.getElementById('calcAge').value;
       const phone = document.getElementById('calcPhone').value;
 
-      const msg = encodeURIComponent(`Hello Apsova IMF Advisor,\n\nI am looking for a Health Insurance comparison quote with details:\n• Cover For: ${cover}\n• Sum Insured: ${sum}\n• Eldest Age: ${age}\n• WhatsApp: ${phone}\n\nPlease provide quotes from Star Health, Care Health, HDFC ERGO, Niva Bupa & ICICI Lombard.`);
+      const msg = encodeURIComponent(`Hello Apsova Insurance Advisor,\n\nI am looking for a Health Insurance comparison quote with details:\n• Cover For: ${cover}\n• Sum Insured: ${sum}\n• Eldest Age: ${age}\n• WhatsApp: ${phone}\n\nPlease provide quotes from Star Health, Care Health, HDFC ERGO, Niva Bupa & ICICI Lombard.`);
       window.open(`https://wa.me/919847122849?text=${msg}`, '_blank');
     }
 
