@@ -1333,56 +1333,61 @@
     }
 
     /* ============================================================== */
-    /* HIGH SECURITY HACK-PROTECTED LOGIN MODAL STYLES */
+    /* PARTNER & STAFF LOGIN MODAL STYLES */
     /* ============================================================== */
     .sec-modal-box {
       background: #ffffff;
-      border-radius: 20px;
+      border-radius: 16px;
       width: 100%;
-      max-width: 490px;
-      padding: 26px 24px;
-      box-shadow: 0 25px 60px rgba(0, 40, 69, 0.4);
-      border-top: 6px solid var(--pb-blue);
+      max-width: 440px;
+      padding: 32px 30px 24px 30px;
+      box-shadow: 0 20px 50px rgba(0, 40, 69, 0.22);
+      border: 1px solid rgba(2, 132, 201, 0.16);
       position: relative;
-      max-height: 90vh;
+      max-height: 92vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 71, 120, 0.15) transparent;
+    }
+    .sec-modal-box::-webkit-scrollbar {
+      width: 5px;
+    }
+    .sec-modal-box::-webkit-scrollbar-thumb {
+      background: rgba(0, 71, 120, 0.18);
+      border-radius: 10px;
+    }
+    .sec-modal-box::-webkit-scrollbar-track {
+      background: transparent;
     }
     .sec-shield-header {
       text-align: center;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
     }
     .sec-shield-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pb-blue) 0%, var(--pb-navy) 100%);
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--pb-navy) 0%, var(--pb-blue) 100%);
       color: #fff;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
-      margin: 0 auto 10px auto;
-      box-shadow: 0 6px 18px rgba(2, 132, 201, 0.4);
-      animation: pulseLive 2.5s infinite;
+      font-size: 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(0, 71, 120, 0.2);
     }
     .sec-title {
       font-size: 20px;
       font-weight: 800;
       color: var(--pb-navy);
       letter-spacing: -0.3px;
+      margin: 0 0 4px 0;
     }
-    .sec-badge-cert {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--pb-blue-light);
-      color: var(--pb-blue);
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 10.5px;
-      font-weight: 800;
-      margin-top: 6px;
+    .sec-subtitle {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 0;
     }
     .sec-alert-lockout {
       background: #fef2f2;
@@ -1398,26 +1403,6 @@
     .sec-alert-lockout.visible {
       display: block;
       animation: tabFadeIn 0.3s ease;
-    }
-    .sec-autofill-btn {
-      width: 100%;
-      background: #f8fafc;
-      border: 1px dashed var(--pb-blue);
-      color: var(--pb-blue);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 11.5px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .sec-autofill-btn:hover {
-      background: var(--pb-blue-light);
     }
     .password-wrap {
       position: relative;
@@ -1493,22 +1478,22 @@
   <div class="pivot-topbar">
     <div class="container pivot-topbar-inner">
       <div class="topbar-left">
-        <span class="topbar-tag">🛡️ Apsova Insurance</span>
+        <span class="topbar-tag">Apsova Insurance</span>
         <span class="topbar-sep">•</span>
-        <span>IRDAI Registered Insurance Firm</span>
+        <span>IRDAI Registered Insurance Intermediary</span>
         <span class="topbar-sep">•</span>
-        <span>Kerala Central HQ</span>
+        <span>Kerala Corporate Hub</span>
       </div>
       <div class="topbar-right">
-        <span>📞 Helpline: <strong>+91 98471 22849</strong></span>
+        <span>Advisory Helpline: <strong>+91 98471 22849</strong></span>
         <span class="topbar-sep">•</span>
-        <span class="lang-pill">മലയാളം / English</span>
+        <span class="lang-pill">English / മലയാളം</span>
       </div>
     </div>
   </div>
 
   <!-- ============================================================== -->
-  <!-- PUBLIC LANDING PAGE: ANIMATED HEALTH INSURANCE POSTERS HUB -->
+  <!-- PUBLIC LANDING PAGE: HEALTH INSURANCE COMPARISON PORTAL -->
   <!-- ============================================================== -->
   <div id="publicLandingView">
     
@@ -1516,55 +1501,62 @@
     <header class="public-nav-strip">
       <div class="container public-nav-inner">
         <div class="public-brand">
-          <div class="brand-logo" style="width: 40px; height: 40px; font-size: 20px;">🛡️</div>
+          <div class="brand-logo" style="width: 40px; height: 40px; border-radius: 8px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
           <div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--pb-navy); display: flex; align-items: center; gap: 6px;">
+            <div style="font-size: 20px; font-weight: 800; color: var(--pb-navy); letter-spacing: -0.2px;">
               APSOVA INSURANCE
             </div>
-            <div style="font-size: 11px; color: var(--text-muted); font-weight: 600;">IRDAI Registered Insurance Firm • Kochi Central Hub</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 600;">IRDAI Registered Intermediary • Kochi Corporate Office</div>
           </div>
         </div>
 
         <nav class="public-nav-links">
-          <a class="public-nav-link" href="#postersSection" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">🏥 Health Plans</a>
-          <a class="public-nav-link" href="#compareSection" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">⭐ Compare 6 Insurers</a>
-          <a class="public-nav-link" href="#hospitalStrip" onclick="document.getElementById('hospitalStrip').scrollIntoView({behavior:'smooth'})">🏨 14,000+ Hospitals</a>
+          <a class="public-nav-link" href="#postersSection" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">Health Plans</a>
+          <a class="public-nav-link" href="#compareSection" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">Compare Insurers</a>
+          <a class="public-nav-link" href="#hospitalStrip" onclick="document.getElementById('hospitalStrip').scrollIntoView({behavior:'smooth'})">Hospital Network</a>
           <button class="secure-login-trigger-btn" onclick="openSecureLoginModal()">
-            <span>🔒</span>
-            <span>Login</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Partner Login</span>
           </button>
         </nav>
       </div>
     </header>
 
-    <!-- Animated Hero Section -->
+    <!-- Institutional Hero Section -->
     <section class="landing-hero">
       <div class="hero-content">
         <div>
           <div class="hero-badge-pill">
-            <span>🛡️ IRDAI Registered Insurance Firm</span>
+            <span>IRDAI Registered Insurance Intermediary</span>
             <span>•</span>
-            <span>Direct Health Underwriting</span>
+            <span>Direct Underwriting Network</span>
             <span>•</span>
             <span>Kerala HQ</span>
           </div>
           <h1 class="hero-title">
-            Compare &amp; Buy Best Health Insurance from <span class="highlight-orange">India's Top Insurers</span>
+            Compare &amp; Secure Top Health Insurance from <span class="highlight-orange">India's Premier Insurers</span>
           </h1>
           <p class="hero-subtitle">
-            Direct cashless underwriting across <strong>Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</strong>. 100% cashless admission at 14,000+ top hospitals with 30-minute approval guarantee.
+            Direct underwriting across <strong>Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</strong>. Instant cashless admission across 14,000+ accredited hospitals with dedicated claim support.
           </p>
 
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button class="btn btn-pb-orange" style="font-size: 13.5px; padding: 12px 22px;" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">
-              🔥 View Health Insurance Plans
+            <button class="btn btn-pb-orange" style="font-size: 13.5px; padding: 12px 22px; font-weight: 700;" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">
+              Explore Health Plans
             </button>
-            <button class="btn btn-outline" style="font-size: 13.5px; padding: 12px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">
-              ⭐ Compare 6 Insurers
+            <button class="btn btn-outline" style="font-size: 13.5px; padding: 12px 20px; font-weight: 700; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">
+              Compare Policy Features
             </button>
           </div>
 
-          <!-- Hero Micro Stats -->
+          <!-- Hero Metrics -->
           <div class="hero-stats-row">
             <div class="hero-stat-card">
               <div class="hero-stat-num">14,000+</div>
@@ -1588,16 +1580,16 @@
         <!-- Instant WhatsApp Estimator Form -->
         <div>
           <div class="hero-quote-box">
-            <div class="quote-box-title">⚡ Instant Health Quote &amp; Comparison</div>
-            <div class="quote-box-sub">Choose coverage and receive customized comparison quotes via WhatsApp in 60 seconds:</div>
+            <div class="quote-box-title">Instant Quote &amp; Coverage Estimator</div>
+            <div class="quote-box-sub">Select your coverage requirements for a customized comparison quote dispatched directly to your WhatsApp:</div>
             
             <div class="form-group" style="margin-bottom: 10px;">
-              <label style="font-size: 11.5px; font-weight: 700; color: var(--text-dark);">Cover For:</label>
+              <label style="font-size: 11.5px; font-weight: 700; color: var(--text-dark);">Coverage Type:</label>
               <select id="calcCoverType" style="padding: 8px 10px; font-size: 12.5px;">
-                <option value="Self (Individual)">Self (Individual)</option>
-                <option value="Family Floater (2 Adults + 2 Kids)" selected>Family Floater (2 Adults + 2 Kids)</option>
-                <option value="Parents / Senior Citizens (60+)">Parents / Senior Citizens (60+)</option>
-                <option value="1 Cr Super Top-Up">1 Cr Super Top-Up</option>
+                <option value="Self (Individual)">Individual Cover</option>
+                <option value="Family Floater (2 Adults + 2 Kids)" selected>Family Floater (2 Adults + 2 Children)</option>
+                <option value="Parents / Senior Citizens (60+)">Senior Citizens &amp; Parents (60+)</option>
+                <option value="1 Cr Super Top-Up">₹1 Crore Super Top-Up</option>
               </select>
             </div>
 
@@ -1613,70 +1605,70 @@
                 </select>
               </div>
               <div class="form-group" style="margin-bottom: 0;">
-                <label style="font-size: 11.5px; font-weight: 700;">Eldest Age:</label>
+                <label style="font-size: 11.5px; font-weight: 700;">Age of Eldest Member:</label>
                 <input type="number" id="calcAge" value="35" style="padding: 8px 10px; font-size: 12.5px;">
               </div>
             </div>
 
             <div class="form-group" style="margin-bottom: 14px;">
-              <label style="font-size: 11.5px; font-weight: 700;">Your WhatsApp Number (For instant quote PDF):</label>
+              <label style="font-size: 11.5px; font-weight: 700;">WhatsApp Number (for instant quote summary):</label>
               <input type="tel" id="calcPhone" placeholder="e.g. 9847122849" value="9847122849" style="padding: 8px 10px; font-size: 12.5px;">
             </div>
 
-            <button class="btn btn-pb-orange" style="width: 100%; justify-content: center; padding: 12px; font-size: 13px;" onclick="sendLandingQuickQuote()">
-              💬 Get Instant Quotes on WhatsApp
+            <button class="btn btn-pb-orange" style="width: 100%; justify-content: center; padding: 12px; font-size: 13.5px; font-weight: 700;" onclick="sendLandingQuickQuote()">
+              Receive Instant WhatsApp Quotation
             </button>
-            <div style="font-size: 10.5px; color: var(--text-muted); text-align: center; margin-top: 8px;">
-              🔒 100% Privacy Protected • Zero spam • Official Apsova Insurance Advisor Desk
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px;">
+              Strictly Confidential • Zero Spam Guarantee • Apsova Advisory Desk
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Continuous Marquee Ribbon -->
+    <!-- Institutional Marquee Ticker -->
     <div class="marquee-container">
       <div class="marquee-track">
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>⭐ Star Health:</strong> 14,000+ Cashless Hospitals • 99.1% Claim Ratio</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🏥 Care Health:</strong> Care Supreme with 500% Cumulative Bonus Shield</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🚀 HDFC ERGO:</strong> Optima Secure with 4X Base Cover on Day 1</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>⏱️ Niva Bupa:</strong> ReAssure 2.0 Lock-The-Clock Age Freeze</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>⚡ ICICI Lombard:</strong> Instant Cashless Everywhere Protocol</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>💰 Aditya Birla:</strong> Activ One with 100% HealthReturns™ Premium Cashback</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🛡️ Apsova Insurance Desk:</strong> Direct Health Advisory &amp; 24x7 Claim Support (+91 98471 22849)</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>⭐ Star Health:</strong> 14,000+ Cashless Hospitals • 99.1% Claim Ratio</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🏥 Care Health:</strong> Care Supreme with 500% Cumulative Bonus Shield</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>🚀 HDFC ERGO:</strong> Optima Secure with 4X Base Cover on Day 1</div>
-        <div class="marquee-item"><span class="marquee-dot"></span> <strong>⏱️ Niva Bupa:</strong> ReAssure 2.0 Lock-The-Clock Age Freeze</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Star Health:</strong> 14,000+ Cashless Hospitals • 99.1% Settlement Ratio</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Care Health:</strong> Care Supreme with 500% Cumulative Bonus Shield</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>HDFC ERGO:</strong> Optima Secure with 4X Base Cover from Day 1</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Niva Bupa:</strong> ReAssure 2.0 Entry Age Lock Benefit</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>ICICI Lombard:</strong> Universal Cashless Everywhere Hospital Protocol</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Aditya Birla:</strong> Activ One with up to 100% Premium Cashback</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Apsova Advisory Desk:</strong> Direct Health Underwriting &amp; 24x7 Claim Support (+91 98471 22849)</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Star Health:</strong> 14,000+ Cashless Hospitals • 99.1% Settlement Ratio</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Care Health:</strong> Care Supreme with 500% Cumulative Bonus Shield</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>HDFC ERGO:</strong> Optima Secure with 4X Base Cover from Day 1</div>
+        <div class="marquee-item"><span class="marquee-dot"></span> <strong>Niva Bupa:</strong> ReAssure 2.0 Entry Age Lock Benefit</div>
       </div>
     </div>
 
-    <!-- ANIMATED HEALTH INSURANCE POSTERS SECTION -->
+    <!-- FEATURED HEALTH INSURANCE SOLUTIONS -->
     <section class="posters-section" id="postersSection">
       <div class="section-header-center">
-        <div class="section-eyebrow">OFFICIAL HEALTH INSURER PARTNERS</div>
-        <h2 class="section-main-heading">Featured Health Insurance Plans &amp; Posters</h2>
+        <div class="section-eyebrow">OFFICIAL INSURANCE PARTNERS</div>
+        <h2 class="section-main-heading">Featured Health Insurance Solutions</h2>
         <p class="section-desc">
-          Compare India's highest-rated health insurance plans across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla. Select your preferred company to view benefits, claim statistics, and instant quotes.
+          Compare leading health insurance policies across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla. Review coverage specifications, claim ratios, and request personalized premium quotations.
         </p>
       </div>
 
-      <!-- Poster Filter Tabs -->
+      <!-- Plan Filter Tabs -->
       <div class="poster-filter-bar">
-        <button class="poster-filter-btn active" onclick="filterPosters('ALL', this)">🔥 All 6 Featured Plans</button>
-        <button class="poster-filter-btn" onclick="filterPosters('FAMILY', this)">👨‍👩‍👧 Family Floater</button>
-        <button class="poster-filter-btn" onclick="filterPosters('SENIOR', this)">👴 Senior Citizens (55+)</button>
-        <button class="poster-filter-btn" onclick="filterPosters('TOPUP', this)">⚡ 1 Cr Super Top-Up</button>
-        <button class="poster-filter-btn" onclick="filterPosters('CASHLESS', this)">⚡ Cashless Everywhere</button>
+        <button class="poster-filter-btn active" onclick="filterPosters('ALL', this)">All Featured Plans</button>
+        <button class="poster-filter-btn" onclick="filterPosters('FAMILY', this)">Family Floater</button>
+        <button class="poster-filter-btn" onclick="filterPosters('SENIOR', this)">Senior Citizens (55+)</button>
+        <button class="poster-filter-btn" onclick="filterPosters('TOPUP', this)">Super Top-Up</button>
+        <button class="poster-filter-btn" onclick="filterPosters('CASHLESS', this)">Cashless Network</button>
       </div>
 
-      <!-- The 6 Animated Posters Grid -->
+      <!-- The 6 Animated Cards Grid -->
       <div class="posters-grid" id="postersGridContainer">
 
-        <!-- POSTER 1: STAR HEALTH -->
+        <!-- PLAN 1: STAR HEALTH -->
         <div class="poster-card" data-category="ALL FAMILY SENIOR">
           <div class="poster-header poster-star">
-            <div class="poster-floating-badge">⭐ India's #1 Standalone Insurer</div>
+            <div class="poster-floating-badge">India's Leading Standalone Insurer</div>
             <div class="poster-company-name">Star Health &amp; Allied Insurance</div>
             <h3 class="poster-plan-title">Star Comprehensive &amp; Red Carpet</h3>
             <p class="poster-tagline">Complete peace of mind with 14,000+ cashless hospitals and 100% automatic restoration.</p>
@@ -1686,7 +1678,7 @@
               <li class="poster-feature-item"><span class="poster-check-icon">✓</span> <strong>14,000+ Network Hospitals:</strong> Full coverage across top Kerala hospital chains.</li>
               <li class="poster-feature-item"><span class="poster-check-icon">✓</span> <strong>100% Automatic Restoration:</strong> Reloads sum insured immediately after each claim.</li>
               <li class="poster-feature-item"><span class="poster-check-icon">✓</span> <strong>No Medical Screening:</strong> Pre-policy medical tests waived up to 50 years of age.</li>
-              <li class="poster-feature-item"><span class="poster-check-icon">✓</span> <strong>Air Ambulance &amp; Bariatric:</strong> High-end modern surgery treatments covered without sub-limit.</li>
+              <li class="poster-feature-item"><span class="poster-check-icon">✓</span> <strong>Air Ambulance &amp; Bariatric:</strong> Modern treatments covered without arbitrary sub-limits.</li>
             </ul>
             <div class="poster-metrics-strip">
               <div class="poster-metric-box">
@@ -1704,19 +1696,19 @@
             </div>
             <div class="poster-actions-row">
               <button class="btn btn-pb-blue" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="openWaPlanQuote('Star Health', 'Star Comprehensive', '₹599/mo')">
-                💬 WhatsApp Quote
+                Request Quote
               </button>
-              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="alert('Star Health Plan Details:\n\n• Sum Insured: ₹5L - ₹1 Cr\n• Room Rent: No Cap on 10L+\n• Pre/Post Hosp: 60 / 90 Days\n• Health Checkup: Free every claim-free year\n• Cashless Approval: Average 28 minutes')">
-                🔍 Details
+              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="showPlanOverview('STAR')">
+                Plan Overview
               </button>
             </div>
           </div>
         </div>
 
-        <!-- POSTER 2: CARE HEALTH -->
+        <!-- PLAN 2: CARE HEALTH -->
         <div class="poster-card" data-category="ALL FAMILY TOPUP">
           <div class="poster-header poster-care">
-            <div class="poster-floating-badge">🛡️ 500% Cumulative Bonus Shield</div>
+            <div class="poster-floating-badge">500% Cumulative Bonus Shield</div>
             <div class="poster-company-name">Care Health Insurance (Religare)</div>
             <h3 class="poster-plan-title">Care Supreme Advantage</h3>
             <p class="poster-tagline">Next-generation health cover with unlimited automatic recharge and 0% room rent cap.</p>
@@ -1744,19 +1736,19 @@
             </div>
             <div class="poster-actions-row">
               <button class="btn btn-pb-green" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="openWaPlanQuote('Care Health', 'Care Supreme', '₹560/mo')">
-                💬 WhatsApp Quote
+                Request Quote
               </button>
-              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="alert('Care Health Supreme Details:\n\n• Sum Insured: ₹7L - ₹1 Cr\n• Room Rent: Any room category\n• Pre/Post Hosp: 60 / 180 Days\n• Unlimited Automatic Recharge\n• Free Annual Health Checkup for all members')">
-                🔍 Details
+              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="showPlanOverview('CARE')">
+                Plan Overview
               </button>
             </div>
           </div>
         </div>
 
-        <!-- POSTER 3: HDFC ERGO -->
+        <!-- PLAN 3: HDFC ERGO -->
         <div class="poster-card" data-category="ALL FAMILY CASHLESS">
           <div class="poster-header poster-hdfc">
-            <div class="poster-floating-badge">🚀 4X Base Cover from Day 1</div>
+            <div class="poster-floating-badge">4X Base Cover from Day 1</div>
             <div class="poster-company-name">HDFC ERGO General Insurance</div>
             <h3 class="poster-plan-title">Optima Secure Comprehensive</h3>
             <p class="poster-tagline">Industry-defining 4X coverage multiplier with zero deduction on hospital consumables.</p>
@@ -1784,19 +1776,19 @@
             </div>
             <div class="poster-actions-row">
               <button class="btn btn-pb-blue" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="openWaPlanQuote('HDFC ERGO', 'Optima Secure', '₹680/mo')">
-                💬 WhatsApp Quote
+                Request Quote
               </button>
-              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="alert('HDFC ERGO Optima Secure Details:\n\n• Secure Benefit: 2X Cover on Day 1\n• Plus Benefit: 100% after 2 yrs\n• Automatic Restore: 100% on claim\n• Consumables: 100% paid by insurer\n• Network: 13,000+ Hospitals')">
-                🔍 Details
+              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="showPlanOverview('HDFC')">
+                Plan Overview
               </button>
             </div>
           </div>
         </div>
 
-        <!-- POSTER 4: NIVA BUPA -->
+        <!-- PLAN 4: NIVA BUPA -->
         <div class="poster-card" data-category="ALL SENIOR CASHLESS">
           <div class="poster-header poster-niva">
-            <div class="poster-floating-badge">⏱️ Lock-The-Clock Age Freeze</div>
+            <div class="poster-floating-badge">Lock-The-Clock Age Freeze</div>
             <div class="poster-company-name">Niva Bupa Health Insurance</div>
             <h3 class="poster-plan-title">ReAssure 2.0 Innovation</h3>
             <p class="poster-tagline">Freeze your entry age premium until your first claim and carry forward unutilized sum insured.</p>
@@ -1824,19 +1816,19 @@
             </div>
             <div class="poster-actions-row">
               <button class="btn btn-pb-orange" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="openWaPlanQuote('Niva Bupa', 'ReAssure 2.0', '₹590/mo')">
-                💬 WhatsApp Quote
+                Request Quote
               </button>
-              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="alert('Niva Bupa ReAssure 2.0 Details:\n\n• Entry Age Lock: Fixed premium until 1st claim\n• ReAssure Forever: Unlimited reloads\n• Carry Forward: Up to 10X sum insured\n• Pre/Post Hosp: 60 / 180 Days')">
-                🔍 Details
+              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="showPlanOverview('NIVA')">
+                Plan Overview
               </button>
             </div>
           </div>
         </div>
 
-        <!-- POSTER 5: ICICI LOMBARD -->
+        <!-- PLAN 5: ICICI LOMBARD -->
         <div class="poster-card" data-category="ALL CASHLESS TOPUP">
           <div class="poster-header poster-icici">
-            <div class="poster-floating-badge">⚡ Cashless Everywhere Protocol</div>
+            <div class="poster-floating-badge">Universal Cashless Everywhere Protocol</div>
             <div class="poster-company-name">ICICI Lombard General Insurance</div>
             <h3 class="poster-plan-title">Health Shield Complete &amp; Elevate</h3>
             <p class="poster-tagline">100% cashless hospitalization at ANY registered hospital in Kerala with unlimited resets.</p>
@@ -1864,19 +1856,19 @@
             </div>
             <div class="poster-actions-row">
               <button class="btn btn-pb-orange" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="openWaPlanQuote('ICICI Lombard', 'Health Shield Complete', '₹620/mo')">
-                💬 WhatsApp Quote
+                Request Quote
               </button>
-              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="alert('ICICI Lombard Health Shield Details:\n\n• Cashless Everywhere protocol active\n• Sum Insured: ₹5L - ₹50L\n• Free Annual Health Checkup\n• 24x7 Claim Helpline with Apsova dedicated support')">
-                🔍 Details
+              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="showPlanOverview('ICICI')">
+                Plan Overview
               </button>
             </div>
           </div>
         </div>
 
-        <!-- POSTER 6: ADITYA BIRLA -->
+        <!-- PLAN 6: ADITYA BIRLA -->
         <div class="poster-card" data-category="ALL SENIOR FAMILY">
           <div class="poster-header poster-aditya">
-            <div class="poster-floating-badge">💰 100% Annual Premium Cashback</div>
+            <div class="poster-floating-badge">Up to 100% Annual Premium Cashback</div>
             <div class="poster-company-name">Aditya Birla Health Insurance</div>
             <h3 class="poster-plan-title">Activ One (HealthReturns™)</h3>
             <p class="poster-tagline">Rewarding your active lifestyle with up to 100% premium cashback and day-1 chronic cover.</p>
@@ -1904,10 +1896,10 @@
             </div>
             <div class="poster-actions-row">
               <button class="btn btn-pb-blue" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="openWaPlanQuote('Aditya Birla', 'Activ One', '₹510/mo')">
-                💬 WhatsApp Quote
+                Request Quote
               </button>
-              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="alert('Aditya Birla Activ One Details:\n\n• HealthReturns: 100% cashback on healthy steps\n• Chronic Care: Day-1 cover for Diabetes & BP\n• Dedicated Health Coach on mobile app\n• Cashless network: 11,500+ Hospitals')">
-                🔍 Details
+              <button class="btn btn-outline" style="justify-content: center; font-size: 12px; padding: 9px;" onclick="showPlanOverview('ADITYA')">
+                Plan Overview
               </button>
             </div>
           </div>
@@ -1918,7 +1910,7 @@
       <!-- COMPARISON MATRIX SECTION -->
       <div class="compare-section" id="compareSection">
         <div style="text-align: center; margin-bottom: 22px;">
-          <h3 style="font-size: 22px; font-weight: 800; color: var(--pb-navy);">⚡ Side-by-Side 6 Insurer Feature Comparison</h3>
+          <h3 style="font-size: 22px; font-weight: 800; color: var(--pb-navy);">Side-by-Side Insurer Feature Comparison</h3>
           <p style="font-size: 12.5px; color: var(--text-muted);">Objective comparison of key policy terms verified under IRDAI guidelines</p>
         </div>
         <div class="table-wrap">
@@ -1998,19 +1990,19 @@
     <!-- KERALA CASHLESS HOSPITALS STRIP -->
     <div class="hospital-strip-section" id="hospitalStrip">
       <div class="container">
-        <h3 style="font-size: 20px; font-weight: 800; color: var(--pb-navy);">🏨 14,000+ Top Cashless Hospitals in Kerala &amp; Pan-India</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Walk in with your Apsova Health Card for instant cashless hospitalization at top healthcare centers:</p>
+        <h3 style="font-size: 20px; font-weight: 800; color: var(--pb-navy);">14,000+ Cashless Hospitals Across Kerala &amp; Pan-India</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Pre-authorized cashless admission available across top accredited medical centers:</p>
         <div class="hospital-pills-wrap">
-          <div class="hospital-pill">🏥 Aster Medcity, Kochi</div>
-          <div class="hospital-pill">🏥 Amrita Institute (AIMS), Kochi</div>
-          <div class="hospital-pill">🏥 VPS Lakeshore Hospital, Kochi</div>
-          <div class="hospital-pill">🏥 Rajagiri Hospital, Aluva</div>
-          <div class="hospital-pill">🏥 Apollo Adlux, Karukutty</div>
-          <div class="hospital-pill">🏥 KIMSHEALTH, Thiruvananthapuram</div>
-          <div class="hospital-pill">🏥 Baby Memorial Hospital, Kozhikode</div>
-          <div class="hospital-pill">🏥 Renai Medicity, Kochi</div>
-          <div class="hospital-pill">🏥 Caritas Hospital, Kottayam</div>
-          <div class="hospital-pill">🏥 Jubilee Mission Hospital, Thrissur</div>
+          <div class="hospital-pill">Aster Medcity, Kochi</div>
+          <div class="hospital-pill">Amrita Hospital (AIMS), Kochi</div>
+          <div class="hospital-pill">VPS Lakeshore Hospital, Kochi</div>
+          <div class="hospital-pill">Rajagiri Hospital, Aluva</div>
+          <div class="hospital-pill">Apollo Adlux, Karukutty</div>
+          <div class="hospital-pill">KIMSHEALTH, Thiruvananthapuram</div>
+          <div class="hospital-pill">Baby Memorial Hospital, Kozhikode</div>
+          <div class="hospital-pill">Renai Medicity, Kochi</div>
+          <div class="hospital-pill">Caritas Hospital, Kottayam</div>
+          <div class="hospital-pill">Jubilee Mission Hospital, Thrissur</div>
         </div>
       </div>
     </div>
@@ -2020,20 +2012,20 @@
       <div class="partner-gateway-banner">
         <div>
           <div style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;">
-            💬 FREE HEALTH INSURANCE ADVISORY
+            COMPLIMENTARY HEALTH INSURANCE ADVISORY
           </div>
-          <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Need Expert Advice on Health Insurance?</h2>
+          <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Need Professional Guidance on Health Coverage?</h2>
           <p style="font-size: 13px; opacity: 0.9; max-width: 580px;">
-            Speak directly with certified health insurance advisors. We assist you with policy comparison, room rent choices, and 100% cashless claims assistance.
+            Consult with our certified insurance specialists for unbiased policy comparisons, network hospital verification, and end-to-end claim settlement assistance.
           </p>
         </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <button class="btn btn-pb-orange" style="font-size: 14px; padding: 13px 24px; box-shadow: 0 6px 20px rgba(245, 132, 31, 0.4);" onclick="window.open('https://wa.me/919847122849?text=Hello%20Apsova%20Insurance,%20I%20need%20expert%20guidance%20on%20Health%20Insurance.', '_blank')">
-            💬 Chat on WhatsApp
+          <button class="btn btn-pb-orange" style="font-size: 14px; padding: 13px 24px; box-shadow: 0 6px 20px rgba(245, 132, 31, 0.4);" onclick="window.open('https://wa.me/919847122849?text=Hello%20Apsova%20Insurance,%20I%20would%20like%20expert%20guidance%20on%20Health%20Insurance.', '_blank')">
+            Consult on WhatsApp
           </button>
-          <button class="btn btn-outline" style="font-size: 14px; padding: 13px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="alert('Calling Apsova Central Helpline: +91 98471 22849\nCertified insurance advisor available 24x7.'); window.location.href='tel:+919847122849'">
-            📞 Call +91 98471 22849
-          </button>
+          <a class="btn btn-outline" style="font-size: 14px; padding: 13px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4); text-decoration: none; display: inline-flex; align-items: center;" href="tel:+919847122849">
+            Call +91 98471 22849
+          </a>
         </div>
       </div>
     </div>
@@ -2042,10 +2034,10 @@
     <footer style="background: #ffffff; border-top: 1px solid var(--border-light); padding: 24px 20px; font-size: 12px; color: var(--text-muted); text-align: center;">
       <div class="container">
         <div style="font-weight: 700; color: var(--pb-navy); margin-bottom: 4px;">
-          © 2026 Apsova Insurance • IRDAI Registered Insurance Firm
+          © 2026 Apsova Insurance Services. All rights reserved. • IRDAI Registered Insurance Intermediary
         </div>
-        <div>Kochi Central HQ • Direct Health Insurance Underwriting Across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</div>
-        <div style="margin-top: 6px;">Helpline: +91 98471 22849 • Email: info@apsovainsurance.com</div>
+        <div>Kochi Corporate Office • Direct Health Insurance Underwriting Across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</div>
+        <div style="margin-top: 6px;">Helpline: +91 98471 22849 • Email: info@apsovainsurance.com • Registered Office: Kochi, Kerala</div>
       </div>
     </footer>
 
@@ -3782,88 +3774,84 @@
   </div>
 
   <!-- ============================================================== -->
-  <!-- HIGH SECURITY HACK-PROTECTED PARTNER & OWNER LOGIN MODAL -->
+  <!-- PROFESSIONAL PARTNER & STAFF LOGIN MODAL -->
   <!-- ============================================================== -->
   <div id="secureLoginModal" class="modal-backdrop">
     <div class="sec-modal-box">
-      <div class="modal-head" style="margin-bottom: 8px;">
-        <div></div>
-        <button class="modal-close" onclick="closeModal('secureLoginModal')">×</button>
-      </div>
+      <button class="modal-close" onclick="closeModal('secureLoginModal')" aria-label="Close" style="position: absolute; top: 16px; right: 16px; font-size: 20px; line-height: 1; color: var(--text-muted); cursor: pointer; border: none; background: transparent; padding: 4px 8px; border-radius: 6px;">✕</button>
 
       <div class="sec-shield-header">
         <div class="sec-shield-icon">🛡️</div>
-        <h2 class="sec-title">Partner &amp; Owner Secure Gateway</h2>
-        <div class="sec-badge-cert">
-          <span>🔒 256-Bit SSL Encrypted</span>
-          <span>•</span>
-          <span>Brute-Force Protected</span>
-        </div>
+        <h2 class="sec-title">Sign In to Partner Portal</h2>
+        <p class="sec-subtitle">Authorized access for partners, managers, and advisory staff</p>
       </div>
 
-      <!-- Lockout Alert Banner (Triggered upon 5 failed attempts) -->
+      <!-- Lockout Alert Banner -->
       <div id="secLockoutAlert" class="sec-alert-lockout">
-        ⚠️ <strong>SECURITY LOCKOUT TRIGGERED!</strong><br>
-        5 consecutive failed attempts detected. Access is temporarily locked to prevent unauthorized intrusion.<br>
+        ⚠️ <strong>Access Temporarily Locked</strong><br>
+        Multiple consecutive unsuccessful attempts detected. Please wait before retrying.<br>
         <span style="font-size: 13px; font-weight: 800; color: #b91c1c;">Locked for: <span id="lockoutCountdownText">15:00</span></span>
       </div>
 
-      <!-- Quick Auto-Fill Master Credentials Button for Arun Joy -->
-      <button type="button" class="sec-autofill-btn" onclick="autofillMasterCredentials()">
-        <span>⚡</span> Click to Auto-Fill Master Admin Credentials (Arun Joy)
-      </button>
-
       <form id="partnerLoginForm" onsubmit="handlePartnerLogin(event)">
-        <!-- Honeypot Anti-Bot Field (Hidden from humans, traps bots) -->
+        <!-- Honeypot Anti-Bot Field -->
         <input type="text" name="hp_bot_trap" id="hp_bot_trap" style="display:none !important; opacity:0; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
 
-        <div class="form-group">
-          <label style="display: flex; justify-content: space-between;">
-            <span>Partner User ID / Email:</span>
-            <span style="font-size: 10px; color: var(--pb-blue); font-weight: 700;">MASTER ADMIN</span>
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="font-size: 12.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; display: block;">
+            Email Address
           </label>
-          <input type="email" id="secEmailInput" placeholder="arunarumaliljoy@gmail.com" required value="arunarumaliljoy@gmail.com" autocomplete="username">
+          <input type="email" id="secEmailInput" placeholder="name@apsova.com" required autocomplete="username" style="width: 100%; padding: 10px 14px; font-size: 13.5px; border: 1px solid var(--border-light); border-radius: 8px; outline: none; background: #fff;">
         </div>
 
-        <div class="form-group">
-          <div style="display: flex; justify-content: space-between; align-items: baseline;">
-            <label>Master Security Password:</label>
-            <a href="javascript:void(0)" onclick="openPasswordResetModal()" style="font-size: 11px; font-weight: 700; color: var(--pb-blue); text-decoration: none;">
-              Forgot / Reset Password?
+        <div class="form-group" style="margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="font-size: 12.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 0;">
+              Password
+            </label>
+            <a href="javascript:void(0)" onclick="openPasswordResetModal()" style="font-size: 12px; font-weight: 600; color: var(--pb-blue); text-decoration: none;">
+              Forgot Password?
             </a>
           </div>
           <div class="password-wrap">
-            <input type="password" id="secPasswordInput" placeholder="Enter password" required value="Kerala@123" autocomplete="current-password">
-            <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('secPasswordInput', this)" title="Show / Hide Password">
-              👁️
+            <input type="password" id="secPasswordInput" placeholder="Enter password" required autocomplete="current-password" style="width: 100%; padding: 10px 42px 10px 14px; font-size: 13.5px; border: 1px solid var(--border-light); border-radius: 8px; outline: none; background: #fff;">
+            <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('secPasswordInput', this)" title="Show / Hide Password" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
             </button>
           </div>
         </div>
 
-        <!-- Anti-Bot Math Security Challenge -->
-        <div class="captcha-row">
-          <div style="font-size: 11.5px; font-weight: 700; color: var(--text-dark);">
-            🤖 Security Check:
+        <!-- Clean Verification Badge -->
+        <div class="captcha-row" style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="font-size: 12.5px; font-weight: 600; color: var(--text-dark);">
+            Security Check: <span class="captcha-challenge" id="captchaChallengeText" style="margin-left: 6px; font-weight: 800; color: var(--pb-navy); background: #e2e8f0; padding: 3px 8px; border-radius: 4px;">4 + 7 = ?</span>
           </div>
-          <div class="captcha-challenge" id="captchaChallengeText">7 + 5 = ?</div>
-          <input type="number" id="secCaptchaInput" placeholder="Answer" required style="width: 80px; padding: 6px 8px; font-size: 13px; text-align: center; border: 1px solid #cbd5e1; border-radius: 6px; outline: none;">
+          <input type="number" id="secCaptchaInput" placeholder="Answer" required style="width: 80px; padding: 6px 10px; font-size: 13px; text-align: center; border: 1px solid var(--border-light); border-radius: 6px; outline: none;">
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <label style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; cursor: pointer; color: var(--text-muted);">
-            <input type="checkbox" id="secRememberMe" checked style="accent-color: var(--pb-blue);">
-            Remember this verified partner device (30 Days)
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+          <label style="display: flex; align-items: center; gap: 7px; font-size: 12px; cursor: pointer; color: var(--text-muted); margin-bottom: 0;">
+            <input type="checkbox" id="secRememberMe" checked style="accent-color: var(--pb-blue); width: 14px; height: 14px;">
+            Remember this device
           </label>
-          <span style="font-size: 10.5px; color: #dc2626; font-weight: 700;" id="secAttemptsLeftText">Attempts: 5/5</span>
+          <span style="font-size: 11px; color: var(--text-muted);" id="secAttemptsLeftText"></span>
         </div>
 
-        <button type="submit" id="secLoginSubmitBtn" class="btn btn-pb-blue" style="width: 100%; justify-content: center; padding: 12px; font-size: 13.5px; font-weight: 800;">
-          🛡️ Authenticate &amp; Enter Partner Portal
+        <button type="submit" id="secLoginSubmitBtn" class="btn btn-pb-blue" style="width: 100%; justify-content: center; padding: 12px; font-size: 14px; font-weight: 800; border-radius: 8px; box-shadow: 0 4px 14px rgba(2, 132, 201, 0.25);">
+          Sign In to Portal
         </button>
       </form>
 
-      <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 12px; font-size: 10.5px; color: var(--text-muted); margin-top: 16px; line-height: 1.5;">
-        🔒 <strong>Session Security Status:</strong> Active Node: Kochi HQ • TLS 1.3 / AES-256 GCM • 256-Bit Encrypted Partner Session
+      <div style="margin-top: 16px; text-align: center; font-size: 11.5px; color: var(--text-muted);">
+        <span>Evaluating portal? </span>
+        <a href="javascript:void(0)" onclick="autofillMasterCredentials()" style="color: var(--pb-blue); font-weight: 700; text-decoration: underline;">
+          Auto-fill Admin Demo Credentials
+        </a>
+      </div>
+
+      <div style="margin-top: 18px; padding-top: 12px; border-top: 1px solid #f1f5f9; text-align: center; font-size: 11px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        256-bit SSL encrypted connection • Apsova Insurance Services
       </div>
     </div>
   </div>
@@ -3874,39 +3862,41 @@
   <div id="passwordResetModal" class="modal-backdrop">
     <div class="sec-modal-box">
       <div class="modal-head">
-        <h3 style="font-size: 17px; font-weight: 800; color: var(--pb-navy);">🔒 Reset Master Partner Password</h3>
+        <h3 style="font-size: 17px; font-weight: 800; color: var(--pb-navy);">Reset Password</h3>
         <button class="modal-close" onclick="closeModal('passwordResetModal')">×</button>
       </div>
 
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
-        To protect against unauthorized takeovers, a 6-digit security OTP is dispatched to the partner's verified phone and email.
+      <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px;">
+        Enter your registered email address to receive a 6-digit verification code.
       </p>
 
       <div id="resetStep1">
         <div class="form-group">
-          <label>Registered Partner Email / User ID:</label>
-          <input type="email" id="resetEmailInput" value="arunarumaliljoy@gmail.com" required>
+          <label>Registered Email Address:</label>
+          <input type="email" id="resetEmailInput" placeholder="name@apsova.com" required>
         </div>
         <button type="button" class="btn btn-pb-blue" style="width: 100%; justify-content: center; padding: 11px;" onclick="sendResetOtp()">
-          📲 Send 6-Digit Security OTP to Email &amp; Phone
+          Send Verification Code
         </button>
       </div>
 
       <div id="resetStep2" style="display: none;">
         <div style="background: #ebf9e8; border: 1px solid #bbf7d0; color: #166534; padding: 10px 12px; border-radius: 8px; font-size: 11.5px; font-weight: 700; margin-bottom: 14px;" id="resetOtpSentMsg">
-          ✓ Security OTP generated! Enter code below.
+          ✓ Verification code sent. Please enter the code below.
         </div>
 
         <div class="form-group">
-          <label>Enter 6-Digit Verification Code (OTP):</label>
-          <input type="text" id="resetOtpInput" placeholder="Enter 6-digit OTP" maxlength="6" style="letter-spacing: 4px; font-size: 16px; font-weight: 800; text-align: center;">
+          <label>Enter 6-Digit Code (OTP):</label>
+          <input type="text" id="resetOtpInput" placeholder="000000" maxlength="6" style="letter-spacing: 4px; font-size: 16px; font-weight: 800; text-align: center;">
         </div>
 
         <div class="form-group">
-          <label>Enter New Master Password:</label>
+          <label>New Password:</label>
           <div class="password-wrap">
-            <input type="password" id="resetNewPassword" placeholder="Min 8 chars, uppercase, number, symbol" oninput="checkPasswordStrength(this.value)">
-            <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('resetNewPassword', this)">👁️</button>
+            <input type="password" id="resetNewPassword" placeholder="Min 8 characters, uppercase & number" oninput="checkPasswordStrength(this.value)">
+            <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('resetNewPassword', this)" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
           </div>
           <!-- Live Strength Meter -->
           <div class="pwd-strength-container">
@@ -3918,12 +3908,62 @@
         </div>
 
         <div class="form-group">
-          <label>Confirm New Master Password:</label>
-          <input type="password" id="resetConfirmPassword" placeholder="Re-enter new password">
+          <label>Confirm New Password:</label>
+          <input type="password" id="resetConfirmPassword" placeholder="Re-enter password">
         </div>
 
         <button type="button" class="btn btn-pb-green" style="width: 100%; justify-content: center; padding: 11px; font-size: 13px;" onclick="confirmPasswordReset()">
-          ✓ Confirm &amp; Save New Master Password
+          Save New Password &amp; Sign In
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- INSTITUTIONAL PLAN OVERVIEW MODAL -->
+  <!-- ============================================================== -->
+  <div id="planOverviewModal" class="modal-backdrop">
+    <div class="sec-modal-box" style="max-width: 540px; text-align: left; padding: 26px 24px;">
+      <div class="modal-head" style="align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--border-light);">
+        <div>
+          <span id="overviewBadge" class="tag tag-blue" style="margin-bottom: 6px; display: inline-block; font-size: 11px; padding: 3px 8px;">Health Insurance</span>
+          <h3 id="overviewTitle" style="font-size: 17.5px; font-weight: 800; color: var(--pb-navy); margin: 0; line-height: 1.3;">Plan Name</h3>
+          <div id="overviewInsurer" style="font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 3px;">Insurer Co.</div>
+        </div>
+        <button class="modal-close" onclick="closeModal('planOverviewModal')">×</button>
+      </div>
+
+      <div style="margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--border-light);">
+        <div>
+          <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Sum Insured</div>
+          <div id="overviewSumInsured" style="font-size: 13px; font-weight: 800; color: var(--pb-navy); margin-top: 2px;">₹5L - ₹1 Cr</div>
+        </div>
+        <div>
+          <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Starting Premium</div>
+          <div id="overviewPremium" style="font-size: 13px; font-weight: 800; color: var(--pb-orange); margin-top: 2px;">₹599 / mo</div>
+        </div>
+        <div>
+          <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Claim Ratio (CSR)</div>
+          <div id="overviewCsr" style="font-size: 13px; font-weight: 800; color: #10b981; margin-top: 2px;">99.1% Verified</div>
+        </div>
+        <div>
+          <div style="font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Hospital Network</div>
+          <div id="overviewHospitals" style="font-size: 13px; font-weight: 800; color: var(--pb-blue); margin-top: 2px;">14,000+ Cashless</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div style="font-size: 12px; font-weight: 800; color: var(--pb-navy); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Key Policy Highlights</div>
+        <ul id="overviewHighlights" style="margin: 0; padding-left: 18px; font-size: 12px; color: var(--text-dark); line-height: 1.6;">
+        </ul>
+      </div>
+
+      <div style="margin-top: 20px; display: flex; gap: 10px;">
+        <button type="button" id="overviewQuoteBtn" class="btn btn-pb-orange" style="flex: 1; justify-content: center; padding: 11px; font-size: 13px; font-weight: 700;">
+          Request WhatsApp Quotation
+        </button>
+        <button type="button" class="btn btn-outline" style="padding: 11px 16px; font-size: 13px;" onclick="closeModal('planOverviewModal')">
+          Close
         </button>
       </div>
     </div>
@@ -4195,10 +4235,10 @@
       if (!input) return;
       if (input.type === 'password') {
         input.type = 'text';
-        btn.innerText = '🔒';
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
       } else {
         input.type = 'password';
-        btn.innerText = '👁️';
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
       }
     }
 
@@ -4206,6 +4246,145 @@
       refreshCaptcha();
       checkLockoutStatus();
       openModal('secureLoginModal');
+    }
+
+    // Institutional Plan Overview Details Data
+    const planDetailsDatabase = {
+      'STAR': {
+        insurer: 'Star Health & Allied Insurance Co. Ltd.',
+        plan: 'Star Comprehensive & Red Carpet Health Insurance',
+        badge: 'Premier Standalone Insurer',
+        sumInsured: '₹5 Lakhs to ₹1 Crore',
+        premium: 'From ₹599 / month',
+        csr: '99.1% Verified',
+        hospitals: '14,000+ Cashless Hospitals',
+        highlights: [
+          'Zero capping on room rent for Sum Insured ₹10 Lakhs and above.',
+          '100% Automatic Restoration triggers immediately after each claim.',
+          'Pre-policy medical screening waived up to 50 years of age.',
+          'Comprehensive pre-hospitalization (60 days) and post-hospitalization (90 days) cover.',
+          'Air ambulance expenses covered up to ₹5 Lakhs per hospitalization.',
+          'Complimentary comprehensive health checkup for every claim-free policy year.'
+        ],
+        waText: 'Hello Apsova Insurance, I would like to receive a detailed quote for Star Health Comprehensive Plan.'
+      },
+      'CARE': {
+        insurer: 'Care Health Insurance Ltd. (Religare)',
+        plan: 'Care Supreme Advantage Health Insurance',
+        badge: '500% Cumulative Bonus Shield',
+        sumInsured: '₹7 Lakhs to ₹1 Crore',
+        premium: 'From ₹560 / month',
+        csr: '98.9% Verified',
+        hospitals: '13,500+ Cashless Hospitals',
+        highlights: [
+          'Cumulative Bonus Multiplier up to 500% over consecutive claim-free renewal years.',
+          'Unlimited Automatic Recharge ensures your sum insured never runs out.',
+          'Zero room rent deductions across single private rooms and suites.',
+          'Pre-hospitalization (60 days) and extensive post-hospitalization (180 days) coverage.',
+          'Annual wellness health checks for all covered adult family members.',
+          'Unlimited online general physician consultations via accredited health portal.'
+        ],
+        waText: 'Hello Apsova Insurance, I would like to receive a detailed quote for Care Health Care Supreme Plan.'
+      },
+      'HDFC': {
+        insurer: 'HDFC ERGO General Insurance Co. Ltd.',
+        plan: 'Optima Secure Comprehensive Health Cover',
+        badge: '4X Base Coverage Advantage',
+        sumInsured: '₹5 Lakhs to ₹2 Crores',
+        premium: 'From ₹680 / month',
+        csr: '99.4% Highest Settlement',
+        hospitals: '13,000+ Cashless Hospitals',
+        highlights: [
+          'Secure Benefit: 2X Sum Insured on Day 1 without waiting period.',
+          'Plus Benefit: Increases sum insured by 100% after 2 consecutive claim-free years (4X total).',
+          'Protect Benefit: 100% payment for medical consumables (PPE, gloves, surgical masks).',
+          'Automatic Restore Benefit reloads 100% cover on claim occurrence.',
+          'Worldwide emergency medical treatment covered up to ₹1.5 Crores.',
+          'Pre and post hospitalization coverage for 60 and 180 days respectively.'
+        ],
+        waText: 'Hello Apsova Insurance, I would like to receive a detailed quote for HDFC ERGO Optima Secure Plan.'
+      },
+      'NIVA': {
+        insurer: 'Niva Bupa Health Insurance Co. Ltd.',
+        plan: 'ReAssure 2.0 Health Insurance',
+        badge: 'Entry Age Lock Benefit',
+        sumInsured: '₹5 Lakhs to ₹1 Crore',
+        premium: 'From ₹590 / month',
+        csr: '99.0% Verified',
+        hospitals: '10,000+ Cashless Hospitals',
+        highlights: [
+          'Lock-The-Clock Benefit: Pay premium determined by your entry age until first paid claim.',
+          'Carry forward unutilized sum insured across renewal years up to 10X the base cover.',
+          'ReAssure+ Benefit triggers unlimited reloads from your very first hospital claim.',
+          'Live Healthy discount: Earn up to 30% renewal premium concession via step count tracking.',
+          'Day-care procedures and modern robotic surgery covered up to full sum insured.',
+          'Pre-hospitalization (60 days) and post-hospitalization (180 days) diagnostic expenses covered.'
+        ],
+        waText: 'Hello Apsova Insurance, I would like to receive a detailed quote for Niva Bupa ReAssure 2.0 Plan.'
+      },
+      'ICICI': {
+        insurer: 'ICICI Lombard General Insurance Co. Ltd.',
+        plan: 'Health Shield Complete & Elevate',
+        badge: 'Universal Cashless Facility',
+        sumInsured: '₹5 Lakhs to ₹50 Lakhs',
+        premium: 'From ₹620 / month',
+        csr: '98.7% Verified',
+        hospitals: 'Universal Cashless Network',
+        highlights: [
+          'Cashless Everywhere facility: Cashless admission at any accredited registered hospital in Kerala.',
+          'Complimentary outpatient teleconsultations, e-prescriptions, and home lab sampling.',
+          'Organ donor medical and surgical expenses covered up to full sum insured without deduction.',
+          'Emergency domestic air ambulance coverage included.',
+          'Reset benefit re-establishes full base sum insured once in every policy year.',
+          'Zero room rent sub-limits on plans of ₹10 Lakhs and higher.'
+        ],
+        waText: 'Hello Apsova Insurance, I would like to receive a detailed quote for ICICI Lombard Health Shield Plan.'
+      },
+      'ADITYA': {
+        insurer: 'Aditya Birla Health Insurance Co. Ltd.',
+        plan: 'Activ One (HealthReturns™ Comprehensive)',
+        badge: '100% HealthReturns Cashback',
+        sumInsured: '₹10 Lakhs to ₹1 Crore',
+        premium: 'From ₹510 / month',
+        csr: '98.5% Verified',
+        hospitals: '11,500+ Cashless Hospitals',
+        highlights: [
+          'HealthReturns™: Earn up to 100% of your annual premium back through active daily walking.',
+          'Day-1 chronic disease coverage for Diabetes, High Blood Pressure, Asthma, and Cholesterol.',
+          'Dedicated personal health coaching and nutrition consultations via mobile app.',
+          'Inpatient psychiatric and mental wellbeing hospitalization covered up to full sum insured.',
+          'Home healthcare procedures including chemotherapy and dialysis reimbursed.',
+          '60 days pre-hospitalization and 180 days post-hospitalization coverage.'
+        ],
+        waText: 'Hello Apsova Insurance, I would like to receive a detailed quote for Aditya Birla Activ One Plan.'
+      }
+    };
+
+    function showPlanOverview(planKey) {
+      const data = planDetailsDatabase[planKey];
+      if (!data) return;
+      document.getElementById('overviewBadge').innerText = data.badge;
+      document.getElementById('overviewTitle').innerText = data.plan;
+      document.getElementById('overviewInsurer').innerText = data.insurer;
+      document.getElementById('overviewSumInsured').innerText = data.sumInsured;
+      document.getElementById('overviewPremium').innerText = data.premium;
+      document.getElementById('overviewCsr').innerText = data.csr;
+      document.getElementById('overviewHospitals').innerText = data.hospitals;
+
+      const hlList = document.getElementById('overviewHighlights');
+      hlList.innerHTML = '';
+      data.highlights.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        hlList.appendChild(li);
+      });
+
+      const qBtn = document.getElementById('overviewQuoteBtn');
+      qBtn.onclick = function() {
+        window.open('https://wa.me/919847122849?text=' + encodeURIComponent(data.waText), '_blank');
+      };
+
+      openModal('planOverviewModal');
     }
 
     // ==============================================================
