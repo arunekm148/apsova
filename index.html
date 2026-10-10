@@ -2128,7 +2128,8 @@
             <option value="AGENCY_MANAGER">👔 Agency Manager (Rahul - Directs POSP)</option>
             <option value="TEAM_LEADER">🎧 Team Leader (Priya - Leads Telecallers)</option>
             <option value="TELECALLER">📞 Telecaller (Anjali - Calling CRM Only)</option>
-            <option value="POSP_AGENT">💼 POSP Agent (Akhil - Reports to AM)</option>
+            <option value="POSP_AGENT">💼 POSP Agent (Akhil - APS-100)</option>
+            <option value="IRDAI_AGENT">📜 IRDAI Direct Agent (Kavya - APS_IRDAI_100)</option>
             <option value="ACCOUNTS">💰 Accounts &amp; Ops (Suresh)</option>
             <option value="HR">🕒 HR &amp; Payroll (Meera)</option>
           </select>
@@ -2884,40 +2885,99 @@
         
         <div class="action-row">
           <div>
-            <h2>Agency Network & POSP Registration</h2>
+            <h2>Agency Network &amp; Agent Registration</h2>
           </div>
           <div style="display: flex; gap: 8px;">
             <button class="btn btn-outline" onclick="openModal('agentTransferModal')">🔄 Bulk Transfer Agents (Resigned Manager)</button>
-            <button class="btn btn-pb-orange" onclick="openModal('registerAgentModal')">➕ Register New Agent (APS-100+)</button>
+            <button class="btn btn-pb-orange" onclick="openRegisterAgentModal()">➕ Register New Agent (POSP / IRDAI)</button>
           </div>
         </div>
 
         <div class="table-card">
-          <div class="table-header">
+          <div class="table-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
-              <strong style="font-size: 14px; color: var(--text-dark);">Registered POSP Agents</strong>
-              <div style="font-size: 11px; color: var(--text-muted);">Numbering sequence: <strong>APS-100 onwards</strong></div>
+              <strong style="font-size: 14px; color: var(--text-dark);">Registered Agency Network (<span id="agentsCountText">42 Agents</span>)</strong>
+              <div style="font-size: 11px; color: var(--text-muted);">POSP Series: <strong>APS-100+</strong> • IRDAI Direct Series: <strong>APS_IRDAI_100+</strong></div>
             </div>
-            <span class="tag tag-green">38 Active Agents</span>
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              <button id="btnFilterAllAgents" class="btn btn-pb-blue" style="font-size: 11px; padding: 4px 10px;" onclick="filterAgentsTable('ALL')">All Agents (42)</button>
+              <button id="btnFilterPospAgents" class="btn btn-outline" style="font-size: 11px; padding: 4px 10px;" onclick="filterAgentsTable('POSP')">💼 POSP Agents (28)</button>
+              <button id="btnFilterIrdaiAgents" class="btn btn-outline" style="font-size: 11px; padding: 4px 10px;" onclick="filterAgentsTable('IRDAI')">📜 IRDAI Direct Agents (14)</button>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>Internal Agent ID</th>
-                  <th>Agent Name & Contact</th>
-                  <th>Assigned Agency Manager</th>
+                  <th>Agent Name &amp; Contact</th>
+                  <th>Assigned Reporting Manager</th>
                   <th>Insurer Codes</th>
                   <th>Business Sourced</th>
                   <th>Status</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
+              <tbody id="registeredAgentsTableBody">
+                <!-- IRDAI CERTIFIED DIRECT AGENTS (APS_IRDAI_100+) -->
+                <tr class="agent-row-irdai">
+                  <td><strong style="color: #7e22ce; font-family: monospace; font-size: 14px;">APS_IRDAI_100</strong></td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Kavya Menon</strong>
+                    <span class="tag tag-purple" style="font-size: 10px; margin-left: 4px;">IRDAI</span>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 98471 33445 • Thrissur</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Rahul Varma (Agency Mgr)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">IRDAI Direct License Holder</div>
+                  </td>
+                  <td style="font-size: 11px; line-height: 1.4;">
+                    <div>Star: <code>STAR-IRDAI-01</code></div>
+                    <div>HDFC: <code>HDFC-IRDAI-88</code></div>
+                  </td>
+                  <td>
+                    <strong>₹12,50,000</strong>
+                    <div style="font-size: 11px; color: var(--pb-green);">31 Issued Policies</div>
+                  </td>
+                  <td><span class="tag tag-purple">Active IRDAI</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS_IRDAI_100 Kavya Menon')">Ledger</button>
+                    <button class="btn btn-outline" onclick="alert('IRDAI License Verified: IRL-KL-9921')">License Doc</button>
+                  </td>
+                </tr>
+
+                <tr class="agent-row-irdai">
+                  <td><strong style="color: #7e22ce; font-family: monospace; font-size: 14px;">APS_IRDAI_101</strong></td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Rajeev Pillai</strong>
+                    <span class="tag tag-purple" style="font-size: 10px; margin-left: 4px;">IRDAI</span>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 94473 22110 • Palakkad</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Priya Nair (Team Leader)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">IRDAI Direct License Holder</div>
+                  </td>
+                  <td style="font-size: 11px; line-height: 1.4;">
+                    <div>ICICI: <code>IL-IRDAI-102</code></div>
+                    <div>Tata AIG: <code>TAIG-IRDAI-77</code></div>
+                  </td>
+                  <td>
+                    <strong>₹9,80,000</strong>
+                    <div style="font-size: 11px; color: var(--pb-green);">22 Issued Policies</div>
+                  </td>
+                  <td><span class="tag tag-purple">Active IRDAI</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS_IRDAI_101 Rajeev Pillai')">Ledger</button>
+                    <button class="btn btn-outline" onclick="alert('IRDAI License Verified: IRL-KL-8842')">License Doc</button>
+                  </td>
+                </tr>
+
+                <!-- POSP CERTIFIED AGENTS (APS-100+) -->
+                <tr class="agent-row-posp">
                   <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-100</strong></td>
                   <td>
                     <strong style="color: var(--text-dark);">Akhil Mohan</strong>
+                    <span class="tag tag-blue" style="font-size: 10px; margin-left: 4px;">POSP</span>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 97451 88990 • Ernakulam</div>
                   </td>
                   <td>
@@ -2939,10 +2999,11 @@
                   </td>
                 </tr>
 
-                <tr>
+                <tr class="agent-row-posp">
                   <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-101</strong></td>
                   <td>
                     <strong style="color: var(--text-dark);">Manoj Nambiar</strong>
+                    <span class="tag tag-blue" style="font-size: 10px; margin-left: 4px;">POSP</span>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 94471 89012 • Kannur</div>
                   </td>
                   <td>
@@ -2964,14 +3025,15 @@
                   </td>
                 </tr>
 
-                <tr>
+                <tr class="agent-row-posp">
                   <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-102</strong></td>
                   <td>
                     <strong style="color: var(--text-dark);">Deepa Pillai</strong>
+                    <span class="tag tag-blue" style="font-size: 10px; margin-left: 4px;">POSP</span>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 98460 77123 • Ernakulam</div>
                   </td>
                   <td>
-                    <strong style="color: var(--text-dark);">Rahul Varma (Agency Mgr)</strong>
+                    <strong style="color: var(--text-dark);">Priya Nair (Team Leader)</strong>
                     <div style="font-size: 11px; color: var(--text-muted);">Certified POSP Advisor</div>
                   </td>
                   <td style="font-size: 11px; line-height: 1.4;">
@@ -3194,7 +3256,7 @@
             <div>
               <div style="font-size: 14px; font-weight: 800;">Enterprise Hierarchy &amp; Permission Structure</div>
               <div style="font-size: 11.5px; opacity: 0.88; margin-top: 2px;">
-                <strong>Level 1: Master Admin</strong> (creates Partners) ➔ <strong>Level 2: Partners</strong> (create Staff &amp; POSP Agents) ➔ <strong>Level 3: Operational Staff</strong>
+                <strong>Level 1: Master Admin</strong> (creates Partners) ➔ <strong>Level 2: Partners</strong> (create Agency Managers &amp; Team Leaders) ➔ <strong>Level 3: Team Leaders &amp; Agency Managers</strong> (register POSP [APS-100+] &amp; IRDAI Agents [APS_IRDAI_100+])
               </div>
             </div>
           </div>
@@ -3203,7 +3265,10 @@
               👑 Master Admin: Creates Partners
             </span>
             <span class="tag tag-orange" style="background: rgba(245, 132, 31, 0.25); color: #fff; border-color: rgba(245, 132, 31, 0.5);">
-              🤝 Partners: Create Staff &amp; Agents
+              🤝 Partners: Create Managers &amp; Staff
+            </span>
+            <span class="tag tag-blue" style="background: rgba(2, 132, 201, 0.25); color: #fff; border-color: rgba(2, 132, 201, 0.5);">
+              🎧👔 Leaders &amp; Managers: Create POSP &amp; IRDAI Agents
             </span>
           </div>
         </div>
@@ -3250,10 +3315,10 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
             <div>
               <div style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase; letter-spacing: 0.6px;">
-                LEVEL 3 • STAFF, CALLERS &amp; AGENTS
+                LEVEL 3 • STAFF, CALLERS, POSP &amp; IRDAI AGENTS
               </div>
               <h3 style="font-size: 16px; font-weight: 800; color: var(--text-dark); margin-top: 2px;">
-                Team Members &amp; POSP Network (Created by Partners)
+                Team Members, POSP (APS-100+) &amp; IRDAI Agents (APS_IRDAI_100+)
               </h3>
             </div>
             <button class="btn btn-pb-orange" style="font-size: 12px; padding: 7px 14px;" onclick="handlePartnerCreateStaffClick()">
@@ -3635,33 +3700,50 @@
 
   <!-- MODAL 6: REGISTER NEW AGENT (APS-100+) -->
   <div id="registerAgentModal" class="modal-backdrop">
-    <div class="modal-box">
+    <div class="modal-box" style="max-width: 530px;">
       <div class="modal-head">
-        <h3>➕ Register POSP Agent (APS-100 Series)</h3>
+        <div>
+          <span style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase;">💼 POSP &amp; IRDAI Onboarding</span>
+          <h3 style="margin-top: 2px;">Register New Insurance Agent</h3>
+        </div>
         <button class="modal-close" onclick="closeModal('registerAgentModal')">×</button>
       </div>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        New agents are automatically assigned the next sequential internal ID starting from <strong>APS-100 onwards</strong>.
+        Team Leaders and Agency Managers can onboard POSP Agents (<strong>APS-100 onwards</strong>) or IRDAI Direct Agents (<strong>APS_IRDAI_100 onwards</strong>).
       </p>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
         <div class="form-group">
-          <label>Assigned Internal ID:</label>
-          <input type="text" value="APS-102" disabled style="font-weight: 800; color: var(--pb-blue); background: #f1f5f9;">
+          <label>Agent License / Type: *</label>
+          <select id="regAgentType" onchange="updateRegAgentPreviewId(this.value)" style="font-weight: 700;">
+            <option value="POSP">💼 POSP Certified (APS-100+)</option>
+            <option value="IRDAI">📜 IRDAI Direct (APS_IRDAI_100+)</option>
+          </select>
         </div>
         <div class="form-group">
-          <label>Agent Name:</label>
-          <input type="text" id="newAgentName" placeholder="e.g. Sreejith Nair" value="Sreejith Nair">
+          <label>Assigned Internal ID:</label>
+          <input type="text" id="regAgentIdPreview" value="APS-103" disabled style="font-weight: 800; color: var(--pb-blue); background: #f1f5f9;">
         </div>
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
         <div class="form-group">
-          <label>Mobile Number:</label>
-          <input type="tel" id="newAgentMobile" placeholder="e.g. 9847551122" value="9847551122">
+          <label>Agent Name: *</label>
+          <input type="text" id="newAgentName" placeholder="e.g. Sreejith Nair" value="Sreejith Nair">
         </div>
         <div class="form-group">
-          <label>City / Location:</label>
+          <label>Mobile Number: *</label>
+          <input type="tel" id="newAgentMobile" placeholder="e.g. 9847551122" value="9847551122">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Official Login Email: *</label>
+          <input type="email" id="newAgentEmail" placeholder="sreejith@apsova.com" value="sreejith@apsova.com">
+        </div>
+        <div class="form-group">
+          <label>City / District: *</label>
           <input type="text" id="newAgentCity" placeholder="e.g. Kollam, Kerala" value="Kollam, Kerala">
         </div>
       </div>
@@ -3669,21 +3751,22 @@
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
         <div class="form-group">
           <label>PAN Card Number:</label>
-          <input type="text" placeholder="ABCDE1234F" value="ABCDE1234F">
+          <input type="text" id="newAgentPan" placeholder="ABCDE1234F" value="ABCDE1234F">
         </div>
         <div class="form-group">
-          <label>Assigned Agency Manager:</label>
+          <label>Assigned Reporting Manager: *</label>
           <select id="newAgentMgr">
-            <option>Akhil M. (Senior Agency Manager)</option>
-            <option>Rahul K. (Agency Manager)</option>
-            <option>Priya Nair (Agency Manager)</option>
+            <option value="Agency Manager (Rahul Varma)">👔 Agency Manager (Rahul Varma)</option>
+            <option value="Team Leader (Priya Nair)">🎧 Team Leader (Priya Nair)</option>
+            <option value="Partner 1 (Arun Joy)">🤝 Partner 1 (Arun Joy)</option>
+            <option value="Partner 2 (Saji George)">🤝 Partner 2 (Saji George)</option>
           </select>
         </div>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
         <button class="btn btn-outline" onclick="closeModal('registerAgentModal')">Cancel</button>
-        <button class="btn btn-pb-orange" onclick="registerAgentSubmit()">✓ Register Agent (APS-102)</button>
+        <button class="btn btn-pb-orange" onclick="registerAgentSubmit()">✓ Register &amp; Provision Agent</button>
       </div>
     </div>
   </div>
@@ -3736,6 +3819,8 @@
             <option value="POSP_AKHIL">💼 Akhil Mohan (POSP Agent APS-100)</option>
             <option value="POSP_MANOJ">💼 Manoj Nambiar (POSP Agent APS-100)</option>
             <option value="POSP_DEEPA">💼 Deepa Pillai (POSP Agent APS-101)</option>
+            <option value="IRDAI_KAVYA">📜 Kavya Menon (IRDAI Direct APS_IRDAI_100)</option>
+            <option value="IRDAI_RAJEEV">📜 Rajeev Pillai (IRDAI Direct APS_IRDAI_101)</option>
             <option value="TELECALLER_ANJALI">📞 Anjali Nair (Telecaller)</option>
             <option value="TELECALLER_POOL">📞 Telecaller Round-Robin Pool</option>
             <option value="MGR_RAHUL">👔 Rahul Varma (Agency Manager)</option>
@@ -3923,13 +4008,13 @@
     <div class="modal-box" style="max-width: 520px;">
       <div class="modal-head">
         <div>
-          <span style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase;">🤝 Partner Privilege</span>
-          <h3 style="margin-top: 2px;">Create Team Staff or Agent</h3>
+          <span id="createStaffModalBadge" style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase;">🤝 Management Privilege</span>
+          <h3 id="createStaffModalTitle" style="margin-top: 2px;">Register Agent or Staff</h3>
         </div>
         <button class="modal-close" onclick="closeModal('createStaffModal')">×</button>
       </div>
-      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
-        As an authorized Partner, provision a team member account for telecalling, agency management, POSP sourcing, accounts, or HR.
+      <p id="createStaffModalDesc" style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+        Team Leaders, Agency Managers, and Partners can register POSP Agents (<strong>APS-100+</strong>), IRDAI Direct Agents (<strong>APS_IRDAI_100+</strong>), Telecallers, and operational staff.
       </p>
 
       <form onsubmit="saveNewStaff(event)">
@@ -3942,10 +4027,11 @@
           <div class="form-group">
             <label>Assigned Role: *</label>
             <select id="newStaffRole" onchange="updateStaffSupervisorOptions(this.value)" required>
-              <option value="AGENCY_MANAGER">👔 Agency Manager (Directs &amp; Manages POSP Agents)</option>
-              <option value="TEAM_LEADER">🎧 Team Leader (Leads &amp; Manages Telecallers)</option>
+              <option value="POSP_AGENT">💼 POSP Certified Agent (Code: APS-100+)</option>
+              <option value="IRDAI_AGENT">📜 IRDAI Direct Certified Agent (Code: APS_IRDAI_100+)</option>
               <option value="TELECALLER">📞 Telecaller (Reports to Team Leader)</option>
-              <option value="POSP">💼 POSP Agent (Reports to Agency Manager)</option>
+              <option value="AGENCY_MANAGER">👔 Agency Manager (Directs POSP &amp; IRDAI)</option>
+              <option value="TEAM_LEADER">🎧 Team Leader (Leads Telecallers &amp; POSP)</option>
               <option value="ACCOUNTS">💰 Accounts &amp; Operations Staff</option>
               <option value="HR">🕒 HR &amp; Payroll Staff</option>
             </select>
@@ -3953,10 +4039,10 @@
           <div class="form-group">
             <label>Reporting Supervisor: *</label>
             <select id="newStaffSupervisor" required>
-              <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
-              <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
               <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
               <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
+              <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+              <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
             </select>
           </div>
         </div>
@@ -3976,13 +4062,13 @@
           <label>Initial Login Password: *</label>
           <input type="text" id="newStaffPassword" required value="Staff@123">
           <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
-            Staff can login directly with this email and password.
+            Staff or Agent can login directly with this email and password.
           </div>
         </div>
 
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
           <button type="button" class="btn btn-outline" onclick="closeModal('createStaffModal')">Cancel</button>
-          <button type="submit" class="btn btn-pb-orange">👥 Create Account &amp; Enable Login</button>
+          <button type="submit" class="btn btn-pb-orange">👥 Register Account &amp; Enable Login</button>
         </div>
       </form>
     </div>
@@ -4031,6 +4117,7 @@
               <option value="TEAM_LEADER">🎧 Team Leader (Leads Telecallers)</option>
               <option value="TELECALLER">📞 Telecaller (Calling CRM)</option>
               <option value="POSP_AGENT">💼 POSP Certified Agent</option>
+              <option value="IRDAI_AGENT">📜 IRDAI Certified Direct Agent</option>
               <option value="ACCOUNTS">💰 Accounts &amp; Operations Staff</option>
               <option value="HR">🕒 HR &amp; Payroll Staff</option>
             </select>
@@ -4488,6 +4575,8 @@
           banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali Nair)</strong>. Dedicated Calling CRM Desk: You strictly manage lead calling queues, customer call outcome logs, and WhatsApp follow-ups. All other operational and administrative modules are locked. Reports to <strong>Team Leader (Priya Nair)</strong>.`;
         } else if (role === 'POSP_AGENT') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>POSP Certified Agent (Akhil Mohan - APS-100)</strong>. Personal advisor desk: View assigned client calling leads, compare insurer quotes, renewals, and personal commission statements. Directly reports to <strong>Agency Manager (Rahul Varma)</strong>.`;
+        } else if (role === 'IRDAI_AGENT') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>IRDAI Direct Certified Agent (Kavya Menon - APS_IRDAI_100)</strong>. IRDAI licensed advisor desk: View assigned client calling leads, compare insurer quotes, renewals, and personal commission statements. Directly provisioned via <strong>Agency Manager / Team Leader</strong>.`;
         } else if (role === 'ACCOUNTS') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts & Operations (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation (Ledger A) and agent payout batch preparation (Ledger B).`;
         } else if (role === 'HR') {
@@ -4506,10 +4595,11 @@
         'ADMIN': { name: 'Arun Joy', roleTitle: '👑 Master Admin (Owner)', avatar: 'AJ', email: DEFAULT_MASTER_EMAIL, code: 'USR-ADMIN-01' },
         'PARTNER_1': { name: 'Arun Joy', roleTitle: '🤝 Partner 1 (Owner)', avatar: 'AJ', email: DEFAULT_MASTER_EMAIL, code: 'USR-ADMIN-01' },
         'PARTNER_2': { name: 'Saji George', roleTitle: '🤝 Partner 2 (Owner)', avatar: 'SG', email: 'saji@apsova.com', code: 'USR-PTR-101' },
-        'AGENCY_MANAGER': { name: 'Rahul Varma', roleTitle: '👔 Agency Manager (Directs POSP)', avatar: 'RV', email: 'rahul@apsova.com', code: 'USR-AM-201' },
-        'TEAM_LEADER': { name: 'Priya Nair', roleTitle: '🎧 Team Leader (Leads Telecallers)', avatar: 'PN', email: 'priya@apsova.com', code: 'USR-TL-202' },
+        'AGENCY_MANAGER': { name: 'Rahul Varma', roleTitle: '👔 Agency Manager (Directs POSP & IRDAI)', avatar: 'RV', email: 'rahul@apsova.com', code: 'USR-AM-201' },
+        'TEAM_LEADER': { name: 'Priya Nair', roleTitle: '🎧 Team Leader (Leads Telecallers & POSP)', avatar: 'PN', email: 'priya@apsova.com', code: 'USR-TL-202' },
         'TELECALLER': { name: 'Anjali Nair', roleTitle: '📞 Telecaller (Calling CRM)', avatar: 'AN', email: 'anjali@apsova.com', code: 'USR-TC-203' },
         'POSP_AGENT': { name: 'Akhil Mohan', roleTitle: '💼 POSP Agent (APS-100)', avatar: 'AM', email: 'akhil@apsova.com', code: 'APS-100' },
+        'IRDAI_AGENT': { name: 'Kavya Menon', roleTitle: '📜 IRDAI Agent (APS_IRDAI_100)', avatar: 'KM', email: 'kavya@apsova.com', code: 'APS_IRDAI_100' },
         'ACCOUNTS': { name: 'Suresh Kumar', roleTitle: '💰 Accounts & Ops (Suresh)', avatar: 'SK', email: 'suresh@apsova.com', code: 'USR-OPS-204' },
         'HR': { name: 'Meera Pillai', roleTitle: '🕒 HR & Payroll (Meera)', avatar: 'MP', email: 'meera@apsova.com', code: 'USR-HR-205' }
       };
@@ -4553,14 +4643,14 @@
       Object.values(tabs).forEach(tab => { if (tab) tab.style.display = 'flex'; });
 
       // Apply RBAC filters based on insurance hierarchy best practices
-      if (role === 'POSP_AGENT') {
-        // POSP sees: Dashboard, Sourced Calling Leads, Renewals, Insurers & Categories
+      if (role === 'POSP_AGENT' || role === 'IRDAI_AGENT') {
+        // POSP & IRDAI Agents see: Dashboard, Sourced Calling Leads, Renewals, Insurers & Categories
         // Sensitive data hidden: Partners & Roles, Dual Ledgers, All Agents list, HR
         if (tabs['users']) tabs['users'].style.display = 'none';
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
         if (tabs['agents']) tabs['agents'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
-        // POSP Agent calling queue is fully visible and filtered to POSP leads
+        // POSP / IRDAI Agent calling queue is fully visible and filtered to POSP leads
         if (tabs['telecalling']) tabs['telecalling'].style.display = 'flex';
         filterCallingPool('POSP');
       } else if (role === 'TELECALLER') {
@@ -4574,22 +4664,23 @@
         if (tabs['hr']) tabs['hr'].style.display = 'none';
         filterCallingPool('TELECALLER');
       } else if (role === 'AGENCY_MANAGER') {
-        // Agency Manager directly manages POSP Agents!
-        // Sees: Dashboard, Agents Directory (APS-100+), Direct POSP Calling Queue, Renewals, Insurers
-        // Hidden: Users, Dual Ledgers, HR
-        if (tabs['users']) tabs['users'].style.display = 'none';
+        // Agency Manager directly manages POSP & IRDAI Agents!
+        // Sees: Dashboard, Agents Directory (APS-100+ & APS_IRDAI_100+), Team Staff Management, Direct POSP Calling Queue, Renewals, Insurers
+        // Hidden: Dual Ledgers, HR
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
+        if (tabs['users']) tabs['users'].style.display = 'flex';
+        if (tabs['agents']) tabs['agents'].style.display = 'flex';
         if (tabs['telecalling']) tabs['telecalling'].style.display = 'flex';
         filterCallingPool('POSP');
       } else if (role === 'TEAM_LEADER') {
-        // Team Leader directly leads Telecallers!
-        // Sees: Dashboard, Telecalling CRM (Calling Pool & Pipeline), Renewals, Insurers
-        // Hidden: Users, Dual Ledgers, POSP Agents (directed by Agency Manager), HR
-        if (tabs['users']) tabs['users'].style.display = 'none';
+        // Team Leader directly leads Telecallers and creates POSP / IRDAI agents!
+        // Sees: Dashboard, Telecalling CRM (Calling Pool & Pipeline), Agents Directory, Team Staff, Renewals, Insurers
+        // Hidden: Dual Ledgers, HR
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
-        if (tabs['agents']) tabs['agents'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
+        if (tabs['users']) tabs['users'].style.display = 'flex';
+        if (tabs['agents']) tabs['agents'].style.display = 'flex';
         filterCallingPool('TELECALLER');
       } else if (role === 'ACCOUNTS') {
         // Accounts sees: Dashboard, Commission Ledgers, Insurers, Renewals
@@ -4909,6 +5000,16 @@
         rowClass = 'calling-row-posp';
         supervisorText = 'Directs: Agency Mgr Rahul';
         badgeClass = 'tag-blue';
+      } else if (assignedKey === 'IRDAI_KAVYA') {
+        assignedText = '📜 Kavya Menon (IRDAI Direct APS_IRDAI_100)';
+        rowClass = 'calling-row-posp';
+        supervisorText = 'Directs: Agency Mgr Rahul';
+        badgeClass = 'tag-purple';
+      } else if (assignedKey === 'IRDAI_RAJEEV') {
+        assignedText = '📜 Rajeev Pillai (IRDAI Direct APS_IRDAI_101)';
+        rowClass = 'calling-row-posp';
+        supervisorText = 'Leads: Team Leader Priya';
+        badgeClass = 'tag-purple';
       } else if (assignedKey === 'TELECALLER_ANJALI') {
         assignedText = '📞 Anjali Nair (Telecaller)';
         rowClass = 'calling-row-telecaller';
@@ -5034,12 +5135,138 @@
       closeModal('whatsappModal');
     }
 
+    function openRegisterAgentModal() {
+      updateRegAgentPreviewId('POSP');
+      openModal('registerAgentModal');
+    }
+
+    function updateRegAgentPreviewId(type) {
+      const preview = document.getElementById('regAgentIdPreview');
+      const users = getUsersList();
+      if (!preview) return;
+
+      if (type === 'IRDAI') {
+        const irdaiNums = users
+          .filter(u => u.id && (u.id.startsWith('APS_IRDAI_') || u.id.startsWith('APS-IRDAI-')))
+          .map(u => {
+            const m = u.id.match(/\d+$/);
+            return m ? parseInt(m[0], 10) : null;
+          })
+          .filter(n => n !== null && !isNaN(n));
+        const maxNum = irdaiNums.length > 0 ? Math.max(...irdaiNums) : 99;
+        preview.value = 'APS_IRDAI_' + Math.max(100, maxNum + 1);
+      } else {
+        const pospNums = users
+          .filter(u => u.id && u.id.startsWith('APS-') && !u.id.includes('IRDAI'))
+          .map(u => parseInt(u.id.replace('APS-', ''), 10))
+          .filter(n => !isNaN(n));
+        const maxNum = pospNums.length > 0 ? Math.max(...pospNums) : 99;
+        preview.value = 'APS-' + Math.max(100, maxNum + 1);
+      }
+    }
+
     function registerAgentSubmit() {
-      const name = document.getElementById('newAgentName').value;
-      const mobile = document.getElementById('newAgentMobile').value;
-      const city = document.getElementById('newAgentCity').value;
-      alert(`✅ Agent Registered Successfully!\n\nAssigned Internal ID: APS-102\nAgent Name: ${name}\nMobile: ${mobile}\nLocation: ${city}\nCategory: POSP\n\nAdded to Agency Manager's team!`);
+      const type = document.getElementById('regAgentType') ? document.getElementById('regAgentType').value : 'POSP';
+      const name = document.getElementById('newAgentName') ? document.getElementById('newAgentName').value.trim() : '';
+      const mobile = document.getElementById('newAgentMobile') ? document.getElementById('newAgentMobile').value.trim() : '';
+      const city = document.getElementById('newAgentCity') ? document.getElementById('newAgentCity').value.trim() : 'Kochi';
+      const email = document.getElementById('newAgentEmail') ? document.getElementById('newAgentEmail').value.trim().toLowerCase() : (name.toLowerCase().replace(/\s+/g, '') + '@apsova.com');
+      const mgr = document.getElementById('newAgentMgr') ? document.getElementById('newAgentMgr').value : 'Agency Manager (Rahul Varma)';
+      const idPreview = document.getElementById('regAgentIdPreview') ? document.getElementById('regAgentIdPreview').value : '';
+
+      if (!name || !mobile) {
+        alert("⚠️ Please enter Agent Name and Mobile Number.");
+        return;
+      }
+
+      const users = getUsersList();
+      const assignedRole = (type === 'IRDAI') ? 'IRDAI_AGENT' : 'POSP_AGENT';
+      const roleTitle = (type === 'IRDAI') ? '📜 IRDAI Certified Direct Agent' : '💼 POSP Certified Agent';
+      const agentId = idPreview || ((type === 'IRDAI') ? 'APS_IRDAI_100' : 'APS-103');
+
+      const newAgentUser = {
+        id: agentId,
+        name: name,
+        email: email,
+        role: assignedRole,
+        roleTitle: `${roleTitle} (${agentId})`,
+        supervisor: mgr,
+        mobile: mobile,
+        password: 'Agent@123',
+        createdBy: mgr,
+        createdDate: new Date().toISOString().split('T')[0],
+        status: 'Active'
+      };
+
+      if (!users.some(u => u.email.toLowerCase() === email)) {
+        users.push(newAgentUser);
+        saveUsersList(users);
+        renderUsersManagementTables();
+      }
+
+      // Prepend to registered agents table in view-agents
+      const agentsTableBody = document.getElementById('registeredAgentsTableBody');
+      if (agentsTableBody) {
+        const tr = document.createElement('tr');
+        tr.className = (type === 'IRDAI') ? 'agent-row-irdai' : 'agent-row-posp';
+        tr.innerHTML = `
+          <td><strong style="color: ${type === 'IRDAI' ? '#7e22ce' : 'var(--pb-blue)'}; font-family: monospace; font-size: 14px;">${agentId}</strong></td>
+          <td>
+            <strong style="color: var(--text-dark);">${name}</strong>
+            <span class="tag ${type === 'IRDAI' ? 'tag-purple' : 'tag-blue'}" style="font-size: 10px; margin-left: 4px;">${type === 'IRDAI' ? 'IRDAI' : 'POSP'}</span>
+            <div style="font-size: 11px; color: var(--text-muted);">${mobile} • ${city}</div>
+          </td>
+          <td>
+            <strong style="color: var(--text-dark);">${mgr}</strong>
+            <div style="font-size: 11px; color: var(--text-muted);">Registered Sourcing Partner</div>
+          </td>
+          <td style="font-size: 11px; line-height: 1.4;">
+            <div>Star Health: <code>${agentId}-STAR</code></div>
+            <div>ICICI Lombard: <code>${agentId}-IL</code></div>
+          </td>
+          <td>
+            <strong>₹0</strong>
+            <div style="font-size: 11px; color: var(--pb-green);">New Onboarded</div>
+          </td>
+          <td><span class="tag tag-green">Active ${type === 'IRDAI' ? 'IRDAI' : 'POSP'}</span></td>
+          <td style="text-align: right;">
+            <button class="btn btn-outline" onclick="alert('Viewing Ledger for ${agentId} ${name}')">Ledger</button>
+            <button class="btn btn-outline" onclick="alert('KYC Verified for ${name} (${agentId})')">KYC Docs</button>
+          </td>
+        `;
+        agentsTableBody.insertBefore(tr, agentsTableBody.firstChild);
+      }
+
       closeModal('registerAgentModal');
+      alert(`✅ Agent Registered Successfully!\n\nAssigned Internal ID: ${agentId}\nAgent Name: ${name}\nLicense Category: ${roleTitle}\nReporting Supervisor: ${mgr}\nLogin Email: ${email}\nInitial Password: Agent@123\n\nAgent is now registered in the directory and can log in!`);
+    }
+
+    function filterAgentsTable(filter) {
+      const btnAll = document.getElementById('btnFilterAllAgents');
+      const btnPosp = document.getElementById('btnFilterPospAgents');
+      const btnIrdai = document.getElementById('btnFilterIrdaiAgents');
+      const countEl = document.getElementById('agentsCountText');
+
+      if (btnAll) btnAll.className = (filter === 'ALL') ? 'btn btn-pb-blue' : 'btn btn-outline';
+      if (btnPosp) btnPosp.className = (filter === 'POSP') ? 'btn btn-pb-blue' : 'btn btn-outline';
+      if (btnIrdai) btnIrdai.className = (filter === 'IRDAI') ? 'btn btn-pb-blue' : 'btn btn-outline';
+
+      const pospRows = document.querySelectorAll('.agent-row-posp');
+      const irdaiRows = document.querySelectorAll('.agent-row-irdai');
+
+      if (filter === 'ALL') {
+        pospRows.forEach(r => r.style.display = '');
+        irdaiRows.forEach(r => r.style.display = '');
+        if (countEl) countEl.innerText = '42 Agents';
+      } else if (filter === 'POSP') {
+        pospRows.forEach(r => r.style.display = '');
+        irdaiRows.forEach(r => r.style.display = 'none');
+        if (countEl) countEl.innerText = '28 POSP Agents';
+      } else if (filter === 'IRDAI') {
+        pospRows.forEach(r => r.style.display = 'none');
+        irdaiRows.forEach(r => r.style.display = '');
+        if (countEl) countEl.innerText = '14 IRDAI Direct Agents';
+      }
     }
 
     // ==============================================================
@@ -5381,6 +5608,19 @@
           status: 'Active'
         },
         {
+          id: 'APS_IRDAI_100',
+          name: 'Kavya Menon',
+          email: 'kavya@apsova.com',
+          role: 'IRDAI_AGENT',
+          roleTitle: '📜 IRDAI Certified Direct Agent',
+          supervisor: 'Agency Manager (Rahul Varma)',
+          mobile: '+91 98471 33445',
+          password: 'Agent@123',
+          createdBy: 'Agency Manager (Rahul Varma)',
+          createdDate: '2026-03-14',
+          status: 'Active'
+        },
+        {
           id: 'USR-OPS-204',
           name: 'Suresh Kumar',
           email: 'suresh@apsova.com',
@@ -5491,13 +5731,14 @@
           <tr>
             <td style="font-weight: 700;">
               <span style="display: inline-flex; align-items: center; gap: 6px;">
-                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fff7ed; color: #ea580c; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: ${u.role === 'IRDAI_AGENT' ? '#f3e8ff; color: #7e22ce' : (u.role === 'POSP_AGENT' ? '#e0f2fe; color: #0284c9' : '#fff7ed; color: #ea580c')}; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;">
                   ${u.name.substring(0, 2).toUpperCase()}
                 </span>
                 ${u.name}
+                <code style="font-size: 10.5px; color: ${u.role === 'IRDAI_AGENT' ? '#7e22ce' : (u.role === 'POSP_AGENT' ? 'var(--pb-blue)' : 'var(--text-muted)')}; font-weight: 800;">(${u.id})</code>
               </span>
             </td>
-            <td><span class="tag tag-orange">${u.roleTitle || u.role}</span></td>
+            <td><span class="tag ${u.role === 'IRDAI_AGENT' ? 'tag-purple' : (u.role === 'POSP_AGENT' ? 'tag-blue' : 'tag-orange')}">${u.roleTitle || u.role}</span></td>
             <td><code>${u.email}</code></td>
             <td>${u.mobile || '-'}</td>
             <td><strong>${u.supervisor || 'Partner 1 (Arun)'}</strong></td>
@@ -5523,21 +5764,84 @@
 
     function handleAdminCreatePartnerClick() {
       const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
-      const role = auth.role || 'ADMIN';
-      if (role === 'ADMIN' || auth.email === DEFAULT_MASTER_EMAIL) {
+      const roleSelect = document.getElementById('roleSelector');
+      const currentRole = (roleSelect && roleSelect.value) || auth.role || 'ADMIN';
+      if (currentRole === 'ADMIN' || auth.email === DEFAULT_MASTER_EMAIL) {
         openModal('createPartnerModal');
       } else {
-        alert("⚠️ Master Admin Privilege Required!\n\nOnly Master Admin (Arun Joy) can register new Equity Partners.\n\nAs a Partner, you have permission to create Team Staff, Telecallers, and POSP Agents.");
+        alert("⚠️ Master Admin Privilege Required!\n\nOnly Master Admin (Arun Joy) can register new Equity Partners.\n\nAs a Partner, Team Leader, or Agency Manager, you have permission to register Agents and team staff.");
       }
     }
 
     function handlePartnerCreateStaffClick() {
       const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
-      const role = auth.role || 'ADMIN';
-      if (role === 'ADMIN' || role.startsWith('PARTNER')) {
+      const roleSelect = document.getElementById('roleSelector');
+      const currentRole = (roleSelect && roleSelect.value) || auth.role || 'ADMIN';
+      const allowedRoles = ['ADMIN', 'PARTNER_1', 'PARTNER_2', 'AGENCY_MANAGER', 'TEAM_LEADER'];
+
+      if (allowedRoles.includes(currentRole) || currentRole.startsWith('PARTNER')) {
+        setupCreateStaffModalForRole(currentRole);
         openModal('createStaffModal');
       } else {
-        alert("⚠️ Partner Privilege Required!\n\nOnly Partners and Master Admin can create team members and agents.");
+        alert("⚠️ Management Privilege Required!\n\nPartners, Team Leaders, and Agency Managers can register POSP & IRDAI Agents and team staff.");
+      }
+    }
+
+    function setupCreateStaffModalForRole(role) {
+      const badgeEl = document.getElementById('createStaffModalBadge');
+      const titleEl = document.getElementById('createStaffModalTitle');
+      const descEl = document.getElementById('createStaffModalDesc');
+      const roleSelect = document.getElementById('newStaffRole');
+      const supSelect = document.getElementById('newStaffSupervisor');
+
+      if (!roleSelect || !supSelect) return;
+
+      if (role === 'TEAM_LEADER') {
+        if (badgeEl) badgeEl.innerText = '🎧 Team Leader Privilege';
+        if (titleEl) titleEl.innerText = 'Register POSP / IRDAI Agent or Telecaller';
+        if (descEl) descEl.innerHTML = 'As Team Leader, register POSP Agents (<strong>APS-100+</strong>), IRDAI Direct Agents (<strong>APS_IRDAI_100+</strong>), or Telecallers.';
+        roleSelect.innerHTML = `
+          <option value="POSP_AGENT">💼 POSP Certified Agent (Series: APS-100+)</option>
+          <option value="IRDAI_AGENT">📜 IRDAI Direct Certified Agent (Series: APS_IRDAI_100+)</option>
+          <option value="TELECALLER">📞 Telecaller (Reports to Team Leader)</option>
+        `;
+        supSelect.innerHTML = `
+          <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
+          <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
+          <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+        `;
+      } else if (role === 'AGENCY_MANAGER') {
+        if (badgeEl) badgeEl.innerText = '👔 Agency Manager Privilege';
+        if (titleEl) titleEl.innerText = 'Register POSP or IRDAI Agent';
+        if (descEl) descEl.innerHTML = 'As Agency Manager, directly register and provision POSP Agents (<strong>APS-100+</strong>) and IRDAI Direct Agents (<strong>APS_IRDAI_100+</strong>).';
+        roleSelect.innerHTML = `
+          <option value="POSP_AGENT">💼 POSP Certified Agent (Series: APS-100+)</option>
+          <option value="IRDAI_AGENT">📜 IRDAI Direct Certified Agent (Series: APS_IRDAI_100+)</option>
+        `;
+        supSelect.innerHTML = `
+          <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
+          <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
+          <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
+        `;
+      } else {
+        if (badgeEl) badgeEl.innerText = '🤝 Partner & Admin Privilege';
+        if (titleEl) titleEl.innerText = 'Create Team Staff or Agent';
+        if (descEl) descEl.innerHTML = 'Provision Agency Managers, Team Leaders, Telecallers, POSP Agents (<strong>APS-100+</strong>), IRDAI Direct Agents (<strong>APS_IRDAI_100+</strong>), or operational staff.';
+        roleSelect.innerHTML = `
+          <option value="POSP_AGENT">💼 POSP Certified Agent (Series: APS-100+)</option>
+          <option value="IRDAI_AGENT">📜 IRDAI Direct Certified Agent (Series: APS_IRDAI_100+)</option>
+          <option value="TELECALLER">📞 Telecaller (Reports to Team Leader)</option>
+          <option value="AGENCY_MANAGER">👔 Agency Manager (Directs POSP &amp; IRDAI)</option>
+          <option value="TEAM_LEADER">🎧 Team Leader (Leads Telecallers &amp; POSP)</option>
+          <option value="ACCOUNTS">💰 Accounts &amp; Operations Staff</option>
+          <option value="HR">🕒 HR &amp; Payroll Staff</option>
+        `;
+        supSelect.innerHTML = `
+          <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
+          <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
+          <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+          <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
+        `;
       }
     }
 
@@ -5594,33 +5898,54 @@
       }
 
       const roleTitles = {
-        'AGENCY_MANAGER': '👔 Agency Manager (Directs POSP)',
-        'TEAM_LEADER': '🎧 Team Leader (Leads Telecallers)',
+        'AGENCY_MANAGER': '👔 Agency Manager (Directs POSP & IRDAI)',
+        'TEAM_LEADER': '🎧 Team Leader (Leads Telecallers & POSP)',
         'TELECALLER': '📞 Telecaller (Calling CRM)',
         'POSP': '💼 POSP Certified Agent',
         'POSP_AGENT': '💼 POSP Certified Agent',
+        'IRDAI': '📜 IRDAI Certified Direct Agent',
+        'IRDAI_AGENT': '📜 IRDAI Certified Direct Agent',
         'ACCOUNTS': '💰 Accounts & Operations Staff',
         'HR': '🕒 HR & Payroll Staff'
       };
 
       let assignedRole = role;
-      let idPrefix = 'USR-STF-';
+      let nextId = '';
+
       if (role === 'POSP' || role === 'POSP_AGENT') {
         assignedRole = 'POSP_AGENT';
-        idPrefix = 'APS-';
+        const pospNums = users
+          .filter(u => u.id && u.id.startsWith('APS-') && !u.id.includes('IRDAI'))
+          .map(u => parseInt(u.id.replace('APS-', ''), 10))
+          .filter(n => !isNaN(n));
+        const maxNum = pospNums.length > 0 ? Math.max(...pospNums) : 99;
+        nextId = 'APS-' + Math.max(100, maxNum + 1);
+      } else if (role === 'IRDAI' || role === 'IRDAI_AGENT') {
+        assignedRole = 'IRDAI_AGENT';
+        const irdaiNums = users
+          .filter(u => u.id && (u.id.startsWith('APS_IRDAI_') || u.id.startsWith('APS-IRDAI-')))
+          .map(u => {
+            const m = u.id.match(/\d+$/);
+            return m ? parseInt(m[0], 10) : null;
+          })
+          .filter(n => n !== null && !isNaN(n));
+        const maxNum = irdaiNums.length > 0 ? Math.max(...irdaiNums) : 99;
+        nextId = 'APS_IRDAI_' + Math.max(100, maxNum + 1);
       } else if (role === 'AGENCY_MANAGER') {
-        idPrefix = 'USR-AM-';
+        nextId = 'USR-AM-' + Math.floor(200 + Math.random() * 800);
       } else if (role === 'TEAM_LEADER') {
-        idPrefix = 'USR-TL-';
+        nextId = 'USR-TL-' + Math.floor(200 + Math.random() * 800);
       } else if (role === 'TELECALLER') {
-        idPrefix = 'USR-TC-';
+        nextId = 'USR-TC-' + Math.floor(200 + Math.random() * 800);
+      } else {
+        nextId = 'USR-STF-' + Math.floor(200 + Math.random() * 800);
       }
 
       const newStaff = {
-        id: idPrefix + Math.floor(100 + Math.random() * 900),
+        id: nextId,
         name: name,
         role: assignedRole,
-        roleTitle: roleTitles[role] || role,
+        roleTitle: roleTitles[role] || (assignedRole === 'IRDAI_AGENT' ? `📜 IRDAI Certified Direct Agent (${nextId})` : role),
         supervisor: supervisor,
         email: email,
         mobile: phone,
@@ -5635,17 +5960,18 @@
       renderUsersManagementTables();
       closeModal('createStaffModal');
 
-      alert(`🎉 Team Member Created Successfully!\n\nName: ${name}\nRole: ${newStaff.roleTitle}\nReporting Supervisor: ${supervisor}\nLogin Email: ${email}\nInitial Password: ${pwd}\n\nThis user can now log in directly!`);
+      alert(`🎉 Account Created Successfully!\n\nName: ${name}\nRole: ${newStaff.roleTitle}\nAssigned ID: ${newStaff.id}\nReporting Supervisor: ${supervisor}\nLogin Email: ${email}\nInitial Password: ${pwd}\n\nThis agent can now log in directly!`);
     }
 
     function updateStaffSupervisorOptions(role) {
       const select = document.getElementById('newStaffSupervisor');
       if (!select) return;
-      if (role === 'POSP' || role === 'POSP_AGENT') {
+      if (role === 'POSP' || role === 'POSP_AGENT' || role === 'IRDAI' || role === 'IRDAI_AGENT') {
         select.innerHTML = `
           <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
-          <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
+          <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
           <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+          <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
         `;
       } else if (role === 'TELECALLER') {
         select.innerHTML = `
@@ -5655,8 +5981,10 @@
         `;
       } else {
         select.innerHTML = `
-          <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
+          <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
+          <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
           <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+          <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
         `;
       }
     }
