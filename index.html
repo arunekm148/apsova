@@ -3829,6 +3829,88 @@
   </div>
 
   <!-- ============================================================== -->
+  <!-- MODAL: EDIT USER PROFILE (FOR PARTNERS & STAFF) -->
+  <!-- ============================================================== -->
+  <div id="editUserModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 530px;">
+      <div class="modal-head">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; color: var(--pb-blue); text-transform: uppercase;">User Account Governance</span>
+          <h3 id="editUserModalTitle" style="margin-top: 2px;">Edit User Profile</h3>
+        </div>
+        <button class="modal-close" onclick="closeModal('editUserModal')">✕</button>
+      </div>
+
+      <form onsubmit="saveEditedUser(event)">
+        <input type="hidden" id="editUserId">
+
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Full Name: *</label>
+          <input type="text" id="editUserName" required style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+          <div class="form-group">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Official Email: *</label>
+            <input type="email" id="editUserEmail" required style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+          </div>
+          <div class="form-group">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Mobile Number:</label>
+            <input type="tel" id="editUserMobile" placeholder="+91 98470 00000" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+          <div class="form-group">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Role / Designation: *</label>
+            <select id="editUserRole" required style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+              <option value="ADMIN">👑 Master Admin (Owner)</option>
+              <option value="PARTNER_1">🤝 Partner 1 (Senior Partner)</option>
+              <option value="PARTNER_2">🤝 Partner 2 (Owner)</option>
+              <option value="AGENCY_MANAGER">👔 Agency Manager (Directs POSP)</option>
+              <option value="TEAM_LEADER">🎧 Team Leader (Leads Telecallers)</option>
+              <option value="TELECALLER">📞 Telecaller (Calling CRM)</option>
+              <option value="POSP_AGENT">💼 POSP Certified Agent</option>
+              <option value="ACCOUNTS">💰 Accounts &amp; Operations Staff</option>
+              <option value="HR">🕒 HR &amp; Payroll Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Reporting Supervisor:</label>
+            <select id="editUserSupervisor" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+              <option value="Root Security Authority">Root Security Authority</option>
+              <option value="Master Admin (Arun Joy)">Master Admin (Arun Joy)</option>
+              <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+              <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
+              <option value="Agency Manager (Rahul Varma)">Agency Manager (Rahul Varma)</option>
+              <option value="Team Leader (Priya Nair)">Team Leader (Priya Nair)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="editUserEquityRow" class="form-group" style="margin-bottom: 12px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Equity / Margin Share:</label>
+          <input type="text" id="editUserEquity" placeholder="e.g. 50% Profit Share" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Account Status:</label>
+          <select id="editUserStatus" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+            <option value="Active">Active (Full Portal Access)</option>
+            <option value="On Leave">On Leave (Temporary Inactive)</option>
+            <option value="Suspended">Suspended (Access Revoked)</option>
+          </select>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; border-top: 1px solid #f1f5f9; padding-top: 14px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('editUserModal')">Cancel</button>
+          <button type="submit" class="btn btn-pb-blue" style="font-weight: 700;">💾 Save Profile Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
   <!-- PROFESSIONAL PARTNER & STAFF LOGIN MODAL -->
   <!-- ============================================================== -->
   <div id="secureLoginModal" class="modal-backdrop">
@@ -4065,44 +4147,50 @@
 
       <!-- TAB 1: PROFILE DETAILS -->
       <div id="profSectionInfo">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
-          <div>
-            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Registered Email</label>
-            <div id="profModalEmail" style="font-size: 13px; font-weight: 700; color: var(--pb-navy); margin-top: 2px; word-break: break-all;">arunarumaliljoy@gmail.com</div>
+        <form onsubmit="event.preventDefault(); handleUserProfileInfoUpdate();">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label style="font-size: 11.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Full Name: *</label>
+              <input type="text" id="profEditName" required placeholder="Your full name" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 11.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Registered Email: *</label>
+              <input type="email" id="profEditEmail" required placeholder="your.email@apsova.com" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+            </div>
           </div>
-          <div>
-            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Reporting Manager</label>
-            <div id="profModalSupervisor" style="font-size: 13px; font-weight: 700; color: var(--text-dark); margin-top: 2px;">Root Authority</div>
-          </div>
-          <div>
-            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Branch Hub</label>
-            <div style="font-size: 13px; font-weight: 700; color: var(--text-dark); margin-top: 2px;">Kochi Corporate HQ</div>
-          </div>
-          <div>
-            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Authorization Node</label>
-            <div style="font-size: 13px; font-weight: 700; color: #10b981; margin-top: 2px;">Verified Intermediary</div>
-          </div>
-        </div>
 
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Registered Mobile (for OTP &amp; WhatsApp Alerts):</label>
-          <div style="display: flex; gap: 8px;">
-            <input type="tel" id="profEditMobile" value="+91 98471 22849" style="flex: 1; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
-            <button type="button" class="btn btn-pb-blue" onclick="handleUserProfileInfoUpdate()" style="padding: 8px 14px; font-size: 12px; font-weight: 700;">
-              Save Contact
-            </button>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div class="form-group">
+              <label style="font-size: 11.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Mobile Number: *</label>
+              <input type="tel" id="profEditMobile" placeholder="+91 98471 22849" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+            </div>
+            <div class="form-group">
+              <label style="font-size: 11.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Branch Hub:</label>
+              <input type="text" id="profEditBranch" placeholder="Kochi Corporate HQ" style="width: 100%; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+            </div>
           </div>
-        </div>
 
-        <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">
-          🛡️ <strong>Role Permissions &amp; Data Governance:</strong> Access to sensitive financial metrics (Ledger A/B, commissions, agent payouts) is restricted according to IRDAI role governance.
-        </div>
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 12px; font-size: 12px; margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div>
+              <span style="font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Reporting Node:</span>
+              <div id="profModalSupervisor" style="font-size: 12.5px; font-weight: 700; color: var(--text-dark); margin-top: 2px;">Root Authority</div>
+            </div>
+            <div>
+              <span style="font-size: 10.5px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Account Status:</span>
+              <div style="margin-top: 2px;"><span id="profModalStatus" class="tag tag-green">Verified Active</span></div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-pb-blue" style="width: 100%; justify-content: center; padding: 10px; font-size: 13px; font-weight: 800; border-radius: 6px; margin-bottom: 14px;">
+            💾 Save Profile Details
+          </button>
+        </form>
 
         <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 14px;">
           <button type="button" class="btn btn-outline" style="font-size: 12px; color: #dc2626; border-color: #fca5a5;" onclick="closeModal('userProfileModal'); secureLogout();">
             🔒 Sign Out of Session
           </button>
-          <button type="button" class="btn btn-pb-blue" onclick="switchProfileTab('security')" style="font-size: 12px; font-weight: 700;">
+          <button type="button" class="btn btn-outline" onclick="switchProfileTab('security')" style="font-size: 12px; font-weight: 700; color: var(--pb-navy);">
             Change Password ›
           </button>
         </div>
@@ -4375,8 +4463,6 @@
       const roleEl = document.getElementById('profModalRoleTitle');
       const codeEl = document.getElementById('profModalCode');
       const avatarEl = document.getElementById('profModalAvatar');
-      const emailEl = document.getElementById('profModalEmail');
-      const mobileEl = document.getElementById('profEditMobile');
       const supervisorEl = document.getElementById('profModalSupervisor');
       const statusEl = document.getElementById('profModalStatus');
 
@@ -4384,10 +4470,13 @@
       if (roleEl) roleEl.innerText = user.roleTitle || user.role;
       if (codeEl) codeEl.innerText = user.id || 'USR-01';
       if (avatarEl) avatarEl.innerText = (user.name || 'AJ').split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
-      if (emailEl) emailEl.innerText = user.email;
-      if (mobileEl) mobileEl.value = user.mobile || '+91 98471 22849';
       if (supervisorEl) supervisorEl.innerText = user.supervisor || 'Board of Partners';
       if (statusEl) statusEl.innerText = user.status || 'Active';
+
+      if (document.getElementById('profEditName')) document.getElementById('profEditName').value = user.name || '';
+      if (document.getElementById('profEditEmail')) document.getElementById('profEditEmail').value = user.email || '';
+      if (document.getElementById('profEditMobile')) document.getElementById('profEditMobile').value = user.mobile || '+91 98471 22849';
+      if (document.getElementById('profEditBranch')) document.getElementById('profEditBranch').value = user.branch || 'Kochi Corporate HQ';
 
       switchProfileTab('info');
       const feedback = document.getElementById('profPwdFeedback');
@@ -4519,17 +4608,48 @@
     }
 
     function handleUserProfileInfoUpdate() {
+      const name = document.getElementById('profEditName') ? document.getElementById('profEditName').value.trim() : '';
+      const emailInput = document.getElementById('profEditEmail') ? document.getElementById('profEditEmail').value.trim().toLowerCase() : '';
       const mobile = document.getElementById('profEditMobile').value.trim();
+      const branch = document.getElementById('profEditBranch') ? document.getElementById('profEditBranch').value.trim() : 'Kochi Corporate HQ';
+
+      if (!name) {
+        alert("⚠️ Please enter your Full Name.");
+        return;
+      }
+      if (!emailInput || !emailInput.includes('@')) {
+        alert("⚠️ Please enter a valid Email Address.");
+        return;
+      }
+
       const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
-      const email = (auth.email || DEFAULT_MASTER_EMAIL).toLowerCase();
+      const currentEmail = (auth.email || DEFAULT_MASTER_EMAIL).toLowerCase();
       const users = getUsersList();
-      const user = users.find(u => u.email.toLowerCase() === email);
+      const user = users.find(u => u.email.toLowerCase() === currentEmail);
 
       if (user) {
+        user.name = name;
+        user.email = emailInput;
         user.mobile = mobile;
+        user.branch = branch;
         saveUsersList(users);
       }
-      alert('✓ Contact details saved successfully!');
+
+      // Update active session
+      auth.name = name;
+      auth.email = emailInput;
+      localStorage.setItem('apsova_auth', JSON.stringify(auth));
+
+      // Update UI elements in sidebar & tables
+      updateSidebarUserDisplay(auth);
+      renderUsersManagementTables();
+
+      const nameEl = document.getElementById('profModalName');
+      const avatarEl = document.getElementById('profModalAvatar');
+      if (nameEl) nameEl.innerText = name;
+      if (avatarEl) avatarEl.innerText = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+      alert("🎉 Profile Details Updated Successfully!\n\nName: " + name + "\nEmail: " + emailInput + "\nMobile: " + mobile + "\nBranch: " + branch);
     }
 
     function openModal(id) { document.getElementById(id).classList.add('open'); }
@@ -5044,10 +5164,13 @@
             <td><span style="font-size: 11px; color: var(--text-muted);">${u.createdBy || 'Master Admin'}</span></td>
             <td><span class="tag tag-green">${u.status || 'Active'}</span></td>
             <td>
-              ${u.role === 'ADMIN' ? '<span class="tag tag-green">🛡️ Master Root</span>' : `
-                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px;" onclick="resetUserPassword('${u.id}')">🔑 Reset</button>
-                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: #dc2626; border-color: #fca5a5;" onclick="deleteUser('${u.id}')">✕</button>
-              `}
+              <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: var(--pb-navy); font-weight: 700;" onclick="openEditUserModal('${u.id}')">✏️ Edit</button>
+                ${u.role === 'ADMIN' ? '<span class="tag tag-green" style="font-size: 10px;">Master Root</span>' : `
+                  <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px;" onclick="resetUserPassword('${u.id}')">🔑 Reset</button>
+                  <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: #dc2626; border-color: #fca5a5;" onclick="deleteUser('${u.id}')">✕</button>
+                `}
+              </div>
             </td>
           </tr>
         `).join('');
@@ -5072,8 +5195,11 @@
             <td><span style="font-size: 11px; color: var(--text-muted);">${u.createdDate || '2026-03-01'}</span></td>
             <td><span class="tag tag-green">${u.status || 'Active'}</span></td>
             <td>
-              <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px;" onclick="resetUserPassword('${u.id}')">🔑 Reset</button>
-              <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: #dc2626; border-color: #fca5a5;" onclick="deleteUser('${u.id}')">✕</button>
+              <div style="display: flex; gap: 4px; align-items: center; flex-wrap: wrap;">
+                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: var(--pb-navy); font-weight: 700;" onclick="openEditUserModal('${u.id}')">✏️ Edit</button>
+                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px;" onclick="resetUserPassword('${u.id}')">🔑 Reset</button>
+                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: #dc2626; border-color: #fca5a5;" onclick="deleteUser('${u.id}')">✕</button>
+              </div>
             </td>
           </tr>
         `).join('');
@@ -5252,6 +5378,94 @@
         renderUsersManagementTables();
         alert(`✓ User ${user.name} removed from system.`);
       }
+    }
+
+    function openEditUserModal(userId) {
+      const users = getUsersList();
+      const user = users.find(u => u.id === userId);
+      if (!user) {
+        alert("⚠️ User not found in system.");
+        return;
+      }
+
+      document.getElementById('editUserId').value = user.id;
+      document.getElementById('editUserName').value = user.name || '';
+      document.getElementById('editUserEmail').value = user.email || '';
+      document.getElementById('editUserMobile').value = user.mobile || '';
+      document.getElementById('editUserRole').value = user.role || 'TELECALLER';
+      document.getElementById('editUserSupervisor').value = user.supervisor || 'Partner 1 (Arun Joy)';
+      document.getElementById('editUserEquity').value = user.equityShare || (user.role.startsWith('PARTNER') ? '50%' : '-');
+      document.getElementById('editUserStatus').value = user.status || 'Active';
+
+      const modalTitle = document.getElementById('editUserModalTitle');
+      if (modalTitle) modalTitle.innerText = `Edit Profile: ${user.name} (${user.id})`;
+
+      const equityRow = document.getElementById('editUserEquityRow');
+      if (equityRow) {
+        equityRow.style.display = (user.role === 'ADMIN' || user.role.startsWith('PARTNER')) ? 'block' : 'none';
+      }
+
+      openModal('editUserModal');
+    }
+
+    function saveEditedUser(e) {
+      if (e) e.preventDefault();
+      const userId = document.getElementById('editUserId').value;
+      const name = document.getElementById('editUserName').value.trim();
+      const email = document.getElementById('editUserEmail').value.trim().toLowerCase();
+      const mobile = document.getElementById('editUserMobile').value.trim();
+      const role = document.getElementById('editUserRole').value;
+      const supervisor = document.getElementById('editUserSupervisor').value;
+      const equity = document.getElementById('editUserEquity').value.trim();
+      const status = document.getElementById('editUserStatus').value;
+
+      if (!name || !email) {
+        alert("⚠️ Full Name and Email are required.");
+        return;
+      }
+
+      const users = getUsersList();
+      const user = users.find(u => u.id === userId);
+      if (!user) return;
+
+      const roleTitles = {
+        'ADMIN': '👑 Master Admin (Owner)',
+        'PARTNER_1': '🤝 Partner 1 (Senior Partner)',
+        'PARTNER_2': '🤝 Partner 2 (Owner)',
+        'AGENCY_MANAGER': '👔 Agency Manager (Directs POSP)',
+        'TEAM_LEADER': '🎧 Team Leader (Leads Telecallers)',
+        'TELECALLER': '📞 Telecaller (Calling CRM)',
+        'POSP_AGENT': '💼 POSP Certified Agent',
+        'ACCOUNTS': '💰 Accounts & Operations Staff',
+        'HR': '🕒 HR & Payroll Staff'
+      };
+
+      user.name = name;
+      user.email = email;
+      user.mobile = mobile;
+      user.role = role;
+      user.roleTitle = roleTitles[role] || role;
+      user.supervisor = supervisor;
+      if (role === 'ADMIN' || role.startsWith('PARTNER')) {
+        user.equityShare = equity || '50%';
+      }
+      user.status = status;
+
+      saveUsersList(users);
+
+      // If user edited their own active session
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      if (auth.email && auth.email.toLowerCase() === user.email.toLowerCase()) {
+        auth.name = name;
+        auth.role = role;
+        auth.roleTitle = user.roleTitle;
+        localStorage.setItem('apsova_auth', JSON.stringify(auth));
+        updateSidebarUserDisplay(auth);
+      }
+
+      renderUsersManagementTables();
+      closeModal('editUserModal');
+      alert(`🎉 User Profile Updated Successfully!\n\nName: ${name}\nDesignation: ${user.roleTitle}\nSupervisor: ${supervisor}\nStatus: ${status}`);
     }
 
     function updateSidebarUserDisplay(session) {
