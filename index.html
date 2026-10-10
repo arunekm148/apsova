@@ -2479,27 +2479,115 @@
         </div>
 
         <div class="table-card">
-          <div class="table-header">
-            <strong style="font-size: 14px; color: var(--text-dark);">Active Calling Pool (139 Leads)</strong>
-            <span style="font-size: 12px; color: var(--text-muted);">Round-robin distribution active</span>
+          <div class="table-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <strong style="font-size: 14px; color: var(--text-dark);">Active Calling Pool (<span id="callingPoolCount">139 Leads</span>)</strong>
+              <div style="font-size: 12px; color: var(--text-muted);">Segregated Outbound Telecaller Pool &amp; Direct POSP Agent Calling Queue</div>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              <button id="btnFilterAllCalling" class="btn btn-pb-blue" style="font-size: 11.5px; padding: 5px 12px;" onclick="filterCallingPool('ALL')">All Leads (139)</button>
+              <button id="btnFilterTelecallerCalling" class="btn btn-outline" style="font-size: 11.5px; padding: 5px 12px;" onclick="filterCallingPool('TELECALLER')">📞 Telecaller Pool (84)</button>
+              <button id="btnFilterPospCalling" class="btn btn-outline" style="font-size: 11.5px; padding: 5px 12px;" onclick="filterCallingPool('POSP')">💼 POSP Agent Calling (55)</button>
+            </div>
           </div>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>Lead / Customer</th>
-                  <th>Category & Plan</th>
+                  <th>Category &amp; Plan</th>
                   <th>Source</th>
-                  <th>Assigned To</th>
+                  <th>Assigned Calling Agent</th>
                   <th>Sales Stage</th>
                   <th>Next Follow-up</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr class="alert-row">
+              <tbody id="callingPoolTableBody">
+                <!-- POSP AGENT CALLING LEADS -->
+                <tr class="calling-row-posp alert-row">
+                  <td>
+                    <strong style="color: var(--text-dark);">Harikrishnan Nair</strong>
+                    <span class="tag tag-blue" style="font-size: 10px; margin-left: 4px;">POSP LEAD</span>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 97451 23456 • Ernakulam</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-blue">Motor 4W</span>
+                    <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">Honda Elevate ZX (KL-07-DG-1122)</div>
+                  </td>
+                  <td>Walk-in / POSP Direct</td>
+                  <td>
+                    <span class="tag tag-blue" style="font-weight: 700;">💼 Akhil Mohan (POSP APS-100)</span>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Directs: Agency Mgr Rahul</div>
+                  </td>
+                  <td><span class="tag tag-orange">Quote Shared</span></td>
+                  <td>
+                    <strong style="color: #0284c9;">Today, 2:30 PM</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Compare Tata AIG vs ICICI Lombard</div>
+                  </td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-blue" onclick="openCallLogModal('Harikrishnan Nair', '+91 97451 23456')">Log Call</button>
+                    <button class="btn btn-outline" onclick="alert('Shared comparative quote PDF for Honda Elevate with Harikrishnan Nair via WhatsApp!')">Share Quote</button>
+                  </td>
+                </tr>
+
+                <tr class="calling-row-posp">
+                  <td>
+                    <strong style="color: var(--text-dark);">Saritha Kurian</strong>
+                    <span class="tag tag-blue" style="font-size: 10px; margin-left: 4px;">POSP LEAD</span>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 94472 88190 • Kottayam</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-green">Health Floater</span>
+                    <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">Care Supreme (15L Sum Insured)</div>
+                  </td>
+                  <td>POSP Agent Sourced</td>
+                  <td>
+                    <span class="tag tag-blue" style="font-weight: 700;">💼 Manoj Nambiar (POSP APS-100)</span>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Directs: Agency Mgr Rahul</div>
+                  </td>
+                  <td><span class="tag tag-purple">Proposal Ready</span></td>
+                  <td>
+                    <div style="color: var(--text-dark); font-weight: 600;">Tomorrow, 11:00 AM</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Medical declarations verified</div>
+                  </td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-blue" onclick="openCallLogModal('Saritha Kurian', '+91 94472 88190')">Log Call</button>
+                    <button class="btn btn-pb-green" onclick="alert('Payment link confirmed for Saritha Kurian! Forwarded to Operations.')">Confirm Paid</button>
+                  </td>
+                </tr>
+
+                <tr class="calling-row-posp">
+                  <td>
+                    <strong style="color: var(--text-dark);">George Varghese</strong>
+                    <span class="tag tag-blue" style="font-size: 10px; margin-left: 4px;">POSP LEAD</span>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 98473 44556 • Kannur</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-orange">Commercial Goods</span>
+                    <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">Eicher Pro 2049 (KL-13-AB-8809)</div>
+                  </td>
+                  <td>Direct Phone Call</td>
+                  <td>
+                    <span class="tag tag-blue" style="font-weight: 700;">💼 Deepa Pillai (POSP APS-101)</span>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Directs: Agency Mgr Rahul</div>
+                  </td>
+                  <td><span class="tag tag-green">Policy Issued</span></td>
+                  <td>
+                    <div style="color: var(--text-dark); font-weight: 600;">Renewal: Next Year</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Welcome call completed</div>
+                  </td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-outline" onclick="openCallLogModal('George Varghese', '+91 98473 44556')">Call History</button>
+                    <button class="btn btn-pb-blue" onclick="alert('Commercial policy copy sent via WhatsApp to George Varghese!')">View Policy</button>
+                  </td>
+                </tr>
+
+                <!-- TELECALLER POOL CALLING LEADS -->
+                <tr class="calling-row-telecaller alert-row">
                   <td>
                     <strong style="color: var(--text-dark);">Vishnu Prasad</strong>
+                    <span class="tag tag-orange" style="font-size: 10px; margin-left: 4px;">TELECALLER</span>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 98471 22849 • Kochi</div>
                   </td>
                   <td>
@@ -2507,7 +2595,10 @@
                     <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">Hyundai Creta (KL-07-CF-4021)</div>
                   </td>
                   <td>Meta FB Ad (Onam_Motor)</td>
-                  <td><strong>Anjali (Telecaller)</strong></td>
+                  <td>
+                    <span class="tag tag-orange" style="font-weight: 700;">📞 Anjali Nair (Telecaller)</span>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Leads: Team Leader Priya</div>
+                  </td>
                   <td><span class="tag tag-orange">Quote Shared</span></td>
                   <td>
                     <strong style="color: #dc2626;">⚠️ Today, 11:30 AM (Overdue)</strong>
@@ -2515,13 +2606,40 @@
                   </td>
                   <td style="text-align: right;">
                     <button class="btn btn-pb-blue" onclick="openCallLogModal('Vishnu Prasad', '+91 98471 22849')">Log Call</button>
-                    <button class="btn btn-outline" onclick="alert('Transferred lead to Agency Manager Rahul')">Handover</button>
+                    <button class="btn btn-outline" onclick="alert('Transferred lead to Team Leader Priya Nair for callback supervision')">Handover</button>
                   </td>
                 </tr>
 
-                <tr>
+                <tr class="calling-row-telecaller">
+                  <td>
+                    <strong style="color: var(--text-dark);">Priya Varma</strong>
+                    <span class="tag tag-orange" style="font-size: 10px; margin-left: 4px;">TELECALLER</span>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 97455 67890 • Kozhikode</div>
+                  </td>
+                  <td>
+                    <span class="tag tag-green">Health Floater</span>
+                    <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">2 Adults + 1 Kid (10L SI)</div>
+                  </td>
+                  <td>Website Inbound Lead</td>
+                  <td>
+                    <span class="tag tag-orange" style="font-weight: 700;">📞 Telecaller Pool (Sneha)</span>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Leads: Team Leader Priya</div>
+                  </td>
+                  <td><span class="tag tag-outline" style="background: #f1f5f9;">Connected</span></td>
+                  <td>
+                    <div style="color: var(--text-dark); font-weight: 600;">Today, 3:00 PM</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Brochure sent on WhatsApp</div>
+                  </td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-pb-blue" onclick="openCallLogModal('Priya Varma', '+91 97455 67890')">Log Call</button>
+                    <button class="btn btn-outline" onclick="alert('Star Health Assure quote shared with Priya Varma!')">Send Quote</button>
+                  </td>
+                </tr>
+
+                <tr class="calling-row-telecaller">
                   <td>
                     <strong style="color: var(--text-dark);">Dr. Rajesh Menon</strong>
+                    <span class="tag tag-purple" style="font-size: 10px; margin-left: 4px;">HIGH-VALUE</span>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 94470 19832 • Thrissur</div>
                   </td>
                   <td>
@@ -2529,7 +2647,10 @@
                     <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">2 Adults + 2 Kids (15L SI)</div>
                   </td>
                   <td>WhatsApp Referral</td>
-                  <td><strong>Rahul (Agency Mgr)</strong></td>
+                  <td>
+                    <span class="tag tag-purple" style="font-weight: 700;">👔 Rahul Varma (Agency Mgr)</span>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Direct High-Value Lead</div>
+                  </td>
                   <td><span class="tag tag-purple">Proposal Submitted</span></td>
                   <td>
                     <div style="color: var(--text-dark); font-weight: 600;">Tomorrow, 10:00 AM</div>
@@ -2796,12 +2917,37 @@
                 <tr>
                   <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-100</strong></td>
                   <td>
+                    <strong style="color: var(--text-dark);">Akhil Mohan</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">+91 97451 88990 • Ernakulam</div>
+                  </td>
+                  <td>
+                    <strong style="color: var(--text-dark);">Rahul Varma (Agency Mgr)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Recruited by: Arun Joy (Partner)</div>
+                  </td>
+                  <td style="font-size: 11px; line-height: 1.4;">
+                    <div>HDFC: <code>HDFC-EKM-301</code></div>
+                    <div>Tata AIG: <code>TAIG-POSP-552</code></div>
+                  </td>
+                  <td>
+                    <strong>₹6,75,000</strong>
+                    <div style="font-size: 11px; color: var(--pb-green);">19 Issued Policies</div>
+                  </td>
+                  <td><span class="tag tag-green">Active POSP</span></td>
+                  <td style="text-align: right;">
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-100 Akhil Mohan')">Ledger</button>
+                    <button class="btn btn-outline">KYC Docs</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-101</strong></td>
+                  <td>
                     <strong style="color: var(--text-dark);">Manoj Nambiar</strong>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 94471 89012 • Kannur</div>
                   </td>
                   <td>
-                    <strong style="color: var(--text-dark);">Rahul (Agency Mgr)</strong>
-                    <div style="font-size: 11px; color: var(--text-muted);">Recruited by: Arun (Partner)</div>
+                    <strong style="color: var(--text-dark);">Rahul Varma (Agency Mgr)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Recruited by: Arun Joy (Partner)</div>
                   </td>
                   <td style="font-size: 11px; line-height: 1.4;">
                     <div>Star: <code>STAR-KN-442</code></div>
@@ -2813,20 +2959,20 @@
                   </td>
                   <td><span class="tag tag-green">Active POSP</span></td>
                   <td style="text-align: right;">
-                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-100')">Ledger</button>
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-101 Manoj Nambiar')">Ledger</button>
                     <button class="btn btn-outline">KYC Docs</button>
                   </td>
                 </tr>
 
                 <tr>
-                  <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-101</strong></td>
+                  <td><strong style="color: var(--pb-blue); font-family: monospace; font-size: 14px;">APS-102</strong></td>
                   <td>
                     <strong style="color: var(--text-dark);">Deepa Pillai</strong>
                     <div style="font-size: 11px; color: var(--text-muted);">+91 98460 77123 • Ernakulam</div>
                   </td>
                   <td>
-                    <strong style="color: var(--text-dark);">Akhil (Agency Mgr)</strong>
-                    <div style="font-size: 11px; color: var(--text-muted);">Transferred from Rahul on 01-Sep</div>
+                    <strong style="color: var(--text-dark);">Rahul Varma (Agency Mgr)</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Certified POSP Advisor</div>
                   </td>
                   <td style="font-size: 11px; line-height: 1.4;">
                     <div>Care: <code>CARE-EKM-112</code></div>
@@ -2838,7 +2984,7 @@
                   </td>
                   <td><span class="tag tag-green">Active POSP</span></td>
                   <td style="text-align: right;">
-                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-101')">Ledger</button>
+                    <button class="btn btn-outline" onclick="alert('Viewing Ledger for APS-102 Deepa Pillai')">Ledger</button>
                     <button class="btn btn-outline">KYC Docs</button>
                   </td>
                 </tr>
@@ -3550,41 +3696,55 @@
         <button class="modal-close" onclick="closeModal('newLeadModal')">×</button>
       </div>
       <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
-        Manual lead entry with instant round-robin allocation to telecallers.
+        Manual lead entry with instant allocation to POSP Agents or Telecaller pool.
       </p>
 
       <div class="form-group">
-        <label>Customer Name:</label>
-        <input type="text" placeholder="e.g. Harikrishnan" value="Harikrishnan">
+        <label>Customer Name: *</label>
+        <input type="text" id="directLeadCustName" placeholder="e.g. Harikrishnan" value="Harikrishnan">
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
         <div class="form-group">
-          <label>Mobile Number:</label>
-          <input type="tel" placeholder="e.g. 9745123456" value="9745123456">
+          <label>Mobile Number: *</label>
+          <input type="tel" id="directLeadPhone" placeholder="e.g. 9745123456" value="9745123456">
         </div>
         <div class="form-group">
-          <label>Insurance Category:</label>
-          <select>
-            <option>Motor (Car / Two Wheeler)</option>
-            <option>Health Floater</option>
-            <option>Life Term</option>
-            <option>Pet Insurance</option>
-            <option>Group Mediclaim</option>
+          <label>Insurance Category: *</label>
+          <select id="directLeadCat">
+            <option value="Motor (Car / Two Wheeler)">Motor (Car / Two Wheeler)</option>
+            <option value="Health Floater">Health Floater</option>
+            <option value="Life Term">Life Term</option>
+            <option value="Pet Insurance">Pet Insurance</option>
+            <option value="Group Mediclaim">Group Mediclaim</option>
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label>Lead Source:</label>
-        <select>
-          <option>Walk-in Customer</option>
-          <option>Direct Phone Call</option>
-          <option>Employee Referral</option>
-          <option>Agent Referral</option>
-        </select>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="form-group">
+          <label>Lead Source:</label>
+          <select id="directLeadSource">
+            <option value="Walk-in Customer">Walk-in Customer</option>
+            <option value="Direct Phone Call">Direct Phone Call</option>
+            <option value="POSP Agent Sourced">POSP Agent Sourced</option>
+            <option value="Employee Referral">Employee Referral</option>
+            <option value="Online Ad Campaign">Online Ad Campaign</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Assign Calling To: *</label>
+          <select id="directLeadAssigned" style="font-weight: 700; color: var(--pb-navy);">
+            <option value="POSP_AKHIL">💼 Akhil Mohan (POSP Agent APS-100)</option>
+            <option value="POSP_MANOJ">💼 Manoj Nambiar (POSP Agent APS-100)</option>
+            <option value="POSP_DEEPA">💼 Deepa Pillai (POSP Agent APS-101)</option>
+            <option value="TELECALLER_ANJALI">📞 Anjali Nair (Telecaller)</option>
+            <option value="TELECALLER_POOL">📞 Telecaller Round-Robin Pool</option>
+            <option value="MGR_RAHUL">👔 Rahul Varma (Agency Manager)</option>
+          </select>
+        </div>
       </div>
       <div style="display: flex; justify-content: flex-end; gap: 8px;">
         <button class="btn btn-outline" onclick="closeModal('newLeadModal')">Cancel</button>
-        <button class="btn btn-pb-blue" onclick="alert('Lead added and allocated round-robin to Anjali (Telecaller)!'); closeModal('newLeadModal')">Save & Allocate</button>
+        <button class="btn btn-pb-blue" onclick="submitDirectLead()">Save &amp; Allocate Lead</button>
       </div>
     </div>
   </div>
@@ -4327,7 +4487,7 @@
         } else if (role === 'TELECALLER') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali Nair)</strong>. Dedicated Calling CRM Desk: You strictly manage lead calling queues, customer call outcome logs, and WhatsApp follow-ups. All other operational and administrative modules are locked. Reports to <strong>Team Leader (Priya Nair)</strong>.`;
         } else if (role === 'POSP_AGENT') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>POSP Certified Agent (Akhil Mohan - APS-100)</strong>. Personal advisor desk: View sourced policies, compare insurer quotes, renewals, and personal commission statements. Directly reports to <strong>Agency Manager (Rahul Varma)</strong>.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>POSP Certified Agent (Akhil Mohan - APS-100)</strong>. Personal advisor desk: View assigned client calling leads, compare insurer quotes, renewals, and personal commission statements. Directly reports to <strong>Agency Manager (Rahul Varma)</strong>.`;
         } else if (role === 'ACCOUNTS') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts & Operations (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation (Ledger A) and agent payout batch preparation (Ledger B).`;
         } else if (role === 'HR') {
@@ -4394,13 +4554,15 @@
 
       // Apply RBAC filters based on insurance hierarchy best practices
       if (role === 'POSP_AGENT') {
-        // POSP sees: Dashboard, Sourced Leads, Renewals, Insurers & Categories
+        // POSP sees: Dashboard, Sourced Calling Leads, Renewals, Insurers & Categories
         // Sensitive data hidden: Partners & Roles, Dual Ledgers, All Agents list, HR
         if (tabs['users']) tabs['users'].style.display = 'none';
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
         if (tabs['agents']) tabs['agents'].style.display = 'none';
-        if (tabs['telecalling']) tabs['telecalling'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
+        // POSP Agent calling queue is fully visible and filtered to POSP leads
+        if (tabs['telecalling']) tabs['telecalling'].style.display = 'flex';
+        filterCallingPool('POSP');
       } else if (role === 'TELECALLER') {
         // Telecallers ONLY manage Telecalling CRM! All other modules strictly hidden
         if (tabs['dashboard']) tabs['dashboard'].style.display = 'none';
@@ -4410,14 +4572,16 @@
         if (tabs['agents']) tabs['agents'].style.display = 'none';
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
+        filterCallingPool('TELECALLER');
       } else if (role === 'AGENCY_MANAGER') {
         // Agency Manager directly manages POSP Agents!
-        // Sees: Dashboard, Agents Directory (APS-100+), Renewals, Insurers
-        // Hidden: Users, Dual Ledgers, Calling floor (Telecallers are led by Team Leader)
+        // Sees: Dashboard, Agents Directory (APS-100+), Direct POSP Calling Queue, Renewals, Insurers
+        // Hidden: Users, Dual Ledgers, HR
         if (tabs['users']) tabs['users'].style.display = 'none';
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
-        if (tabs['telecalling']) tabs['telecalling'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
+        if (tabs['telecalling']) tabs['telecalling'].style.display = 'flex';
+        filterCallingPool('POSP');
       } else if (role === 'TEAM_LEADER') {
         // Team Leader directly leads Telecallers!
         // Sees: Dashboard, Telecalling CRM (Calling Pool & Pipeline), Renewals, Insurers
@@ -4426,6 +4590,7 @@
         if (tabs['commissions']) tabs['commissions'].style.display = 'none';
         if (tabs['agents']) tabs['agents'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
+        filterCallingPool('TELECALLER');
       } else if (role === 'ACCOUNTS') {
         // Accounts sees: Dashboard, Commission Ledgers, Insurers, Renewals
         if (tabs['users']) tabs['users'].style.display = 'none';
@@ -4438,6 +4603,9 @@
         if (tabs['users']) tabs['users'].style.display = 'none';
         if (tabs['telecalling']) tabs['telecalling'].style.display = 'none';
         if (tabs['agents']) tabs['agents'].style.display = 'none';
+      } else {
+        // Master Admin & Partners have unrestricted view
+        filterCallingPool('ALL');
       }
 
       // If role is TELECALLER, lock directly to telecalling
@@ -4673,6 +4841,133 @@
       document.getElementById('callLeadName').innerText = name;
       document.getElementById('callLeadMobile').innerText = ' (' + mobile + ')';
       openModal('callLogModal');
+    }
+
+    function filterCallingPool(filter) {
+      const btnAll = document.getElementById('btnFilterAllCalling');
+      const btnTc = document.getElementById('btnFilterTelecallerCalling');
+      const btnPosp = document.getElementById('btnFilterPospCalling');
+      const countEl = document.getElementById('callingPoolCount');
+
+      if (btnAll) btnAll.className = (filter === 'ALL') ? 'btn btn-pb-blue' : 'btn btn-outline';
+      if (btnTc) btnTc.className = (filter === 'TELECALLER') ? 'btn btn-pb-blue' : 'btn btn-outline';
+      if (btnPosp) btnPosp.className = (filter === 'POSP') ? 'btn btn-pb-blue' : 'btn btn-outline';
+
+      const pospRows = document.querySelectorAll('.calling-row-posp');
+      const tcRows = document.querySelectorAll('.calling-row-telecaller');
+
+      if (filter === 'ALL') {
+        pospRows.forEach(r => r.style.display = '');
+        tcRows.forEach(r => r.style.display = '');
+        if (countEl) countEl.innerText = '139 Leads';
+      } else if (filter === 'TELECALLER') {
+        pospRows.forEach(r => r.style.display = 'none');
+        tcRows.forEach(r => r.style.display = '');
+        if (countEl) countEl.innerText = '84 Telecaller Leads';
+      } else if (filter === 'POSP') {
+        pospRows.forEach(r => r.style.display = '');
+        tcRows.forEach(r => r.style.display = 'none');
+        if (countEl) countEl.innerText = '55 POSP Leads';
+      }
+    }
+
+    function submitDirectLead() {
+      const nameInput = document.getElementById('directLeadCustName');
+      const phoneInput = document.getElementById('directLeadPhone');
+      const catInput = document.getElementById('directLeadCat');
+      const sourceInput = document.getElementById('directLeadSource');
+      const assignedInput = document.getElementById('directLeadAssigned');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const cat = catInput ? catInput.value : 'Motor';
+      const source = sourceInput ? sourceInput.value : 'Walk-in Customer';
+      const assignedKey = assignedInput ? assignedInput.value : 'POSP_AKHIL';
+
+      if (!name || !phone) {
+        alert("⚠️ Please enter Customer Name and Mobile Number.");
+        return;
+      }
+
+      let assignedText = '';
+      let rowClass = 'calling-row-posp';
+      let supervisorText = '';
+      let badgeClass = 'tag-blue';
+
+      if (assignedKey === 'POSP_AKHIL') {
+        assignedText = '💼 Akhil Mohan (POSP APS-100)';
+        rowClass = 'calling-row-posp';
+        supervisorText = 'Directs: Agency Mgr Rahul';
+        badgeClass = 'tag-blue';
+      } else if (assignedKey === 'POSP_MANOJ') {
+        assignedText = '💼 Manoj Nambiar (POSP APS-100)';
+        rowClass = 'calling-row-posp';
+        supervisorText = 'Directs: Agency Mgr Rahul';
+        badgeClass = 'tag-blue';
+      } else if (assignedKey === 'POSP_DEEPA') {
+        assignedText = '💼 Deepa Pillai (POSP APS-101)';
+        rowClass = 'calling-row-posp';
+        supervisorText = 'Directs: Agency Mgr Rahul';
+        badgeClass = 'tag-blue';
+      } else if (assignedKey === 'TELECALLER_ANJALI') {
+        assignedText = '📞 Anjali Nair (Telecaller)';
+        rowClass = 'calling-row-telecaller';
+        supervisorText = 'Leads: Team Leader Priya';
+        badgeClass = 'tag-orange';
+      } else if (assignedKey === 'MGR_RAHUL') {
+        assignedText = '👔 Rahul Varma (Agency Mgr)';
+        rowClass = 'calling-row-telecaller';
+        supervisorText = 'Direct High-Value Lead';
+        badgeClass = 'tag-purple';
+      } else {
+        assignedText = '📞 Telecaller Round-Robin Pool';
+        rowClass = 'calling-row-telecaller';
+        supervisorText = 'Leads: Team Leader Priya';
+        badgeClass = 'tag-orange';
+      }
+
+      const tableBody = document.getElementById('callingPoolTableBody');
+      if (tableBody) {
+        const newTr = document.createElement('tr');
+        newTr.className = rowClass + ' alert-row';
+        newTr.innerHTML = `
+          <td>
+            <strong style="color: var(--text-dark);">${name}</strong>
+            <span class="tag tag-green" style="font-size: 10px; margin-left: 4px;">NEW</span>
+            <div style="font-size: 11px; color: var(--text-muted);">+91 ${phone} • Kerala</div>
+          </td>
+          <td>
+            <span class="tag tag-blue">${cat}</span>
+            <div style="font-size: 11px; color: var(--text-dark); margin-top: 2px;">Direct Entry</div>
+          </td>
+          <td>${source}</td>
+          <td>
+            <span class="tag ${badgeClass}" style="font-weight: 700;">${assignedText}</span>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">${supervisorText}</div>
+          </td>
+          <td><span class="tag tag-blue">1. New Lead</span></td>
+          <td>
+            <strong style="color: #0284c9;">Today, Immediate</strong>
+            <div style="font-size: 11px; color: var(--text-muted);">First Outbound Call Due</div>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn btn-pb-blue" onclick="openCallLogModal('${name}', '+91 ${phone}')">Log Call</button>
+            <button class="btn btn-outline" onclick="alert('Follow-up WhatsApp sent to ${name} (+91 ${phone})!')">WhatsApp</button>
+          </td>
+        `;
+        tableBody.insertBefore(newTr, tableBody.firstChild);
+      }
+
+      closeModal('newLeadModal');
+      switchTab('telecalling');
+
+      if (rowClass === 'calling-row-posp') {
+        filterCallingPool('POSP');
+      } else {
+        filterCallingPool('ALL');
+      }
+
+      alert(`🎉 Direct Insurance Lead Added & Allocated!\n\nCustomer: ${name}\nMobile: +91 ${phone}\nCategory: ${cat}\nAssigned Calling Agent: ${assignedText}\n\nLead is now active in the Calling Pool Queue!`);
     }
 
     function simulateCheckIn() {
