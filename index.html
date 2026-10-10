@@ -837,6 +837,43 @@
       .pivot-badge { font-size: 9px; padding: 1px 6px; }
       .pivot-sub-tag { display: none; }
     }
+    /* User Profile & Security Modal Styles */
+    .prof-tab-btn {
+      padding: 9px 16px;
+      font-size: 12.5px;
+      font-weight: 700;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .prof-tab-btn.active {
+      border-bottom-color: var(--pb-blue) !important;
+      color: var(--pb-blue) !important;
+    }
+    .prof-alert-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .prof-alert-success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
     /* ============================================================== */
     /* PUBLIC LANDING PAGE & ANIMATED HEALTH POSTERS STYLES */
     /* ============================================================== */
@@ -2066,12 +2103,21 @@
 
       <!-- User Profile & Role Selector -->
       <div class="sidebar-profile">
-        <div class="profile-card-inner">
+        <div class="profile-card-inner" onclick="openUserProfileModal()" style="cursor: pointer;" title="Click to view Profile &amp; Change Password">
           <div class="profile-avatar" id="sidebarProfileAvatar">AJ</div>
           <div class="profile-details">
-            <div class="profile-name" id="sidebarProfileName">Arun Joy</div>
+            <div class="profile-name" id="sidebarProfileName" style="display: flex; align-items: center; justify-content: space-between;">
+              <span>Arun Joy</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            </div>
             <div class="profile-role-tag" id="sidebarProfileRoleTag"><span class="pulse-dot"></span> Master Admin • Owner</div>
           </div>
+        </div>
+        <div style="margin-top: 6px; text-align: center;">
+          <a href="javascript:void(0)" onclick="openUserProfileModal()" style="font-size: 11px; color: var(--pb-blue); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            My Profile &amp; Change Password
+          </a>
         </div>
         <div class="sidebar-role-select-wrap">
           <label for="roleSelector" class="role-select-label">Switch Role View:</label>
@@ -2079,10 +2125,11 @@
             <option value="ADMIN">👑 Master Admin (Arun - Owner)</option>
             <option value="PARTNER_1">🤝 Partner 1 (Owner)</option>
             <option value="PARTNER_2">🤝 Partner 2 (Owner)</option>
+            <option value="AGENCY_MANAGER">👔 Team Leader (Rahul)</option>
             <option value="TELECALLER">📞 Telecaller (Anjali)</option>
-            <option value="AGENCY_MANAGER">👔 Agency Manager (Rahul)</option>
-            <option value="ACCOUNTS">💰 Accounts (Commissions)</option>
-            <option value="HR">🕒 HR & Payroll</option>
+            <option value="POSP_AGENT">💼 POSP Agent (Akhil - APS-100)</option>
+            <option value="ACCOUNTS">💰 Accounts &amp; Ops (Suresh)</option>
+            <option value="HR">🕒 HR &amp; Payroll (Meera)</option>
           </select>
         </div>
       </div>
@@ -2106,7 +2153,7 @@
 
         <button onclick="switchTab('telecalling')" id="tab-telecalling" class="nav-btn">
           <span class="nav-icon">📞</span>
-          <span class="nav-text">Leads & Telecalling</span>
+          <span class="nav-text">Leads &amp; Telecalling</span>
           <span class="badge-cyan-pill">18</span>
         </button>
 
@@ -2118,13 +2165,13 @@
 
         <button onclick="switchTab('companies')" id="tab-companies" class="nav-btn">
           <span class="nav-icon">🏢</span>
-          <span class="nav-text">Insurers & Categories</span>
+          <span class="nav-text">Insurers &amp; Categories</span>
           <span class="nav-meta">5 Verticals</span>
         </button>
 
         <button onclick="switchTab('agents')" id="tab-agents" class="nav-btn">
           <span class="nav-icon">👥</span>
-          <span class="nav-text">Agents & POSP</span>
+          <span class="nav-text">Agents &amp; POSP</span>
           <span class="badge-green-pill">APS-100+</span>
         </button>
 
@@ -2136,7 +2183,7 @@
 
         <button onclick="switchTab('hr')" id="tab-hr" class="nav-btn">
           <span class="nav-icon">🕒</span>
-          <span class="nav-text">HR & Attendance</span>
+          <span class="nav-text">HR &amp; Attendance</span>
           <span class="nav-meta">Payroll</span>
         </button>
       </nav>
@@ -2183,6 +2230,10 @@
             <span class="pulse-dot"></span>
             <span>Live System: <strong>Active</strong></span>
           </div>
+          <button class="btn btn-outline" style="font-size: 11.5px; padding: 6px 12px; display: inline-flex; align-items: center; gap: 5px;" onclick="openUserProfileModal()" title="View Profile &amp; Change Password">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>My Profile</span>
+          </button>
           <button class="btn btn-outline" style="font-size: 11.5px; padding: 6px 12px;" onclick="togglePortalMode('LANDING')" title="View Public Website">
             🌐 Public View
           </button>
@@ -3843,10 +3894,14 @@
       </form>
 
       <div style="margin-top: 16px; text-align: center; font-size: 11.5px; color: var(--text-muted);">
-        <span>Evaluating portal? </span>
-        <a href="javascript:void(0)" onclick="autofillMasterCredentials()" style="color: var(--pb-blue); font-weight: 700; text-decoration: underline;">
-          Auto-fill Admin Demo Credentials
-        </a>
+        <div style="margin-bottom: 6px; font-weight: 600;">Evaluating portal? Click role to auto-fill credentials:</div>
+        <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
+          <a href="javascript:void(0)" onclick="autofillRoleCredentials('ADMIN')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Admin (Arun)</a>
+          <a href="javascript:void(0)" onclick="autofillRoleCredentials('PARTNER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Partner (Saji)</a>
+          <a href="javascript:void(0)" onclick="autofillRoleCredentials('LEADER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Team Leader (Rahul)</a>
+          <a href="javascript:void(0)" onclick="autofillRoleCredentials('TELECALLER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Telecaller (Anjali)</a>
+          <a href="javascript:void(0)" onclick="autofillRoleCredentials('POSP')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">POSP Agent (Akhil)</a>
+        </div>
       </div>
 
       <div style="margin-top: 18px; padding-top: 12px; border-top: 1px solid #f1f5f9; text-align: center; font-size: 11px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 6px;">
@@ -3969,6 +4024,139 @@
     </div>
   </div>
 
+  <!-- ============================================================== -->
+  <!-- USER PROFILE & SECURITY / CHANGE PASSWORD MODAL -->
+  <!-- ============================================================== -->
+  <div id="userProfileModal" class="modal-backdrop">
+    <div class="sec-modal-box" style="max-width: 530px; text-align: left; padding: 24px;">
+      
+      <!-- Modal Header -->
+      <div class="modal-head" style="align-items: flex-start; padding-bottom: 14px; border-bottom: 1px solid var(--border-light); margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div id="profModalAvatar" style="width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--pb-blue), var(--pb-navy)); color: #fff; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0, 40, 69, 0.15);">
+            AJ
+          </div>
+          <div>
+            <h3 id="profModalName" style="font-size: 18px; font-weight: 800; color: var(--pb-navy); margin: 0; line-height: 1.2;">Arun Joy</h3>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px; flex-wrap: wrap;">
+              <span id="profModalRoleTitle" class="tag tag-blue" style="font-size: 11px; padding: 2px 7px;">👑 Master Admin</span>
+              <span id="profModalStatus" class="tag tag-green" style="font-size: 11px; padding: 2px 7px;">Active</span>
+              <span id="profModalCode" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">USR-ADMIN-01</span>
+            </div>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeModal('userProfileModal')">×</button>
+      </div>
+
+      <!-- Navigation Tabs for Profile -->
+      <div style="display: flex; border-bottom: 1px solid var(--border-light); margin-bottom: 16px; gap: 6px;">
+        <button id="profTabBtnInfo" type="button" onclick="switchProfileTab('info')" class="prof-tab-btn active">
+          👤 Account Profile
+        </button>
+        <button id="profTabBtnSecurity" type="button" onclick="switchProfileTab('security')" class="prof-tab-btn">
+          🔒 Change Password &amp; Security
+        </button>
+      </div>
+
+      <!-- TAB 1: PROFILE DETAILS -->
+      <div id="profSectionInfo">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Registered Email</label>
+            <div id="profModalEmail" style="font-size: 13px; font-weight: 700; color: var(--pb-navy); margin-top: 2px; word-break: break-all;">arunarumaliljoy@gmail.com</div>
+          </div>
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Reporting Manager</label>
+            <div id="profModalSupervisor" style="font-size: 13px; font-weight: 700; color: var(--text-dark); margin-top: 2px;">Root Authority</div>
+          </div>
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Branch Hub</label>
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-dark); margin-top: 2px;">Kochi Corporate HQ</div>
+          </div>
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Authorization Node</label>
+            <div style="font-size: 13px; font-weight: 700; color: #10b981; margin-top: 2px;">Verified Intermediary</div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Registered Mobile (for OTP &amp; WhatsApp Alerts):</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="tel" id="profEditMobile" value="+91 98471 22849" style="flex: 1; padding: 8px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+            <button type="button" class="btn btn-pb-blue" onclick="handleUserProfileInfoUpdate()" style="padding: 8px 14px; font-size: 12px; font-weight: 700;">
+              Save Contact
+            </button>
+          </div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">
+          🛡️ <strong>Role Permissions &amp; Data Governance:</strong> Access to sensitive financial metrics (Ledger A/B, commissions, agent payouts) is restricted according to IRDAI role governance.
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 14px;">
+          <button type="button" class="btn btn-outline" style="font-size: 12px; color: #dc2626; border-color: #fca5a5;" onclick="closeModal('userProfileModal'); secureLogout();">
+            🔒 Sign Out of Session
+          </button>
+          <button type="button" class="btn btn-pb-blue" onclick="switchProfileTab('security')" style="font-size: 12px; font-weight: 700;">
+            Change Password ›
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: CHANGE PASSWORD & SECURITY -->
+      <div id="profSectionSecurity" style="display: none;">
+        <div id="profPwdFeedback" style="display: none;"></div>
+
+        <form id="profChangePasswordForm" onsubmit="handleUserProfilePasswordChange(event)">
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Current Password:</label>
+            <div class="password-wrap">
+              <input type="password" id="profCurrentPassword" placeholder="Enter current password" required style="width: 100%; padding: 9px 38px 9px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+              <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('profCurrentPassword', this)" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">New Password:</label>
+            <div class="password-wrap">
+              <input type="password" id="profNewPassword" placeholder="Min 8 chars, uppercase &amp; number" required oninput="checkProfilePasswordStrength(this.value)" style="width: 100%; padding: 9px 38px 9px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+              <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('profNewPassword', this)" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+            <!-- Strength bar -->
+            <div style="background: #e2e8f0; height: 4px; border-radius: 2px; margin-top: 6px; overflow: hidden;">
+              <div id="profStrengthMeter" style="height: 100%; width: 0%; background: #dc2626; transition: width 0.3s, background 0.3s;"></div>
+            </div>
+            <div id="profStrengthText" style="font-size: 11px; color: var(--text-muted); margin-top: 3px;">Password Strength: Required min 8 characters</div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; display: block;">Confirm New Password:</label>
+            <div class="password-wrap">
+              <input type="password" id="profConfirmPassword" placeholder="Re-enter new password" required style="width: 100%; padding: 9px 38px 9px 12px; font-size: 13px; border: 1px solid var(--border-light); border-radius: 6px;">
+              <button type="button" class="password-toggle-eye" onclick="togglePasswordVisibility('profConfirmPassword', this)" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 18px;">
+            <button type="submit" class="btn btn-pb-green" style="flex: 1; justify-content: center; padding: 11px; font-size: 13px; font-weight: 700;">
+              ✓ Save New Password
+            </button>
+            <button type="button" class="btn btn-outline" onclick="switchProfileTab('info')" style="padding: 11px 16px; font-size: 12.5px;">
+              Back to Profile
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
   <script>
     const tabTitles = {
       'dashboard': { title: '📊 Partner Executive Dashboard', breadcrumb: 'Executive Overview' },
@@ -4029,17 +4217,19 @@
       const banner = document.getElementById('roleBannerText');
       if (banner) {
         if (role === 'PARTNER_1' || role === 'PARTNER_2') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>${role === 'PARTNER_1' ? 'Partner 1 (Arun)' : 'Partner 2'} (Owner)</strong>. Full business visibility: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.`;
-        } else if (role === 'TELECALLER') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali)</strong>. Restricted access: Assigned calling leads, call outcome logging, and overdue reminders. Company profits and agent bank details are hidden.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>${role === 'PARTNER_1' ? 'Partner 1 (Arun)' : 'Partner 2 (Saji)'} (Owner)</strong>. Full business oversight: Profit margins, insurer commission receivables, agent payouts, and dual-partner maker-checker approvals.`;
         } else if (role === 'AGENCY_MANAGER') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>Agency Manager (Rahul)</strong>. Team visibility: Own leads, assigned POSP agents (APS-100+), renewal alerts, and field attendance.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Team Leader / Agency Manager (Rahul)</strong>. Team oversight: Allocated leads, telecaller performance, assigned POSP agents (APS-100+), and field attendance. Firm profit margins and insurer Ledger A overrides are protected.`;
+        } else if (role === 'TELECALLER') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali)</strong>. Calling CRM workspace: Inbound/outbound lead queue, call outcome logging, and automated WhatsApp renewal reminders. Company ledger data is restricted.`;
+        } else if (role === 'POSP_AGENT') {
+          banner.innerHTML = `ℹ️ You are logged in as <strong>POSP Certified Agent (Akhil Mohan - APS-100)</strong>. Personal advisor desk: View your sourced policies, customer renewal quotes, and your individual commission payout slips.`;
         } else if (role === 'ACCOUNTS') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation and agent payout preparation.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Accounts & Operations (Suresh)</strong>. Financial operations: Insurer commission statement reconciliation (Ledger A) and agent payout batch preparation (Ledger B).`;
         } else if (role === 'HR') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>HR & Payroll</strong>. People operations: Attendance regularisations, leave approvals, and monthly salary processing.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>HR & Payroll (Meera)</strong>. People operations: Attendance regularisations, leave approvals, and staff payroll slips.`;
         } else {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>Master Admin / Operations</strong>. Complete administrative control, partner creation, and enterprise oversight.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Master Admin (Arun Joy - Owner)</strong>. Complete administrative control, partner creation, equity distribution, and enterprise oversight.`;
         }
       }
 
@@ -4049,19 +4239,23 @@
       const avatarEl = document.getElementById('sidebarProfileAvatar');
 
       const roleMap = {
-        'ADMIN': { name: 'Arun Joy', roleTitle: '👑 Master Admin (Owner)', avatar: 'AJ' },
-        'PARTNER_1': { name: 'Arun Joy', roleTitle: '🤝 Partner 1 (Owner)', avatar: 'AJ' },
-        'PARTNER_2': { name: 'Saji George', roleTitle: '🤝 Partner 2 (Owner)', avatar: 'SG' },
-        'TELECALLER': { name: 'Anjali Nair', roleTitle: '📞 Telecaller (Anjali)', avatar: 'AN' },
-        'AGENCY_MANAGER': { name: 'Rahul Varma', roleTitle: '👔 Agency Manager (Rahul)', avatar: 'RV' },
-        'ACCOUNTS': { name: 'Suresh Kumar', roleTitle: '💰 Accounts (Suresh)', avatar: 'SK' },
-        'HR': { name: 'Meera Pillai', roleTitle: '🕒 HR & Payroll', avatar: 'MP' }
+        'ADMIN': { name: 'Arun Joy', roleTitle: '👑 Master Admin (Owner)', avatar: 'AJ', email: DEFAULT_MASTER_EMAIL, code: 'USR-ADMIN-01' },
+        'PARTNER_1': { name: 'Arun Joy', roleTitle: '🤝 Partner 1 (Owner)', avatar: 'AJ', email: DEFAULT_MASTER_EMAIL, code: 'USR-ADMIN-01' },
+        'PARTNER_2': { name: 'Saji George', roleTitle: '🤝 Partner 2 (Owner)', avatar: 'SG', email: 'saji@apsova.com', code: 'USR-PTR-101' },
+        'AGENCY_MANAGER': { name: 'Rahul Varma', roleTitle: '👔 Team Leader (Rahul)', avatar: 'RV', email: 'rahul@apsova.com', code: 'USR-TL-201' },
+        'TELECALLER': { name: 'Anjali Nair', roleTitle: '📞 Telecaller (Anjali)', avatar: 'AN', email: 'anjali@apsova.com', code: 'USR-TC-202' },
+        'POSP_AGENT': { name: 'Akhil Mohan', roleTitle: '💼 POSP Agent (APS-100)', avatar: 'AM', email: 'akhil@apsova.com', code: 'APS-100' },
+        'ACCOUNTS': { name: 'Suresh Kumar', roleTitle: '💰 Accounts & Ops (Suresh)', avatar: 'SK', email: 'suresh@apsova.com', code: 'USR-OPS-203' },
+        'HR': { name: 'Meera Pillai', roleTitle: '🕒 HR & Payroll (Meera)', avatar: 'MP', email: 'meera@apsova.com', code: 'USR-HR-204' }
       };
 
-      const info = roleMap[role] || { name: 'Master Admin', roleTitle: '👑 Admin (Owner)', avatar: 'AJ' };
-      if (nameEl) nameEl.innerText = info.name;
+      const info = roleMap[role] || { name: 'Master Admin', roleTitle: '👑 Admin (Owner)', avatar: 'AJ', email: DEFAULT_MASTER_EMAIL, code: 'USR-ADMIN-01' };
+      if (nameEl) nameEl.innerHTML = `<span>${info.name}</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.6;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
       if (roleEl) roleEl.innerHTML = `<span class="pulse-dot"></span> ${info.roleTitle}`;
       if (avatarEl) avatarEl.innerText = info.avatar;
+
+      // Apply RBAC tab visibility restrictions
+      applyRolePermissions(role);
 
       // Update session storage
       try {
@@ -4069,8 +4263,249 @@
         auth.role = role;
         auth.name = info.name;
         auth.roleTitle = info.roleTitle;
+        auth.email = info.email;
+        auth.id = info.code;
         localStorage.setItem('apsova_auth', JSON.stringify(auth));
       } catch(e) {}
+    }
+
+    // ==============================================================
+    // ROLE-BASED ACCESS CONTROL (RBAC) & WORKSPACE PERMISSIONS
+    // ==============================================================
+    function applyRolePermissions(role) {
+      const tabs = {
+        'dashboard': document.getElementById('tab-dashboard'),
+        'users': document.getElementById('tab-users'),
+        'telecalling': document.getElementById('tab-telecalling'),
+        'renewals': document.getElementById('tab-renewals'),
+        'companies': document.getElementById('tab-companies'),
+        'agents': document.getElementById('tab-agents'),
+        'commissions': document.getElementById('tab-commissions'),
+        'hr': document.getElementById('tab-hr')
+      };
+
+      // Reset all tabs to visible
+      Object.values(tabs).forEach(tab => { if (tab) tab.style.display = 'flex'; });
+
+      // Apply RBAC filters based on insurance hierarchy best practices
+      if (role === 'POSP_AGENT') {
+        // POSP sees: Dashboard, Sourced Leads, Renewals, Insurers & Categories
+        // Sensitive data hidden: Partners & Roles, Dual Ledgers, All Agents list, HR
+        if (tabs['users']) tabs['users'].style.display = 'none';
+        if (tabs['commissions']) tabs['commissions'].style.display = 'none';
+        if (tabs['agents']) tabs['agents'].style.display = 'none';
+        if (tabs['hr']) tabs['hr'].style.display = 'none';
+      } else if (role === 'TELECALLER') {
+        // Telecaller sees: Leads & Telecalling CRM, Renewals Tracker, Insurers
+        if (tabs['users']) tabs['users'].style.display = 'none';
+        if (tabs['commissions']) tabs['commissions'].style.display = 'none';
+        if (tabs['agents']) tabs['agents'].style.display = 'none';
+        if (tabs['hr']) tabs['hr'].style.display = 'none';
+      } else if (role === 'AGENCY_MANAGER') {
+        // Team Leader sees: Dashboard, Leads, Renewals, Insurers, Agents
+        if (tabs['users']) tabs['users'].style.display = 'none';
+        if (tabs['commissions']) tabs['commissions'].style.display = 'none';
+      } else if (role === 'ACCOUNTS') {
+        // Accounts sees: Dashboard, Commission Ledgers, Insurers, Renewals
+        if (tabs['users']) tabs['users'].style.display = 'none';
+        if (tabs['telecalling']) tabs['telecalling'].style.display = 'none';
+        if (tabs['hr']) tabs['hr'].style.display = 'none';
+      } else if (role === 'HR') {
+        // HR sees: Dashboard, HR & Attendance, Team list
+        if (tabs['commissions']) tabs['commissions'].style.display = 'none';
+        if (tabs['users']) tabs['users'].style.display = 'none';
+        if (tabs['telecalling']) tabs['telecalling'].style.display = 'none';
+      }
+
+      // If active tab was hidden by role switch, auto-route to accessible tab
+      const currentActive = document.querySelector('.nav-btn.active');
+      if (currentActive && currentActive.style.display === 'none') {
+        if (role === 'TELECALLER') switchTab('telecalling');
+        else switchTab('dashboard');
+      }
+    }
+
+    // ==============================================================
+    // USER PROFILE & PASSWORD MANAGEMENT
+    // ==============================================================
+    function openUserProfileModal() {
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      const email = (auth.email || DEFAULT_MASTER_EMAIL).toLowerCase();
+      const users = getUsersList();
+      let user = users.find(u => u.email.toLowerCase() === email);
+
+      if (!user) {
+        user = {
+          name: auth.name || 'Arun Joy',
+          email: auth.email || DEFAULT_MASTER_EMAIL,
+          roleTitle: auth.roleTitle || '👑 Master Admin (Owner)',
+          role: auth.role || 'ADMIN',
+          mobile: '+91 98471 22849',
+          id: 'USR-ADMIN-01',
+          supervisor: 'Root Security Authority',
+          status: 'Active'
+        };
+      }
+
+      const nameEl = document.getElementById('profModalName');
+      const roleEl = document.getElementById('profModalRoleTitle');
+      const codeEl = document.getElementById('profModalCode');
+      const avatarEl = document.getElementById('profModalAvatar');
+      const emailEl = document.getElementById('profModalEmail');
+      const mobileEl = document.getElementById('profEditMobile');
+      const supervisorEl = document.getElementById('profModalSupervisor');
+      const statusEl = document.getElementById('profModalStatus');
+
+      if (nameEl) nameEl.innerText = user.name;
+      if (roleEl) roleEl.innerText = user.roleTitle || user.role;
+      if (codeEl) codeEl.innerText = user.id || 'USR-01';
+      if (avatarEl) avatarEl.innerText = (user.name || 'AJ').split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+      if (emailEl) emailEl.innerText = user.email;
+      if (mobileEl) mobileEl.value = user.mobile || '+91 98471 22849';
+      if (supervisorEl) supervisorEl.innerText = user.supervisor || 'Board of Partners';
+      if (statusEl) statusEl.innerText = user.status || 'Active';
+
+      switchProfileTab('info');
+      const feedback = document.getElementById('profPwdFeedback');
+      if (feedback) feedback.style.display = 'none';
+
+      openModal('userProfileModal');
+    }
+
+    function switchProfileTab(tabName) {
+      const infoBtn = document.getElementById('profTabBtnInfo');
+      const secBtn = document.getElementById('profTabBtnSecurity');
+      const infoSec = document.getElementById('profSectionInfo');
+      const secSec = document.getElementById('profSectionSecurity');
+
+      if (tabName === 'info') {
+        if (infoBtn) infoBtn.classList.add('active');
+        if (secBtn) secBtn.classList.remove('active');
+        if (infoSec) infoSec.style.display = 'block';
+        if (secSec) secSec.style.display = 'none';
+      } else {
+        if (secBtn) secBtn.classList.add('active');
+        if (infoBtn) infoBtn.classList.remove('active');
+        if (secSec) secSec.style.display = 'block';
+        if (infoSec) infoSec.style.display = 'none';
+      }
+    }
+
+    function checkProfilePasswordStrength(pwd) {
+      const meter = document.getElementById('profStrengthMeter');
+      const text = document.getElementById('profStrengthText');
+      if (!meter || !text) return;
+
+      if (!pwd || pwd.length === 0) {
+        meter.style.width = '0%';
+        meter.style.background = '#dc2626';
+        text.innerText = 'Password Strength: Required min 8 characters';
+        text.style.color = 'var(--text-muted)';
+        return;
+      }
+
+      let score = 0;
+      if (pwd.length >= 8) score++;
+      if (/[A-Z]/.test(pwd)) score++;
+      if (/[0-9]/.test(pwd)) score++;
+      if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+      if (score <= 1) {
+        meter.style.width = '25%';
+        meter.style.background = '#dc2626';
+        text.innerText = 'Password Strength: Weak (add capital letters and numbers)';
+        text.style.color = '#dc2626';
+      } else if (score === 2) {
+        meter.style.width = '50%';
+        meter.style.background = '#ea580c';
+        text.innerText = 'Password Strength: Moderate (add special character or number)';
+        text.style.color = '#ea580c';
+      } else if (score === 3) {
+        meter.style.width = '75%';
+        meter.style.background = '#2563eb';
+        text.innerText = 'Password Strength: Good';
+        text.style.color = '#2563eb';
+      } else {
+        meter.style.width = '100%';
+        meter.style.background = '#16a34a';
+        text.innerText = 'Password Strength: Strong & Secure ✓';
+        text.style.color = '#16a34a';
+      }
+    }
+
+    function handleUserProfilePasswordChange(e) {
+      if (e) e.preventDefault();
+      const currentPwd = document.getElementById('profCurrentPassword').value;
+      const newPwd = document.getElementById('profNewPassword').value;
+      const confirmPwd = document.getElementById('profConfirmPassword').value;
+      const feedback = document.getElementById('profPwdFeedback');
+
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      const email = (auth.email || DEFAULT_MASTER_EMAIL).toLowerCase();
+      const users = getUsersList();
+      const user = users.find(u => u.email.toLowerCase() === email);
+
+      let expectedPwd = currentMasterPassword;
+      if (user && user.password) {
+        expectedPwd = user.password;
+      }
+
+      if (currentPwd !== expectedPwd) {
+        feedback.style.display = 'block';
+        feedback.className = 'prof-alert-error';
+        feedback.innerText = '❌ Incorrect Current Password. Please enter your existing sign-in password.';
+        return;
+      }
+
+      if (!newPwd || newPwd.length < 8) {
+        feedback.style.display = 'block';
+        feedback.className = 'prof-alert-error';
+        feedback.innerText = '⚠️ New Password must contain at least 8 characters.';
+        return;
+      }
+
+      if (newPwd !== confirmPwd) {
+        feedback.style.display = 'block';
+        feedback.className = 'prof-alert-error';
+        feedback.innerText = '⚠️ New Password and Confirm Password do not match.';
+        return;
+      }
+
+      // Update in Master Password if Admin
+      if (email === DEFAULT_MASTER_EMAIL.toLowerCase() || auth.role === 'ADMIN') {
+        currentMasterPassword = newPwd;
+        localStorage.setItem('apsova_master_pwd', newPwd);
+      }
+
+      // Update in Users Directory
+      if (user) {
+        user.password = newPwd;
+        saveUsersList(users);
+      }
+
+      feedback.style.display = 'block';
+      feedback.className = 'prof-alert-success';
+      feedback.innerText = '✓ Password changed successfully! Your new password is now active for all future logins.';
+
+      document.getElementById('profCurrentPassword').value = '';
+      document.getElementById('profNewPassword').value = '';
+      document.getElementById('profConfirmPassword').value = '';
+      const meter = document.getElementById('profStrengthMeter');
+      if (meter) meter.style.width = '0%';
+    }
+
+    function handleUserProfileInfoUpdate() {
+      const mobile = document.getElementById('profEditMobile').value.trim();
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      const email = (auth.email || DEFAULT_MASTER_EMAIL).toLowerCase();
+      const users = getUsersList();
+      const user = users.find(u => u.email.toLowerCase() === email);
+
+      if (user) {
+        user.mobile = mobile;
+        saveUsersList(users);
+      }
+      alert('✓ Contact details saved successfully!');
     }
 
     function openModal(id) { document.getElementById(id).classList.add('open'); }
@@ -4224,10 +4659,28 @@
       }
     }
 
-    function autofillMasterCredentials() {
-      document.getElementById('secEmailInput').value = DEFAULT_MASTER_EMAIL;
-      document.getElementById('secPasswordInput').value = currentMasterPassword;
+    function autofillRoleCredentials(type) {
+      if (type === 'ADMIN') {
+        document.getElementById('secEmailInput').value = DEFAULT_MASTER_EMAIL;
+        document.getElementById('secPasswordInput').value = currentMasterPassword;
+      } else if (type === 'PARTNER') {
+        document.getElementById('secEmailInput').value = 'saji@apsova.com';
+        document.getElementById('secPasswordInput').value = 'Partner@123';
+      } else if (type === 'LEADER') {
+        document.getElementById('secEmailInput').value = 'rahul@apsova.com';
+        document.getElementById('secPasswordInput').value = 'Staff@123';
+      } else if (type === 'TELECALLER') {
+        document.getElementById('secEmailInput').value = 'anjali@apsova.com';
+        document.getElementById('secPasswordInput').value = 'Staff@123';
+      } else if (type === 'POSP') {
+        document.getElementById('secEmailInput').value = 'akhil@apsova.com';
+        document.getElementById('secPasswordInput').value = 'Agent@123';
+      }
       document.getElementById('secCaptchaInput').value = currentCaptchaAnswer;
+    }
+
+    function autofillMasterCredentials() {
+      autofillRoleCredentials('ADMIN');
     }
 
     function togglePasswordVisibility(inputId, btn) {
@@ -4420,24 +4873,11 @@
           status: 'Active'
         },
         {
-          id: 'USR-STF-201',
-          name: 'Anjali Nair',
-          email: 'anjali@apsova.com',
-          role: 'TELECALLER',
-          roleTitle: '📞 Telecaller (Calling CRM)',
-          supervisor: 'Partner 1 (Arun Joy)',
-          mobile: '+91 98471 99882',
-          password: 'Staff@123',
-          createdBy: 'Partner 1 (Arun Joy)',
-          createdDate: '2026-03-01',
-          status: 'Active'
-        },
-        {
-          id: 'USR-STF-202',
+          id: 'USR-TL-201',
           name: 'Rahul Varma',
           email: 'rahul@apsova.com',
           role: 'AGENCY_MANAGER',
-          roleTitle: '👔 Agency Manager (Team Lead)',
+          roleTitle: '👔 Team Leader (Agency Manager)',
           supervisor: 'Partner 2 (Saji George)',
           mobile: '+91 98471 77665',
           password: 'Staff@123',
@@ -4446,16 +4886,55 @@
           status: 'Active'
         },
         {
-          id: 'USR-STF-203',
+          id: 'USR-TC-202',
+          name: 'Anjali Nair',
+          email: 'anjali@apsova.com',
+          role: 'TELECALLER',
+          roleTitle: '📞 Telecaller (Calling CRM)',
+          supervisor: 'Team Leader (Rahul Varma)',
+          mobile: '+91 98471 99882',
+          password: 'Staff@123',
+          createdBy: 'Partner 1 (Arun Joy)',
+          createdDate: '2026-03-01',
+          status: 'Active'
+        },
+        {
+          id: 'APS-100',
+          name: 'Akhil Mohan',
+          email: 'akhil@apsova.com',
+          role: 'POSP_AGENT',
+          roleTitle: '💼 POSP Certified Agent (APS-100)',
+          supervisor: 'Team Leader (Rahul Varma)',
+          mobile: '+91 98472 33445',
+          password: 'Agent@123',
+          createdBy: 'Team Leader (Rahul Varma)',
+          createdDate: '2026-03-12',
+          status: 'Active'
+        },
+        {
+          id: 'USR-OPS-203',
           name: 'Suresh Kumar',
           email: 'suresh@apsova.com',
           role: 'ACCOUNTS',
-          roleTitle: '💰 Accounts (Commissions)',
+          roleTitle: '💰 Accounts & Operations Staff',
           supervisor: 'Partner 1 (Arun Joy)',
           mobile: '+91 98471 66554',
           password: 'Staff@123',
           createdBy: 'Partner 1 (Arun Joy)',
           createdDate: '2026-03-15',
+          status: 'Active'
+        },
+        {
+          id: 'USR-HR-204',
+          name: 'Meera Pillai',
+          email: 'meera@apsova.com',
+          role: 'HR',
+          roleTitle: '🕒 HR & Payroll Staff',
+          supervisor: 'Partner 1 (Arun Joy)',
+          mobile: '+91 98471 55443',
+          password: 'Staff@123',
+          createdBy: 'Partner 1 (Arun Joy)',
+          createdDate: '2026-03-18',
           status: 'Active'
         }
       ];
@@ -4466,7 +4945,18 @@
         return defaultUsers;
       }
       try {
-        return JSON.parse(stored);
+        let users = JSON.parse(stored);
+        let updated = false;
+        defaultUsers.forEach(du => {
+          if (!users.some(u => u.email.toLowerCase() === du.email.toLowerCase())) {
+            users.push(du);
+            updated = true;
+          }
+        });
+        if (updated) {
+          localStorage.setItem('apsova_users', JSON.stringify(users));
+        }
+        return users;
       } catch(e) {
         return defaultUsers;
       }
@@ -4692,6 +5182,9 @@
       if (roleSelect && session.role) {
         roleSelect.value = session.role;
       }
+      if (session.role) {
+        applyRolePermissions(session.role);
+      }
     }
 
     function handlePartnerLogin(e) {
@@ -4761,6 +5254,12 @@
           alert(`🎉 Identity Verified Successfully!\n\nWelcome back, Arun Joy (Master Admin / Owner)!\nSecurity clearance: Full Executive Administration.\n\n👑 You can create and manage Agency Partners.`);
         } else if (matchedUser.role.startsWith('PARTNER')) {
           alert(`🎉 Partner Identity Verified!\n\nWelcome back, ${matchedUser.name}!\nDesignation: ${matchedUser.roleTitle}\n\n🤝 You can create Team Members, Telecallers, and POSP Agents.`);
+        } else if (matchedUser.role === 'POSP_AGENT') {
+          alert(`🎉 POSP Agent Portal Unlocked!\n\nWelcome back, ${matchedUser.name} (Code: ${matchedUser.id || 'APS-100'})!\nAccess: Policy Comparison Quotes, Personal Commission Ledger & Client Renewals.`);
+        } else if (matchedUser.role === 'AGENCY_MANAGER') {
+          alert(`🎉 Team Leader Workspace Unlocked!\n\nWelcome back, ${matchedUser.name}!\nAccess: Team Quotas, Agent Performance & Telecaller Monitoring.`);
+        } else if (matchedUser.role === 'TELECALLER') {
+          alert(`🎉 Telecalling Workspace Unlocked!\n\nWelcome back, ${matchedUser.name}!\nAccess: Inbound / Outbound Lead Calling CRM & Follow-ups.`);
         } else {
           alert(`🎉 Login Successful!\n\nWelcome, ${matchedUser.name}!\nRole: ${matchedUser.roleTitle}\nUnlocking your operational workspace...`);
         }
