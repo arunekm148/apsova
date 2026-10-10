@@ -2127,7 +2127,7 @@
             <option value="PARTNER_2">🤝 Partner 2 (Owner)</option>
             <option value="AGENCY_MANAGER">👔 Agency Manager (Rahul - Directs POSP)</option>
             <option value="TEAM_LEADER">🎧 Team Leader (Priya - Leads Telecallers)</option>
-            <option value="TELECALLER">📞 Telecaller (Anjali - Reports to TL)</option>
+            <option value="TELECALLER">📞 Telecaller (Anjali - Calling CRM Only)</option>
             <option value="POSP_AGENT">💼 POSP Agent (Akhil - Reports to AM)</option>
             <option value="ACCOUNTS">💰 Accounts &amp; Ops (Suresh)</option>
             <option value="HR">🕒 HR &amp; Payroll (Meera)</option>
@@ -3986,7 +3986,7 @@
           <a href="javascript:void(0)" onclick="autofillRoleCredentials('PARTNER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Partner (Saji)</a>
           <a href="javascript:void(0)" onclick="autofillRoleCredentials('AGENCY_MGR')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Agency Mgr (Rahul - Directs POSP)</a>
           <a href="javascript:void(0)" onclick="autofillRoleCredentials('TEAM_LEADER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Team Leader (Priya - Leads Telecallers)</a>
-          <a href="javascript:void(0)" onclick="autofillRoleCredentials('TELECALLER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Telecaller (Anjali)</a>
+          <a href="javascript:void(0)" onclick="autofillRoleCredentials('TELECALLER')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">Telecaller (Anjali - Calling CRM Only)</a>
           <a href="javascript:void(0)" onclick="autofillRoleCredentials('POSP')" style="color: var(--pb-blue); font-weight: 700; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 11px;">POSP Agent (Akhil - APS-100)</a>
         </div>
       </div>
@@ -4263,6 +4263,15 @@
     };
 
     function switchTab(tabId) {
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      const roleSelect = document.getElementById('roleSelector');
+      const activeRole = (roleSelect && roleSelect.value) || auth.role || '';
+
+      // Telecallers are strictly restricted to the Telecalling tab
+      if (activeRole === 'TELECALLER' && tabId !== 'telecalling') {
+        tabId = 'telecalling';
+      }
+
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
 
@@ -4316,7 +4325,7 @@
         } else if (role === 'TEAM_LEADER') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>Team Leader (Priya Nair)</strong>. Telecaller Team Oversight: Managing calling floor queues, disposition rates, telecaller daily targets, and renewal follow-up campaigns. Reports to Partners.`;
         } else if (role === 'TELECALLER') {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali Nair)</strong>. Calling CRM workspace: Inbound/outbound lead queue, call outcome logging, and automated WhatsApp renewal reminders. Directly reports to <strong>Team Leader (Priya Nair)</strong>.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Telecaller (Anjali Nair)</strong>. Dedicated Calling CRM Desk: You strictly manage lead calling queues, customer call outcome logs, and WhatsApp follow-ups. All other operational and administrative modules are locked. Reports to <strong>Team Leader (Priya Nair)</strong>.`;
         } else if (role === 'POSP_AGENT') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>POSP Certified Agent (Akhil Mohan - APS-100)</strong>. Personal advisor desk: View sourced policies, compare insurer quotes, renewals, and personal commission statements. Directly reports to <strong>Agency Manager (Rahul Varma)</strong>.`;
         } else if (role === 'ACCOUNTS') {
@@ -4393,11 +4402,13 @@
         if (tabs['telecalling']) tabs['telecalling'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
       } else if (role === 'TELECALLER') {
-        // Telecaller sees: Leads & Telecalling CRM, Renewals Tracker, Insurers
+        // Telecallers ONLY manage Telecalling CRM! All other modules strictly hidden
         if (tabs['dashboard']) tabs['dashboard'].style.display = 'none';
         if (tabs['users']) tabs['users'].style.display = 'none';
-        if (tabs['commissions']) tabs['commissions'].style.display = 'none';
+        if (tabs['renewals']) tabs['renewals'].style.display = 'none';
+        if (tabs['companies']) tabs['companies'].style.display = 'none';
         if (tabs['agents']) tabs['agents'].style.display = 'none';
+        if (tabs['commissions']) tabs['commissions'].style.display = 'none';
         if (tabs['hr']) tabs['hr'].style.display = 'none';
       } else if (role === 'AGENCY_MANAGER') {
         // Agency Manager directly manages POSP Agents!
@@ -4429,11 +4440,14 @@
         if (tabs['agents']) tabs['agents'].style.display = 'none';
       }
 
-      // If active tab was hidden by role switch, auto-route to accessible tab
-      const currentActive = document.querySelector('.nav-btn.active');
-      if (currentActive && currentActive.style.display === 'none') {
-        if (role === 'TELECALLER') switchTab('telecalling');
-        else switchTab('dashboard');
+      // If role is TELECALLER, lock directly to telecalling
+      if (role === 'TELECALLER') {
+        switchTab('telecalling');
+      } else {
+        const currentActive = document.querySelector('.nav-btn.active');
+        if (currentActive && currentActive.style.display === 'none') {
+          switchTab('dashboard');
+        }
       }
     }
 
@@ -5560,7 +5574,7 @@
         } else if (matchedUser.role === 'TEAM_LEADER') {
           alert(`🎉 Team Leader Workspace Unlocked!\n\nWelcome back, ${matchedUser.name}!\nRole: Leads & Manages Telecallers.\nAccess: Telecalling Calling Pool, Dialing Quotas & Follow-ups.`);
         } else if (matchedUser.role === 'TELECALLER') {
-          alert(`🎉 Telecalling Workspace Unlocked!\n\nWelcome back, ${matchedUser.name}!\nReports to: Team Leader (Priya Nair)\nAccess: Inbound / Outbound Lead Calling CRM & Follow-ups.`);
+          alert(`🎉 Telecalling Desk Unlocked!\n\nWelcome back, ${matchedUser.name}!\nReports to: Team Leader (Priya Nair)\nScope: Telecalling & Calling Queue CRM Only.\n\nOpening your outbound dialer and customer leads queue...`);
         } else if (matchedUser.role === 'POSP_AGENT') {
           alert(`🎉 POSP Agent Portal Unlocked!\n\nWelcome back, ${matchedUser.name} (Code: ${matchedUser.id || 'APS-100'})!\nReports to: Agency Manager (Rahul Varma)\nAccess: Policy Comparison Quotes, Personal Commission Ledger & Client Renewals.`);
         } else {
