@@ -1340,10 +1340,13 @@
       border-radius: 20px;
       width: 100%;
       max-width: 490px;
-      padding: 30px 28px;
+      padding: 26px 24px;
       box-shadow: 0 25px 60px rgba(0, 40, 69, 0.4);
       border-top: 6px solid var(--pb-blue);
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .sec-shield-header {
       text-align: center;
@@ -1500,10 +1503,6 @@
         <span>📞 Helpline: <strong>+91 98471 22849</strong></span>
         <span class="topbar-sep">•</span>
         <span class="lang-pill">മലയാളം / English</span>
-        <span class="topbar-sep">•</span>
-        <button onclick="openSecureLoginModal()" class="btn btn-pb-blue" style="font-size: 11px; padding: 3px 12px; font-weight: 800; box-shadow: none;">
-          🔒 Login
-        </button>
       </div>
     </div>
   </div>
@@ -1560,8 +1559,8 @@
             <button class="btn btn-pb-orange" style="font-size: 13.5px; padding: 12px 22px;" onclick="document.getElementById('postersSection').scrollIntoView({behavior:'smooth'})">
               🔥 View Health Insurance Plans
             </button>
-            <button class="btn btn-outline" style="font-size: 13.5px; padding: 12px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="openSecureLoginModal()">
-              🔒 Login
+            <button class="btn btn-outline" style="font-size: 13.5px; padding: 12px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="document.getElementById('compareSection').scrollIntoView({behavior:'smooth'})">
+              ⭐ Compare 6 Insurers
             </button>
           </div>
 
@@ -2032,8 +2031,8 @@
           <button class="btn btn-pb-orange" style="font-size: 14px; padding: 13px 24px; box-shadow: 0 6px 20px rgba(245, 132, 31, 0.4);" onclick="window.open('https://wa.me/919847122849?text=Hello%20Apsova%20Insurance,%20I%20need%20expert%20guidance%20on%20Health%20Insurance.', '_blank')">
             💬 Chat on WhatsApp
           </button>
-          <button class="btn btn-outline" style="font-size: 14px; padding: 13px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="openSecureLoginModal()">
-            🔒 Login
+          <button class="btn btn-outline" style="font-size: 14px; padding: 13px 20px; background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.4);" onclick="alert('Calling Apsova Central Helpline: +91 98471 22849\nCertified insurance advisor available 24x7.'); window.location.href='tel:+919847122849'">
+            📞 Call +91 98471 22849
           </button>
         </div>
       </div>
@@ -2046,7 +2045,7 @@
           © 2026 Apsova Insurance • IRDAI Registered Insurance Firm
         </div>
         <div>Kochi Central HQ • Direct Health Insurance Underwriting Across Star Health, Care Health, HDFC ERGO, Niva Bupa, ICICI Lombard &amp; Aditya Birla</div>
-        <div style="margin-top: 6px;">Helpline: +91 98471 22849 • Email: info@apsovainsurance.com • <a href="javascript:void(0)" onclick="openSecureLoginModal()" style="color: var(--pb-blue); text-decoration: underline; font-weight: 700;">Login</a></div>
+        <div style="margin-top: 6px;">Helpline: +91 98471 22849 • Email: info@apsovainsurance.com</div>
       </div>
     </footer>
 
@@ -2076,22 +2075,22 @@
       <!-- User Profile & Role Selector -->
       <div class="sidebar-profile">
         <div class="profile-card-inner">
-          <div class="profile-avatar">AJ</div>
+          <div class="profile-avatar" id="sidebarProfileAvatar">AJ</div>
           <div class="profile-details">
-            <div class="profile-name">Arun Joy</div>
-            <div class="profile-role-tag"><span class="pulse-dot"></span> Partner 1 • APS-100</div>
+            <div class="profile-name" id="sidebarProfileName">Arun Joy</div>
+            <div class="profile-role-tag" id="sidebarProfileRoleTag"><span class="pulse-dot"></span> Master Admin • Owner</div>
           </div>
         </div>
         <div class="sidebar-role-select-wrap">
           <label for="roleSelector" class="role-select-label">Switch Role View:</label>
           <select id="roleSelector" class="sidebar-role-select" onchange="changeRole(this.value)">
-            <option value="PARTNER_1">Partner 1 (Arun - Owner)</option>
-            <option value="PARTNER_2">Partner 2 (Owner)</option>
-            <option value="ADMIN">Admin / Operations</option>
-            <option value="ACCOUNTS">Accounts (Commissions & Payouts)</option>
-            <option value="TELECALLER">Telecaller (Anjali)</option>
-            <option value="AGENCY_MANAGER">Agency Manager (Rahul)</option>
-            <option value="HR">HR & Payroll</option>
+            <option value="ADMIN">👑 Master Admin (Arun - Owner)</option>
+            <option value="PARTNER_1">🤝 Partner 1 (Owner)</option>
+            <option value="PARTNER_2">🤝 Partner 2 (Owner)</option>
+            <option value="TELECALLER">📞 Telecaller (Anjali)</option>
+            <option value="AGENCY_MANAGER">👔 Agency Manager (Rahul)</option>
+            <option value="ACCOUNTS">💰 Accounts (Commissions)</option>
+            <option value="HR">🕒 HR & Payroll</option>
           </select>
         </div>
       </div>
@@ -2099,12 +2098,18 @@
       <!-- Section Title -->
       <div class="sidebar-section-title">PORTAL MODULES</div>
 
-      <!-- ALL 7 NAVIGATION BUTTONS (LEFT SIDEBAR STACK) -->
+      <!-- ALL NAVIGATION BUTTONS (LEFT SIDEBAR STACK) -->
       <nav class="sidebar-menu">
         <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn active">
           <span class="nav-icon">📊</span>
-          <span class="nav-text">Partner Dashboard</span>
+          <span class="nav-text">Executive Dashboard</span>
           <span class="nav-arrow">›</span>
+        </button>
+
+        <button onclick="switchTab('users')" id="tab-users" class="nav-btn">
+          <span class="nav-icon">👑</span>
+          <span class="nav-text">Partners &amp; Roles</span>
+          <span class="badge-cyan-pill" id="partnersCountBadge">Admin</span>
         </button>
 
         <button onclick="switchTab('telecalling')" id="tab-telecalling" class="nav-btn">
@@ -2215,9 +2220,9 @@
             <h2><span class="pulse-dot"></span>Partner Executive Overview</h2>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button class="btn btn-pb-orange" onclick="openModal('policyIssueModal')">➕ Issue New Policy (5 Categories)</button>
-            <button class="btn btn-pb-blue">FY 2026-27 (Apr–Mar)</button>
-            <button class="btn btn-outline">CY 2026 (Jan–Dec)</button>
+            <button class="btn btn-pb-blue" onclick="switchTab('users')">👑 Partners &amp; Team</button>
+            <button class="btn btn-pb-orange" onclick="openModal('policyIssueModal')">➕ Issue Policy</button>
+            <button class="btn btn-outline">FY 2026-27</button>
             <button class="btn btn-outline" onclick="alert('Exporting Full Business Performance Report (PDF/Excel)...')">📥 Export Report</button>
           </div>
         </div>
@@ -2974,6 +2979,121 @@
 
       </div>
 
+      <!-- ============================================================== -->
+      <!-- TAB 8: MULTI-TIER PARTNERS & USER MANAGEMENT -->
+      <!-- ============================================================== -->
+      <div id="view-users" class="tab-content">
+        <div class="action-row">
+          <div>
+            <h2><span class="pulse-dot"></span>Multi-Tier Partner &amp; User Access Management</h2>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-pb-blue" id="btnAdminCreatePartner" onclick="handleAdminCreatePartnerClick()">
+              👑 ➕ Create New Partner
+            </button>
+            <button class="btn btn-pb-orange" id="btnPartnerCreateStaff" onclick="handlePartnerCreateStaffClick()">
+              👥 ➕ Create Team Staff / Agent
+            </button>
+          </div>
+        </div>
+
+        <!-- Role Hierarchy Protocol Banner -->
+        <div style="background: linear-gradient(135deg, #002845 0%, #004778 100%); color: #fff; padding: 16px 20px; border-radius: 12px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 26px;">🛡️</span>
+            <div>
+              <div style="font-size: 14px; font-weight: 800;">Enterprise Hierarchy &amp; Permission Structure</div>
+              <div style="font-size: 11.5px; opacity: 0.88; margin-top: 2px;">
+                <strong>Level 1: Master Admin</strong> (creates Partners) ➔ <strong>Level 2: Partners</strong> (create Staff &amp; POSP Agents) ➔ <strong>Level 3: Operational Staff</strong>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="tag tag-green" style="background: rgba(16, 185, 129, 0.25); color: #fff; border-color: rgba(16, 185, 129, 0.5);">
+              👑 Master Admin: Creates Partners
+            </span>
+            <span class="tag tag-orange" style="background: rgba(245, 132, 31, 0.25); color: #fff; border-color: rgba(245, 132, 31, 0.5);">
+              🤝 Partners: Create Staff &amp; Agents
+            </span>
+          </div>
+        </div>
+
+        <!-- SECTION 1: REGISTERED PARTNERS (ADMIN LEVEL) -->
+        <div class="card" style="margin-bottom: 24px; border-top: 4px solid var(--pb-navy);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: var(--pb-navy); text-transform: uppercase; letter-spacing: 0.6px;">
+                LEVEL 1 &amp; 2 • EQUITY PARTNERS &amp; OWNERS
+              </div>
+              <h3 style="font-size: 16px; font-weight: 800; color: var(--text-dark); margin-top: 2px;">
+                Registered Agency Partners (Created by Master Admin)
+              </h3>
+            </div>
+            <button class="btn btn-pb-blue" style="font-size: 12px; padding: 7px 14px;" onclick="handleAdminCreatePartnerClick()">
+              👑 + Add Partner
+            </button>
+          </div>
+
+          <div class="table-wrap">
+            <table id="partnersTable">
+              <thead>
+                <tr>
+                  <th>Partner Name</th>
+                  <th>Designation / Role</th>
+                  <th>Official Email</th>
+                  <th>Mobile</th>
+                  <th>Equity / Margin Share</th>
+                  <th>Created By</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="partnersTableBody">
+                <!-- Dynamically rendered by renderUsersManagementTables() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SECTION 2: STAFF & AGENT ACCOUNTS (PARTNER & ADMIN LEVEL) -->
+        <div class="card" style="border-top: 4px solid var(--pb-orange);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase; letter-spacing: 0.6px;">
+                LEVEL 3 • STAFF, CALLERS &amp; AGENTS
+              </div>
+              <h3 style="font-size: 16px; font-weight: 800; color: var(--text-dark); margin-top: 2px;">
+                Team Members &amp; POSP Network (Created by Partners)
+              </h3>
+            </div>
+            <button class="btn btn-pb-orange" style="font-size: 12px; padding: 7px 14px;" onclick="handlePartnerCreateStaffClick()">
+              👥 + Add Staff / Agent
+            </button>
+          </div>
+
+          <div class="table-wrap">
+            <table id="staffTable">
+              <thead>
+                <tr>
+                  <th>Staff / Agent Name</th>
+                  <th>Assigned Role</th>
+                  <th>Login Email</th>
+                  <th>Mobile</th>
+                  <th>Supervisor / Partner</th>
+                  <th>Created Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staffTableBody">
+                <!-- Dynamically rendered by renderUsersManagementTables() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </main>
 
@@ -3516,6 +3636,151 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: CREATE NEW PARTNER (MASTER ADMIN PRIVILEGE ONLY) -->
+  <!-- ============================================================== -->
+  <div id="createPartnerModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-head">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; color: var(--pb-navy); text-transform: uppercase;">👑 Master Admin Privilege</span>
+          <h3 style="margin-top: 2px;">Register New Agency Partner</h3>
+        </div>
+        <button class="modal-close" onclick="closeModal('createPartnerModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+        Provision an executive equity partner account with dual maker-checker authority, full business ledger access, and rights to create staff &amp; agents.
+      </p>
+
+      <form onsubmit="saveNewPartner(event)">
+        <div class="form-group">
+          <label>Partner Full Name: *</label>
+          <input type="text" id="newPartnerName" required placeholder="e.g. Saji George">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Login Email: *</label>
+            <input type="email" id="newPartnerEmail" required placeholder="saji@apsova.com">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number: *</label>
+            <input type="tel" id="newPartnerPhone" required placeholder="9847000000">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Partner Role:</label>
+            <select id="newPartnerRole">
+              <option value="PARTNER_2">Partner 2 (Owner)</option>
+              <option value="PARTNER_1">Partner 1 (Senior Partner)</option>
+              <option value="PARTNER_EQUITY">Equity Partner</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Equity / Profit Share:</label>
+            <input type="text" id="newPartnerShare" value="50%" placeholder="e.g. 50%">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Initial Login Password: *</label>
+          <input type="text" id="newPartnerPassword" required value="Partner@123">
+          <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
+            Partner can login with this password and change it anytime.
+          </div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 12px; font-size: 11px; margin-bottom: 14px;">
+          <strong style="color: var(--pb-navy);">Granted Capabilities:</strong>
+          <div style="margin-top: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; color: var(--text-body);">
+            <span>✓ Dual Maker-Checker</span>
+            <span>✓ Insurer Ledger Access</span>
+            <span>✓ Create Staff &amp; Agents</span>
+            <span>✓ Renewal Dispatch</span>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('createPartnerModal')">Cancel</button>
+          <button type="submit" class="btn btn-pb-blue">👑 Register Partner &amp; Enable Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: CREATE TEAM STAFF OR AGENT (PARTNER & ADMIN PRIVILEGE) -->
+  <!-- ============================================================== -->
+  <div id="createStaffModal" class="modal-backdrop">
+    <div class="modal-box" style="max-width: 520px;">
+      <div class="modal-head">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; color: var(--pb-orange); text-transform: uppercase;">🤝 Partner Privilege</span>
+          <h3 style="margin-top: 2px;">Create Team Staff or Agent</h3>
+        </div>
+        <button class="modal-close" onclick="closeModal('createStaffModal')">×</button>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+        As an authorized Partner, provision a team member account for telecalling, agency management, POSP sourcing, accounts, or HR.
+      </p>
+
+      <form onsubmit="saveNewStaff(event)">
+        <div class="form-group">
+          <label>Full Name: *</label>
+          <input type="text" id="newStaffName" required placeholder="e.g. Kavya Menon">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Assigned Role: *</label>
+            <select id="newStaffRole" required>
+              <option value="TELECALLER">📞 Telecaller (Calling CRM)</option>
+              <option value="AGENCY_MANAGER">👔 Agency Manager (Team Lead)</option>
+              <option value="POSP">👥 POSP Agent (APS-100+)</option>
+              <option value="ACCOUNTS">💰 Accounts (Commissions)</option>
+              <option value="HR">🕒 HR &amp; Payroll</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Reporting Partner: *</label>
+            <select id="newStaffSupervisor" required>
+              <option value="Partner 1 (Arun Joy)">Partner 1 (Arun Joy)</option>
+              <option value="Partner 2 (Saji George)">Partner 2 (Saji George)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Login Email: *</label>
+            <input type="email" id="newStaffEmail" required placeholder="kavya@apsova.com">
+          </div>
+          <div class="form-group">
+            <label>Mobile Number: *</label>
+            <input type="tel" id="newStaffPhone" required placeholder="9847112233">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Initial Login Password: *</label>
+          <input type="text" id="newStaffPassword" required value="Staff@123">
+          <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
+            Staff can login directly with this email and password.
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+          <button type="button" class="btn btn-outline" onclick="closeModal('createStaffModal')">Cancel</button>
+          <button type="submit" class="btn btn-pb-orange">👥 Create Account &amp; Enable Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ============================================================== -->
   <!-- HIGH SECURITY HACK-PROTECTED PARTNER & OWNER LOGIN MODAL -->
   <!-- ============================================================== -->
@@ -3667,6 +3932,7 @@
   <script>
     const tabTitles = {
       'dashboard': { title: '📊 Partner Executive Dashboard', breadcrumb: 'Executive Overview' },
+      'users': { title: '👑 Multi-Tier Partner & User Management', breadcrumb: 'Partners & Roles' },
       'telecalling': { title: '📞 Leads & Telecalling CRM', breadcrumb: 'Leads & Telecalling' },
       'renewals': { title: '🔄 Policy Renewals Tracker', breadcrumb: 'Renewals (60/30/15/7/1d)' },
       'companies': { title: '🏢 Insurers & 5 Product Verticals', breadcrumb: 'Insurers & Categories' },
@@ -3733,9 +3999,38 @@
         } else if (role === 'HR') {
           banner.innerHTML = `ℹ️ You are logged in as <strong>HR & Payroll</strong>. People operations: Attendance regularisations, leave approvals, and monthly salary processing.`;
         } else {
-          banner.innerHTML = `ℹ️ You are logged in as <strong>Admin / Operations</strong>. Lead allocation, employee setup, policy issuance processing, and reports.`;
+          banner.innerHTML = `ℹ️ You are logged in as <strong>Master Admin / Operations</strong>. Complete administrative control, partner creation, and enterprise oversight.`;
         }
       }
+
+      // Update sidebar avatar and profile tag to reflect switched role
+      const nameEl = document.getElementById('sidebarProfileName');
+      const roleEl = document.getElementById('sidebarProfileRoleTag');
+      const avatarEl = document.getElementById('sidebarProfileAvatar');
+
+      const roleMap = {
+        'ADMIN': { name: 'Arun Joy', roleTitle: '👑 Master Admin (Owner)', avatar: 'AJ' },
+        'PARTNER_1': { name: 'Arun Joy', roleTitle: '🤝 Partner 1 (Owner)', avatar: 'AJ' },
+        'PARTNER_2': { name: 'Saji George', roleTitle: '🤝 Partner 2 (Owner)', avatar: 'SG' },
+        'TELECALLER': { name: 'Anjali Nair', roleTitle: '📞 Telecaller (Anjali)', avatar: 'AN' },
+        'AGENCY_MANAGER': { name: 'Rahul Varma', roleTitle: '👔 Agency Manager (Rahul)', avatar: 'RV' },
+        'ACCOUNTS': { name: 'Suresh Kumar', roleTitle: '💰 Accounts (Suresh)', avatar: 'SK' },
+        'HR': { name: 'Meera Pillai', roleTitle: '🕒 HR & Payroll', avatar: 'MP' }
+      };
+
+      const info = roleMap[role] || { name: 'Master Admin', roleTitle: '👑 Admin (Owner)', avatar: 'AJ' };
+      if (nameEl) nameEl.innerText = info.name;
+      if (roleEl) roleEl.innerHTML = `<span class="pulse-dot"></span> ${info.roleTitle}`;
+      if (avatarEl) avatarEl.innerText = info.avatar;
+
+      // Update session storage
+      try {
+        const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+        auth.role = role;
+        auth.name = info.name;
+        auth.roleTitle = info.roleTitle;
+        localStorage.setItem('apsova_auth', JSON.stringify(auth));
+      } catch(e) {}
     }
 
     function openModal(id) { document.getElementById(id).classList.add('open'); }
@@ -3913,6 +4208,313 @@
       openModal('secureLoginModal');
     }
 
+    // ==============================================================
+    // MULTI-TIER USER & PARTNER MANAGEMENT
+    // Admin creates Partners -> Partners create Staff & Agents
+    // ==============================================================
+    function getUsersList() {
+      const defaultUsers = [
+        {
+          id: 'USR-ADMIN-01',
+          name: 'Arun Joy',
+          email: 'arunarumaliljoy@gmail.com',
+          role: 'ADMIN',
+          roleTitle: '👑 Master Admin (Owner)',
+          equityShare: '100% Core Equity',
+          mobile: '+91 98471 22849',
+          password: currentMasterPassword,
+          createdBy: 'Root Security Authority',
+          createdDate: '2026-01-01',
+          status: 'Active'
+        },
+        {
+          id: 'USR-PTR-101',
+          name: 'Saji George',
+          email: 'saji@apsova.com',
+          role: 'PARTNER_2',
+          roleTitle: '🤝 Partner 2 (Owner)',
+          equityShare: '50% Profit Share',
+          mobile: '+91 98470 11223',
+          password: 'Partner@123',
+          createdBy: 'Master Admin (Arun Joy)',
+          createdDate: '2026-02-15',
+          status: 'Active'
+        },
+        {
+          id: 'USR-STF-201',
+          name: 'Anjali Nair',
+          email: 'anjali@apsova.com',
+          role: 'TELECALLER',
+          roleTitle: '📞 Telecaller (Calling CRM)',
+          supervisor: 'Partner 1 (Arun Joy)',
+          mobile: '+91 98471 99882',
+          password: 'Staff@123',
+          createdBy: 'Partner 1 (Arun Joy)',
+          createdDate: '2026-03-01',
+          status: 'Active'
+        },
+        {
+          id: 'USR-STF-202',
+          name: 'Rahul Varma',
+          email: 'rahul@apsova.com',
+          role: 'AGENCY_MANAGER',
+          roleTitle: '👔 Agency Manager (Team Lead)',
+          supervisor: 'Partner 2 (Saji George)',
+          mobile: '+91 98471 77665',
+          password: 'Staff@123',
+          createdBy: 'Partner 2 (Saji George)',
+          createdDate: '2026-03-10',
+          status: 'Active'
+        },
+        {
+          id: 'USR-STF-203',
+          name: 'Suresh Kumar',
+          email: 'suresh@apsova.com',
+          role: 'ACCOUNTS',
+          roleTitle: '💰 Accounts (Commissions)',
+          supervisor: 'Partner 1 (Arun Joy)',
+          mobile: '+91 98471 66554',
+          password: 'Staff@123',
+          createdBy: 'Partner 1 (Arun Joy)',
+          createdDate: '2026-03-15',
+          status: 'Active'
+        }
+      ];
+
+      const stored = localStorage.getItem('apsova_users');
+      if (!stored) {
+        localStorage.setItem('apsova_users', JSON.stringify(defaultUsers));
+        return defaultUsers;
+      }
+      try {
+        return JSON.parse(stored);
+      } catch(e) {
+        return defaultUsers;
+      }
+    }
+
+    function saveUsersList(users) {
+      localStorage.setItem('apsova_users', JSON.stringify(users));
+      const badge = document.getElementById('partnersCountBadge');
+      if (badge) {
+        const ptrCount = users.filter(u => u.role === 'ADMIN' || u.role.startsWith('PARTNER')).length;
+        badge.innerText = `${ptrCount} Partners`;
+      }
+    }
+
+    function renderUsersManagementTables() {
+      const users = getUsersList();
+      const partnersTableBody = document.getElementById('partnersTableBody');
+      const staffTableBody = document.getElementById('staffTableBody');
+
+      if (partnersTableBody) {
+        const partners = users.filter(u => u.role === 'ADMIN' || u.role.startsWith('PARTNER'));
+        partnersTableBody.innerHTML = partners.map(u => `
+          <tr>
+            <td style="font-weight: 700;">
+              <span style="display: inline-flex; align-items: center; gap: 6px;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: var(--pb-blue-light); color: var(--pb-navy); display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;">
+                  ${u.name.substring(0, 2).toUpperCase()}
+                </span>
+                ${u.name}
+              </span>
+            </td>
+            <td><span class="tag ${u.role === 'ADMIN' ? 'tag-purple' : 'tag-blue'}">${u.roleTitle || u.role}</span></td>
+            <td><code>${u.email}</code></td>
+            <td>${u.mobile || '-'}</td>
+            <td><strong>${u.equityShare || '50%'}</strong></td>
+            <td><span style="font-size: 11px; color: var(--text-muted);">${u.createdBy || 'Master Admin'}</span></td>
+            <td><span class="tag tag-green">${u.status || 'Active'}</span></td>
+            <td>
+              ${u.role === 'ADMIN' ? '<span class="tag tag-green">🛡️ Master Root</span>' : `
+                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px;" onclick="resetUserPassword('${u.id}')">🔑 Reset</button>
+                <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: #dc2626; border-color: #fca5a5;" onclick="deleteUser('${u.id}')">✕</button>
+              `}
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      if (staffTableBody) {
+        const staff = users.filter(u => u.role !== 'ADMIN' && !u.role.startsWith('PARTNER'));
+        staffTableBody.innerHTML = staff.map(u => `
+          <tr>
+            <td style="font-weight: 700;">
+              <span style="display: inline-flex; align-items: center; gap: 6px;">
+                <span style="width: 24px; height: 24px; border-radius: 50%; background: #fff7ed; color: #ea580c; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;">
+                  ${u.name.substring(0, 2).toUpperCase()}
+                </span>
+                ${u.name}
+              </span>
+            </td>
+            <td><span class="tag tag-orange">${u.roleTitle || u.role}</span></td>
+            <td><code>${u.email}</code></td>
+            <td>${u.mobile || '-'}</td>
+            <td><strong>${u.supervisor || 'Partner 1 (Arun)'}</strong></td>
+            <td><span style="font-size: 11px; color: var(--text-muted);">${u.createdDate || '2026-03-01'}</span></td>
+            <td><span class="tag tag-green">${u.status || 'Active'}</span></td>
+            <td>
+              <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px;" onclick="resetUserPassword('${u.id}')">🔑 Reset</button>
+              <button class="btn btn-outline" style="font-size: 10.5px; padding: 3px 8px; color: #dc2626; border-color: #fca5a5;" onclick="deleteUser('${u.id}')">✕</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      const badge = document.getElementById('partnersCountBadge');
+      if (badge) {
+        const ptrCount = users.filter(u => u.role === 'ADMIN' || u.role.startsWith('PARTNER')).length;
+        badge.innerText = `${ptrCount} Partners`;
+      }
+    }
+
+    function handleAdminCreatePartnerClick() {
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      const role = auth.role || 'ADMIN';
+      if (role === 'ADMIN' || auth.email === DEFAULT_MASTER_EMAIL) {
+        openModal('createPartnerModal');
+      } else {
+        alert("⚠️ Master Admin Privilege Required!\n\nOnly Master Admin (Arun Joy) can register new Equity Partners.\n\nAs a Partner, you have permission to create Team Staff, Telecallers, and POSP Agents.");
+      }
+    }
+
+    function handlePartnerCreateStaffClick() {
+      const auth = JSON.parse(localStorage.getItem('apsova_auth') || '{}');
+      const role = auth.role || 'ADMIN';
+      if (role === 'ADMIN' || role.startsWith('PARTNER')) {
+        openModal('createStaffModal');
+      } else {
+        alert("⚠️ Partner Privilege Required!\n\nOnly Partners and Master Admin can create team members and agents.");
+      }
+    }
+
+    function saveNewPartner(e) {
+      e.preventDefault();
+      const name = document.getElementById('newPartnerName').value.trim();
+      const email = document.getElementById('newPartnerEmail').value.trim().toLowerCase();
+      const phone = document.getElementById('newPartnerPhone').value.trim();
+      const role = document.getElementById('newPartnerRole').value;
+      const share = document.getElementById('newPartnerShare').value.trim();
+      const pwd = document.getElementById('newPartnerPassword').value;
+
+      const users = getUsersList();
+      if (users.some(u => u.email.toLowerCase() === email)) {
+        alert("⚠️ A partner or user with email " + email + " already exists!");
+        return;
+      }
+
+      const newPartner = {
+        id: 'USR-PTR-' + Math.floor(100 + Math.random() * 900),
+        name: name,
+        email: email,
+        role: role,
+        roleTitle: role === 'PARTNER_1' ? '🤝 Partner 1 (Senior Partner)' : '🤝 Partner 2 (Owner)',
+        equityShare: share || '50%',
+        mobile: phone,
+        password: pwd,
+        createdBy: 'Master Admin (Arun Joy)',
+        createdDate: new Date().toISOString().split('T')[0],
+        status: 'Active'
+      };
+
+      users.push(newPartner);
+      saveUsersList(users);
+      renderUsersManagementTables();
+      closeModal('createPartnerModal');
+
+      alert(`🎉 New Partner Registered Successfully by Master Admin!\n\nPartner Name: ${name}\nDesignation: ${newPartner.roleTitle}\nLogin Email: ${email}\nInitial Password: ${pwd}\nEquity / Profit Share: ${share}\n\nThis Partner can now log in to the Apsova Enterprise Portal!`);
+    }
+
+    function saveNewStaff(e) {
+      e.preventDefault();
+      const name = document.getElementById('newStaffName').value.trim();
+      const role = document.getElementById('newStaffRole').value;
+      const supervisor = document.getElementById('newStaffSupervisor').value;
+      const email = document.getElementById('newStaffEmail').value.trim().toLowerCase();
+      const phone = document.getElementById('newStaffPhone').value.trim();
+      const pwd = document.getElementById('newStaffPassword').value;
+
+      const users = getUsersList();
+      if (users.some(u => u.email.toLowerCase() === email)) {
+        alert("⚠️ A user with email " + email + " already exists!");
+        return;
+      }
+
+      const roleTitles = {
+        'TELECALLER': '📞 Telecaller',
+        'AGENCY_MANAGER': '👔 Agency Manager',
+        'POSP': '👥 POSP Agent (APS-100+)',
+        'ACCOUNTS': '💰 Accounts Staff',
+        'HR': '🕒 HR & Payroll'
+      };
+
+      const newStaff = {
+        id: 'USR-STF-' + Math.floor(100 + Math.random() * 900),
+        name: name,
+        role: role,
+        roleTitle: roleTitles[role] || role,
+        supervisor: supervisor,
+        email: email,
+        mobile: phone,
+        password: pwd,
+        createdBy: supervisor,
+        createdDate: new Date().toISOString().split('T')[0],
+        status: 'Active'
+      };
+
+      users.push(newStaff);
+      saveUsersList(users);
+      renderUsersManagementTables();
+      closeModal('createStaffModal');
+
+      alert(`🎉 Team Member Created Successfully by Partner!\n\nName: ${name}\nRole: ${newStaff.roleTitle}\nReporting Supervisor: ${supervisor}\nLogin Email: ${email}\nInitial Password: ${pwd}\n\nThis user can now log in directly!`);
+    }
+
+    function resetUserPassword(userId) {
+      const users = getUsersList();
+      const user = users.find(u => u.id === userId);
+      if (!user) return;
+      const newPwd = prompt(`Enter new security password for ${user.name} (${user.email}):`, "Apsova@" + Math.floor(100 + Math.random() * 900));
+      if (newPwd) {
+        user.password = newPwd;
+        saveUsersList(users);
+        alert(`✅ Password updated for ${user.name}!\nNew Password: ${newPwd}`);
+      }
+    }
+
+    function deleteUser(userId) {
+      let users = getUsersList();
+      const user = users.find(u => u.id === userId);
+      if (!user) return;
+      if (user.role === 'ADMIN') {
+        alert("🛑 Cannot remove Master Admin account!");
+        return;
+      }
+      if (confirm(`Are you sure you want to remove user: ${user.name} (${user.email})?`)) {
+        users = users.filter(u => u.id !== userId);
+        saveUsersList(users);
+        renderUsersManagementTables();
+        alert(`✓ User ${user.name} removed from system.`);
+      }
+    }
+
+    function updateSidebarUserDisplay(session) {
+      const nameEl = document.getElementById('sidebarProfileName');
+      const roleEl = document.getElementById('sidebarProfileRoleTag');
+      const avatarEl = document.getElementById('sidebarProfileAvatar');
+      const roleSelect = document.getElementById('roleSelector');
+
+      if (nameEl && session.name) nameEl.innerText = session.name;
+      if (roleEl && session.roleTitle) roleEl.innerHTML = `<span class="pulse-dot"></span> ${session.roleTitle}`;
+      if (avatarEl && session.name) {
+        const initials = session.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        avatarEl.innerText = initials || 'AJ';
+      }
+      if (roleSelect && session.role) {
+        roleSelect.value = session.role;
+      }
+    }
+
     function handlePartnerLogin(e) {
       e.preventDefault();
 
@@ -3941,23 +4543,48 @@
       const email = document.getElementById('secEmailInput').value.trim().toLowerCase();
       const pwd = document.getElementById('secPasswordInput').value;
 
-      // Validate Master Credentials (arunarumaliljoy@gmail.com / Kerala@123)
+      // Check credentials against Master Admin or registered Partners / Staff
+      let matchedUser = null;
       if (email === DEFAULT_MASTER_EMAIL.toLowerCase() && pwd === currentMasterPassword) {
-        // Success
+        matchedUser = {
+          email: DEFAULT_MASTER_EMAIL,
+          name: 'Arun Joy',
+          role: 'ADMIN',
+          roleTitle: '👑 Master Admin (Owner)'
+        };
+      } else {
+        const users = getUsersList();
+        const found = users.find(u => u.email.toLowerCase() === email && (u.password === pwd || (!u.password && pwd === 'Partner@123')));
+        if (found) {
+          matchedUser = found;
+        }
+      }
+
+      if (matchedUser) {
         failedAttempts = 0;
         localStorage.setItem('apsova_failed_attempts', '0');
         localStorage.removeItem('apsova_lock_until');
 
         const session = {
-          email: DEFAULT_MASTER_EMAIL,
-          name: 'Arun Joy (Master Admin - Owner)',
-          role: 'PARTNER_1',
+          email: matchedUser.email,
+          name: matchedUser.name,
+          role: matchedUser.role,
+          roleTitle: matchedUser.roleTitle || matchedUser.role,
           loginTime: new Date().toISOString()
         };
         localStorage.setItem('apsova_auth', JSON.stringify(session));
 
         closeModal('secureLoginModal');
-        alert("🎉 Identity Verified Successfully!\n\nWelcome back, Arun Joy (Master Admin / Owner)!\nSecurity clearance: Full Executive Partner Access.\nUnlocking Enterprise Portal...");
+        updateSidebarUserDisplay(session);
+        renderUsersManagementTables();
+
+        if (matchedUser.role === 'ADMIN') {
+          alert(`🎉 Identity Verified Successfully!\n\nWelcome back, Arun Joy (Master Admin / Owner)!\nSecurity clearance: Full Executive Administration.\n\n👑 You can create and manage Agency Partners.`);
+        } else if (matchedUser.role.startsWith('PARTNER')) {
+          alert(`🎉 Partner Identity Verified!\n\nWelcome back, ${matchedUser.name}!\nDesignation: ${matchedUser.roleTitle}\n\n🤝 You can create Team Members, Telecallers, and POSP Agents.`);
+        } else {
+          alert(`🎉 Login Successful!\n\nWelcome, ${matchedUser.name}!\nRole: ${matchedUser.roleTitle}\nUnlocking your operational workspace...`);
+        }
 
         togglePortalMode('CRM');
       } else {
@@ -3974,7 +4601,7 @@
           alert("🚨 MAXIMUM FAILED ATTEMPTS EXCEEDED!\n\nSecurity lockout activated for 15 minutes to protect against brute-force intrusion.");
         } else {
           const remaining = MAX_ATTEMPTS - failedAttempts;
-          alert(`⚠️ Invalid Master Credentials!\n\n${remaining} attempt(s) remaining before security lockout.\n\nTip: You can use "⚡ Click to Auto-Fill Master Admin Credentials" or click "Forgot / Reset Password?".`);
+          alert(`⚠️ Invalid Credentials!\n\n${remaining} attempt(s) remaining before security lockout.\n\nTip: For Master Admin, use arunarumaliljoy@gmail.com / Kerala@123 or click "⚡ Click to Auto-Fill".`);
         }
       }
     }
@@ -4140,8 +4767,13 @@
 
     // Auto-Init on Load
     window.addEventListener('DOMContentLoaded', () => {
+      renderUsersManagementTables();
       const auth = localStorage.getItem('apsova_auth');
       if (auth) {
+        try {
+          const session = JSON.parse(auth);
+          updateSidebarUserDisplay(session);
+        } catch(e) {}
         togglePortalMode('CRM');
       } else {
         togglePortalMode('LANDING');
